@@ -78,10 +78,12 @@ export function SimilarHomes({
                 borderRadius: 18,
                 overflow: 'hidden',
                 cursor: 'pointer',
-                boxShadow: isSelected ? '0 0 0 2px var(--brand)' : '0 1px 3px rgba(var(--ink),.08)'
+                border: isSelected ? '2px solid var(--brand)' : '2px solid transparent',
+                boxShadow: '0 1px 3px rgba(var(--ink),.08)',
+                color: 'var(--color-text)'
               }}
             >
-              <div style={{ height: 112, background: 'var(--color-neutral-300)', backgroundImage: 'radial-gradient(circle,rgba(var(--ink),.1) 30%,transparent 32%)', backgroundSize: '5px 5px', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
+              <div style={{ height: 112, background: 'rgba(var(--ink),.08)', backgroundImage: 'radial-gradient(circle,rgba(var(--ink),.12) 30%,transparent 32%)', backgroundSize: '5px 5px', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
                 <i class="ph-duotone ph-house-line" style={{ fontSize: 26, color: 'rgba(var(--ink),.32)' }}></i>
                 {isSelected && (
                   <div style={{ position: 'absolute', top: 9, right: 9, width: 26, height: 26, borderRadius: '50%', background: 'var(--brand)', color: '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, boxShadow: '0 2px 8px rgba(var(--ink),.25)' }}>
@@ -90,7 +92,7 @@ export function SimilarHomes({
                 )}
               </div>
               <div style={{ padding: '12px 13px 14px' }}>
-                <div style={{ fontSize: 18, fontWeight: 600, fontFeatureSettings: "'tnum'" }}>{h.price}</div>
+                <div style={{ fontSize: 18, fontWeight: 600, fontFeatureSettings: "'tnum'", color: 'var(--color-text)' }}>{h.price}</div>
                 <div style={{ fontSize: 14, color: 'var(--color-neutral-700)', lineHeight: 1.35, marginTop: 2 }}>{h.addr}</div>
                 <div style={{ fontSize: 14, color: 'rgba(var(--ink),.75)', marginTop: 7, fontFeatureSettings: "'tnum'" }}>{h.specs}</div>
                 <div style={{ fontSize: 13.5, marginTop: 6, fontWeight: 600, color: h.up ? 'var(--color-accent-2-700)' : 'var(--brand)', fontFeatureSettings: "'tnum'" }}>
@@ -98,6 +100,7 @@ export function SimilarHomes({
                 </div>
               </div>
             </div>
+
           );
         })}
       </div>

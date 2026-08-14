@@ -73,16 +73,18 @@ export function ReportsSection({
               border: 'none',
               borderTop: '1px solid rgba(var(--ink),.1)',
               cursor: 'pointer',
-              textAlign: 'left'
+              textAlign: 'left',
+              color: 'var(--color-text)'
             }}
           >
             <i class={e.icon} style={{ fontSize: 24, color: 'var(--brand)', flex: 'none' }}></i>
             <span style={{ flex: 1 }}>
-              <span style={{ display: 'block', fontSize: 17, fontWeight: 600 }}>{e.label}</span>
+              <span style={{ display: 'block', fontSize: 17, fontWeight: 600, color: 'var(--color-text)' }}>{e.label}</span>
               <span style={{ display: 'block', fontSize: 14, color: 'var(--color-neutral-700)', lineHeight: 1.35, marginTop: 1 }}>{e.sub}</span>
             </span>
             <i class="ph-duotone ph-caret-right" style={{ color: 'rgba(var(--ink),.3)', fontSize: 17 }}></i>
           </button>
+
         ))}
       </div>
     </>

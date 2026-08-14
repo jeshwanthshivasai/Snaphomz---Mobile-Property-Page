@@ -164,20 +164,22 @@ export function HeroGallery({
           <span style={statusStyle}>{pending ? 'Sale pending' : 'For sale'}</span>
           <span style={{ fontSize: 12.5, color: 'rgba(var(--ink),.55)' }}>7 days on Snaphomz</span>
         </div>
-        <div style={{ display: 'flex', alignItems: 'baseline', gap: 10 }}>
-          <h1 style={{ fontSize: 37, lineHeight: 1, fontWeight: 600, letterSpacing: '-.035em', margin: 0 }}>
-            {priceLabel}
-          </h1>
-          {priceChanged && (
-            <span style={{ fontSize: 15, color: 'rgba(var(--ink),.42)', textDecoration: 'line-through' }}>
-              $1,588,000
-            </span>
-          )}
-          <span style={{ flex: 1 }}></span>
-          <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--brand)', whiteSpace: 'nowrap' }}>
+        <div style={{ display: 'flex', alignItems: 'baseline', gap: 6, flexWrap: 'wrap', justifyContent: 'space-between' }}>
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: 8 }}>
+            <h1 style={{ fontSize: 34, lineHeight: 1, fontWeight: 600, letterSpacing: '-.035em', margin: 0, color: 'var(--color-text)' }}>
+              {priceLabel}
+            </h1>
+            {priceChanged && (
+              <span style={{ fontSize: 14, color: 'rgba(var(--ink),.42)', textDecoration: 'line-through' }}>
+                $1,588,000
+              </span>
+            )}
+          </div>
+          <span style={{ fontSize: 12.5, fontWeight: 600, color: 'var(--brand)', textAlign: 'right', maxWidth: '100%', wordBreak: 'break-word' }}>
             {netEffect} in your favour
           </span>
         </div>
+
       </div>
     </div>
   );

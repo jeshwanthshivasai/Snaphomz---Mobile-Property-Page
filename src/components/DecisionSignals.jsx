@@ -76,15 +76,17 @@ export function DecisionSignals({
             gap: 10,
             padding: '11px 12px',
             cursor: 'pointer',
-            textAlign: 'left'
+            textAlign: 'left',
+            color: 'var(--color-text)'
           }}>
             <i class="ph-duotone ph-gauge" style={{ flex: 'none', fontSize: 21, color: 'var(--brand)' }}></i>
             <span style={{ flex: 1, minWidth: 0 }}>
-              <span style={{ display: 'block', fontSize: 15, fontWeight: 600, lineHeight: 1.25, letterSpacing: '-.005em' }}>Is your offer strong?</span>
+              <span style={{ display: 'block', fontSize: 15, fontWeight: 600, lineHeight: 1.25, letterSpacing: '-.005em', color: 'var(--color-text)' }}>Is your offer strong?</span>
               <span style={{ display: 'block', fontSize: 13, lineHeight: 1.35, marginTop: 2, color: 'var(--color-neutral-700)' }}>Score it before you submit</span>
             </span>
             <i class="ph-duotone ph-caret-right" style={{ flex: 'none', fontSize: 15, color: 'var(--color-neutral-700)' }}></i>
           </button>
+
           {sourceLines && (
             <div style={{ fontSize: 12.5, color: 'var(--color-neutral-700)', marginTop: 12 }}>
               Estimate · 8 sold comps · high confidence
@@ -93,11 +95,11 @@ export function DecisionSignals({
         </div>
 
         {/* Card 2: Total Monthly Cost */}
-        <div style={{ flex: 'none', width: 282, padding: 16, background: 'var(--color-neutral-100)', borderRadius: 18, boxShadow: 'var(--shadow-sm)', scrollSnapAlign: 'start' }}>
+        <div style={{ flex: 'none', width: 282, padding: 16, background: 'var(--color-neutral-100)', borderRadius: 18, boxShadow: 'var(--shadow-sm)', scrollSnapAlign: 'start', color: 'var(--color-text)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 7, fontSize: 10, fontWeight: 600, letterSpacing: '.18em', textTransform: 'uppercase', color: 'var(--color-neutral-700)' }}>
             <i class="ph-duotone ph-wallet" style={{ fontSize: 15, color: 'var(--brand)' }}></i>Total monthly cost
           </div>
-          <div style={{ fontSize: 27, fontWeight: 600, marginTop: 6, letterSpacing: '-.026em', fontFeatureSettings: "'tnum'" }}>
+          <div style={{ fontSize: 27, fontWeight: 600, marginTop: 6, letterSpacing: '-.026em', fontFeatureSettings: "'tnum'", color: 'var(--color-text)' }}>
             {monthlyLabel}<span style={{ fontSize: 15, color: 'var(--color-neutral-700)', fontWeight: 400 }}> /mo</span>
           </div>
           <div style={{ fontSize: 13, color: 'var(--color-neutral-700)', marginTop: 3 }}>
@@ -121,11 +123,11 @@ export function DecisionSignals({
         </div>
 
         {/* Card 3: Sold Nearby */}
-        <div style={{ flex: 'none', width: 282, padding: 16, background: 'var(--color-neutral-100)', borderRadius: 18, boxShadow: 'var(--shadow-sm)', scrollSnapAlign: 'start' }}>
+        <div style={{ flex: 'none', width: 282, padding: 16, background: 'var(--color-neutral-100)', borderRadius: 18, boxShadow: 'var(--shadow-sm)', scrollSnapAlign: 'start', color: 'var(--color-text)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 7, fontSize: 10, fontWeight: 600, letterSpacing: '.18em', textTransform: 'uppercase', color: 'var(--color-neutral-700)' }}>
             <i class="ph-duotone ph-map-pin" style={{ fontSize: 15, color: 'var(--brand)' }}></i>Sold nearby
           </div>
-          <div style={{ fontSize: 27, fontWeight: 600, marginTop: 6, letterSpacing: '-.026em', fontFeatureSettings: "'tnum'" }}>
+          <div style={{ fontSize: 27, fontWeight: 600, marginTop: 6, letterSpacing: '-.026em', fontFeatureSettings: "'tnum'", color: 'var(--color-text)' }}>
             $1,139<span style={{ fontSize: 15, color: 'var(--color-neutral-700)', fontWeight: 400 }}> /sqft avg</span>
           </div>
           <div style={{ fontSize: 13, color: 'var(--color-neutral-700)', marginTop: 3 }}>
@@ -137,7 +139,7 @@ export function DecisionSignals({
                 <i class="ph-duotone ph-house" style={{ color: 'rgba(var(--ink),.35)', fontSize: 18 }}></i>
               </div>
               <div style={{ flex: 1 }}>
-                <div style={{ fontSize: 15, fontWeight: 600, fontFeatureSettings: "'tnum'" }}>$1,549,875</div>
+                <div style={{ fontSize: 15, fontWeight: 600, fontFeatureSettings: "'tnum'", color: 'var(--color-text)' }}>$1,549,875</div>
                 <div style={{ fontSize: 13, color: 'var(--color-neutral-700)', lineHeight: 1.3 }}>5265 Joseph Ln · 1,372 sqft</div>
               </div>
             </div>
@@ -145,7 +147,7 @@ export function DecisionSignals({
             <div style={{ display: 'flex', gap: 12, alignItems: 'center', padding: '10px 0', borderTop: '1px solid rgba(var(--ink),.1)' }}>
               <img src="img/sold-harvard.png" alt="5477 Harvard Drive" style={{ width: 56, height: 42, borderRadius: 6, objectFit: 'cover', flex: 'none' }} />
               <div style={{ flex: 1 }}>
-                <div style={{ fontSize: 15, fontWeight: 600, fontFeatureSettings: "'tnum'" }}>$1,599,999</div>
+                <div style={{ fontSize: 15, fontWeight: 600, fontFeatureSettings: "'tnum'", color: 'var(--color-text)' }}>$1,599,999</div>
                 <div style={{ fontSize: 13, color: 'var(--color-neutral-700)', lineHeight: 1.3 }}>5477 Harvard Dr · 1,317 sqft</div>
               </div>
             </div>
@@ -153,7 +155,7 @@ export function DecisionSignals({
             <div style={{ display: 'flex', gap: 12, alignItems: 'center', padding: '10px 0', borderTop: '1px solid rgba(var(--ink),.1)' }}>
               <img src="img/sold-calinoma.png" alt="1554 Calinoma Drive" style={{ width: 56, height: 42, borderRadius: 6, objectFit: 'cover', flex: 'none' }} />
               <div style={{ flex: 1 }}>
-                <div style={{ fontSize: 15, fontWeight: 600, fontFeatureSettings: "'tnum'" }}>$1,499,000</div>
+                <div style={{ fontSize: 15, fontWeight: 600, fontFeatureSettings: "'tnum'", color: 'var(--color-text)' }}>$1,499,000</div>
                 <div style={{ fontSize: 13, color: 'var(--color-neutral-700)', lineHeight: 1.3 }}>1554 Calinoma Dr · 1,400 sqft</div>
               </div>
             </div>
@@ -164,7 +166,7 @@ export function DecisionSignals({
         </div>
 
         {/* Card 4: Neighborhood */}
-        <div style={{ flex: 'none', width: 282, padding: 16, background: 'var(--color-neutral-100)', borderRadius: 18, boxShadow: 'var(--shadow-sm)', scrollSnapAlign: 'start' }}>
+        <div style={{ flex: 'none', width: 282, padding: 16, background: 'var(--color-neutral-100)', borderRadius: 18, boxShadow: 'var(--shadow-sm)', scrollSnapAlign: 'start', color: 'var(--color-text)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 7, fontSize: 10, fontWeight: 600, letterSpacing: '.18em', textTransform: 'uppercase', color: 'var(--color-neutral-700)' }}>
             <i class="ph-duotone ph-person-simple-walk" style={{ fontSize: 15, color: 'var(--brand)' }}></i>Neighborhood
           </div>
@@ -190,13 +192,14 @@ export function DecisionSignals({
         </div>
 
         {/* Card 5: Home Value Trend */}
-        <div style={{ flex: 'none', width: 282, padding: 16, background: 'var(--color-neutral-100)', borderRadius: 18, boxShadow: 'var(--shadow-sm)', scrollSnapAlign: 'start' }}>
+        <div style={{ flex: 'none', width: 282, padding: 16, background: 'var(--color-neutral-100)', borderRadius: 18, boxShadow: 'var(--shadow-sm)', scrollSnapAlign: 'start', color: 'var(--color-text)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 7, fontSize: 10, fontWeight: 600, letterSpacing: '.18em', textTransform: 'uppercase', color: 'var(--color-neutral-700)' }}>
             <i class="ph-duotone ph-trend-up" style={{ fontSize: 15, color: 'var(--brand)' }}></i>Home value trend
           </div>
-          <div style={{ fontSize: 27, fontWeight: 600, marginTop: 6, letterSpacing: '-.026em' }}>
+          <div style={{ fontSize: 27, fontWeight: 600, marginTop: 6, letterSpacing: '-.026em', color: 'var(--color-text)' }}>
             Outpacing the metro
           </div>
+
           <div style={{ fontSize: 13, color: 'var(--color-neutral-700)', marginTop: 3 }}>
             Indexed 2021 to today
           </div>
