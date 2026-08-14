@@ -1,7 +1,8 @@
 import React from 'react';
 
 export function IOSStatusBar({ dark = false, time = '9:41' }) {
-  const c = '#ffffff';
+  const c = dark ? '#ffffff' : '#000000';
+
 
   return (
     <div style={{

@@ -406,12 +406,14 @@ export default function App() {
 
             {/* Top Navigation */}
             <HeaderNav
+              dark={dark}
               navSolid={navSolid}
               priceLabel={money(price)}
               saved={saved}
               onToggleSave={handleToggleSave}
               onOpenShare={() => setShare(true)}
             />
+
 
             {/* Bottom Bar Gradient */}
             <div style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: 96, zIndex: 2, pointerEvents: 'none', background: 'linear-gradient(to top,rgba(var(--paper),1) 26%,rgba(var(--paper),.86) 52%,rgba(var(--paper),0))' }} />
