@@ -1,0 +1,1362 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/duotone/style.css">
+<style>
+body{margin:0;background:#f3f2f2;color:#201e1d;font-family:"Source Serif 4",Georgia,serif}
+a{color:#0018a8;text-decoration:none}
+a:hover{color:#001478;text-decoration:underline}
+.nsb{scrollbar-width:none;-ms-overflow-style:none}
+.nsb::-webkit-scrollbar{display:none}
+@keyframes sheetUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes popIn{from{opacity:0;transform:translateY(14px) scale(.97)}to{opacity:1;transform:none}}
+@keyframes toastIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+input,select,textarea,button{font-family:inherit}
+input:focus-visible,button:focus-visible,select:focus-visible{outline:2px solid #0018a8;outline-offset:2px}
+::selection{background:#cbeeff}
+</style>
+</helmet>
+
+<div style="min-height:100vh;background:#f3f2f2;padding:46px 52px 90px;display:flex;gap:46px;align-items:flex-start;font-family:'Source Serif 4',Georgia,serif;color:#201e1d">
+
+<div style="width:420px;flex:none;display:flex;flex-direction:column;gap:26px">
+<div>
+<div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#7d7979;font-feature-settings:'tnum'">Snaphomz · buy / 10646119810 / preview</div>
+<h1 style="font-size:38px;line-height:1.08;font-weight:600;margin:10px 0 0;letter-spacing:-.01em">The property preview,<br>rebuilt for a phone</h1>
+<p style="font-size:15px;line-height:1.55;color:#444141;margin:14px 0 0;text-wrap:pretty">The desktop page runs about 11,600px tall with a right-hand chat panel and an ad rail. Neither survives a 390px screen. This is the same information re-sequenced around one question a buyer asks first — <em>is this worth a Saturday?</em> — with everything else moved behind eight full-screen sheets.</p>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:11px">
+<div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#7d7979">What I assumed</div>
+<div style="font-size:13.5px;line-height:1.5;color:#444141;display:flex;flex-direction:column;gap:7px">
+<div>Overview holds hero, signals and highlights; the eight tabs open as sheets.</div>
+<div>Broadsheet sets the type and spacing; Snaphomz keeps its cards and its blue (#0018A8, sampled off your screenshot).</div>
+<div>Copy is advisor-voiced, the way the desktop AI writeups already read.</div>
+<div>Every estimate carries a source line. Nothing states a modelled number as a fact.</div>
+<div>Signed out. Save prompts for an account; the tap is not lost.</div>
+<div>Photos, map and figures are lifted from your screenshots. Rooms without a real photo show a labelled plate.</div>
+</div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:11px">
+<div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#7d7979">Three decisions worth arguing with</div>
+<div style="display:flex;flex-direction:column;gap:14px;font-size:13.5px;line-height:1.5;color:#444141">
+<div><strong style="font-weight:600;color:#201e1d">A verdict before the data.</strong> The first thing under the price is a two-line answer, not a card grid. Signals become the evidence for it.</div>
+<div><strong style="font-weight:600;color:#201e1d">Colour carries direction, not sentiment.</strong> Blue marks what favours the buyer, magenta what works against them. No green/red — it reads at a glance and survives colour blindness.</div>
+<div><strong style="font-weight:600;color:#201e1d">Failure is designed, not caught.</strong> Stale price, pending sale, broken calculator input and an abandoned form each have a written state. Trigger them on the right.</div>
+</div>
+</div>
+
+<div style="border-top:1px solid #d7d3d3;padding-top:18px;display:flex;flex-direction:column;gap:10px">
+<div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#7d7979">System</div>
+<div style="display:flex;gap:8px;align-items:center">
+<div style="width:26px;height:26px;background:#0018a8;border-radius:3px"></div>
+<div style="width:26px;height:26px;background:#aa0b56;border-radius:3px"></div>
+<div style="width:26px;height:26px;background:#201e1d;border-radius:3px"></div>
+<div style="width:26px;height:26px;background:#f3f2f2;border:1px solid #d7d3d3;border-radius:3px"></div>
+<div style="font-size:12.5px;color:#605d5d;margin-left:4px;line-height:1.35">Snaphomz blue · alert magenta · ink · paper</div>
+</div>
+<div style="font-size:12.5px;color:#605d5d;line-height:1.5">Source Serif 4 throughout, 600 for headings. Figures set tabular. Spacing on Broadsheet's 5/10/15/20/30 scale. Cards kept from Snaphomz at 14px radius, hairline #e4e2e1.</div>
+</div>
+</div>
+
+<div style="flex:none;display:flex;flex-direction:column;gap:14px;align-items:center">
+<x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" width="{{ 390 }}" height="{{ 844 }}" hint-size="390px,844px">
+<div data-screen-label="Property preview" style="height:100%;position:relative;overflow:hidden;background:#f3f2f2;display:flex;flex-direction:column;font-family:'Source Serif 4',Georgia,serif;color:#201e1d">
+
+<div style="flex:none;padding:58px 14px 8px;background:#f3f2f2;display:flex;align-items:center;gap:10px;border-bottom:1px solid #e4e2e1">
+<button onClick="{{ noop }}" aria-label="Back" style="width:44px;height:44px;border:none;background:none;display:flex;align-items:center;justify-content:center;font-size:22px;color:#201e1d;cursor:pointer;margin-left:-8px"><i class="ph-duotone ph-caret-left"></i></button>
+<div style="display:flex;align-items:center;gap:7px;flex:1">
+<div style="width:20px;height:20px;border-radius:50%;border:2px solid #201e1d;position:relative"><div style="position:absolute;left:5px;top:5px;width:6px;height:6px;border-radius:50%;background:#201e1d"></div></div>
+<div style="font-size:17px;font-weight:600;letter-spacing:-.01em">Snaphomz</div>
+</div>
+<button onClick="{{ openShare }}" aria-label="Share" style="width:44px;height:44px;border:none;background:none;display:flex;align-items:center;justify-content:center;font-size:21px;color:#201e1d;cursor:pointer"><i class="ph-duotone ph-share-network"></i></button>
+<button onClick="{{ toggleSave }}" aria-label="Save" style="width:44px;height:44px;border:none;background:none;display:flex;align-items:center;justify-content:center;font-size:21px;cursor:pointer;color:{{ saveColor }}"><i class="{{ saveIcon }}"></i></button>
+</div>
+
+<div class="nsb" style="flex:none;background:#f3f2f2;border-bottom:1px solid #e4e2e1;overflow-x:auto;display:flex;gap:0;padding:0 12px">
+<sc-for list="{{ tabs }}" as="t" hint-placeholder-count="8">
+<button onClick="{{ t.open }}" style="{{ t.style }}">{{ t.label }}</button>
+</sc-for>
+</div>
+
+<div class="nsb" onScroll="{{ onPageScroll }}" style="flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch">
+
+<sc-if value="{{ alertOpen }}" hint-placeholder-val="{{ false }}">
+<div style="margin:0;padding:12px 15px;background:#ffdee6;border-bottom:1px solid #ffc0d0;display:flex;gap:10px;align-items:flex-start;animation:fadeIn .3s ease">
+<i class="ph-duotone ph-warning-circle" style="font-size:19px;color:#aa0b56;margin-top:1px"></i>
+<div style="flex:1">
+<div style="font-size:13.5px;font-weight:600;color:#79093d;line-height:1.35">{{ alertTitle }}</div>
+<div style="font-size:12.5px;color:#79093d;line-height:1.45;margin-top:3px">{{ alertBody }}</div>
+<button onClick="{{ acceptAlert }}" style="margin-top:9px;min-height:36px;padding:0 14px;border-radius:999px;border:1px solid #aa0b56;background:none;color:#aa0b56;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap">{{ alertAction }}</button>
+</div>
+<button onClick="{{ dismissAlert }}" aria-label="Dismiss" style="width:28px;height:28px;border:none;background:none;color:#aa0b56;font-size:15px;cursor:pointer">✕</button>
+</div>
+</sc-if>
+
+<div style="position:relative;background:#eae7e7">
+<div class="nsb" onScroll="{{ onGalleryScroll }}" style="display:flex;overflow-x:auto;scroll-snap-type:x mandatory;height:252px">
+<sc-for list="{{ slides }}" as="s" hint-placeholder-count="6">
+<div onClick="{{ openViewer }}" style="{{ s.style }}">
+<sc-if value="{{ s.isPlate }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;background:#eae7e7;background-image:radial-gradient(circle,rgba(0,0,0,.13) 30%,transparent 32%);background-size:4px 4px">
+<i class="ph-duotone ph-image" style="font-size:26px;color:#9b9797"></i>
+<div style="font-size:12.5px;color:#605d5d">{{ s.label }}</div>
+</div>
+</sc-if>
+</div>
+</sc-for>
+</div>
+<div style="position:absolute;left:12px;bottom:12px;display:flex;gap:6px;align-items:center;background:rgba(32,30,29,.72);color:#fff;padding:5px 10px;border-radius:999px;font-size:12px;font-feature-settings:'tnum'">{{ photoCounter }}</div>
+<button onClick="{{ openViewer }}" style="position:absolute;right:12px;bottom:12px;min-height:32px;padding:0 12px;border-radius:999px;border:none;background:rgba(32,30,29,.72);color:#fff;font-size:12.5px;cursor:pointer;display:flex;align-items:center;gap:5px"><i class="ph-duotone ph-frame-corners"></i>All 48</button>
+</div>
+
+<div class="nsb" style="display:flex;gap:7px;overflow-x:auto;padding:10px 15px;background:#f3f2f2;border-bottom:1px solid #e4e2e1">
+<sc-for list="{{ rooms }}" as="r" hint-placeholder-count="6">
+<button onClick="{{ r.pick }}" style="{{ r.style }}">{{ r.label }}</button>
+</sc-for>
+</div>
+
+<div style="padding:18px 15px 0;background:#f3f2f2">
+<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px">
+<span style="{{ statusStyle }}">{{ statusLabel }}</span>
+<span style="font-size:11.5px;padding:4px 9px;border-radius:999px;border:1px solid #d7d3d3;color:#605d5d">7 days on Snaphomz</span>
+</div>
+<div style="display:flex;align-items:baseline;gap:10px">
+<div style="font-size:33px;font-weight:600;letter-spacing:-.02em;font-feature-settings:'tnum'">{{ priceLabel }}</div>
+<sc-if value="{{ priceChanged }}" hint-placeholder-val="{{ false }}">
+<div style="font-size:14px;color:#7d7979;text-decoration:line-through;font-feature-settings:'tnum'">$1,588,000</div>
+</sc-if>
+</div>
+<div style="font-size:16px;margin-top:2px;line-height:1.35">5308 Gatewood Ln<span style="color:#605d5d">, San Jose, CA 95118</span></div>
+<div style="font-size:13px;color:#605d5d;margin-top:6px;display:flex;align-items:center;gap:6px"><i class="ph-duotone ph-calendar-dot" style="font-size:15px"></i>Open house Sat 8/15, 7:00–10:00 PM</div>
+</div>
+
+<div style="padding:16px 15px 0;background:#f3f2f2">
+<div style="display:flex;border-top:1px solid #e4e2e1;border-bottom:1px solid #e4e2e1;padding:12px 0">
+<div style="flex:1;text-align:center;border-right:1px solid #e4e2e1"><div style="font-size:22px;font-weight:600;font-feature-settings:'tnum'">4</div><div style="font-size:12px;color:#605d5d">beds</div></div>
+<div style="flex:1;text-align:center;border-right:1px solid #e4e2e1"><div style="font-size:22px;font-weight:600;font-feature-settings:'tnum'">2</div><div style="font-size:12px;color:#605d5d">baths</div></div>
+<div style="flex:1;text-align:center"><div style="font-size:22px;font-weight:600;font-feature-settings:'tnum'">1,415</div><div style="font-size:12px;color:#605d5d">sqft</div></div>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:2px 14px;padding:12px 0 4px">
+<div style="display:flex;justify-content:space-between;font-size:13px;padding:5px 0"><span style="color:#605d5d">Year built</span><span style="font-feature-settings:'tnum'">1962</span></div>
+<div style="display:flex;justify-content:space-between;font-size:13px;padding:5px 0"><span style="color:#605d5d">Lot</span><span style="font-feature-settings:'tnum'">5,952 sqft</span></div>
+<div style="display:flex;justify-content:space-between;font-size:13px;padding:5px 0"><span style="color:#605d5d">Price / sqft</span><span style="font-feature-settings:'tnum'">$1,122</span></div>
+<div style="display:flex;justify-content:space-between;font-size:13px;padding:5px 0"><span style="color:#605d5d">HOA</span><span style="font-feature-settings:'tnum'">$562/mo</span></div>
+<div style="display:flex;justify-content:space-between;font-size:13px;padding:5px 0"><span style="color:#605d5d">Type</span><span>Residential</span></div>
+<div style="display:flex;justify-content:space-between;font-size:13px;padding:5px 0"><span style="color:#605d5d">Style</span><span>Single family</span></div>
+</div>
+<button onClick="{{ noop }}" style="width:100%;min-height:44px;margin:6px 0 0;border-radius:999px;border:1px solid #d7d3d3;background:#fff;font-size:14px;color:#201e1d;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px" style-hover="background:#f8f4f4"><i class="ph-duotone ph-street-map" style="font-size:17px"></i>Street view</button>
+</div>
+
+<div style="margin:20px 15px 0;padding:16px;background:#fff;border:1px solid #e4e2e1;border-radius:14px;border-left:3px solid #0018a8">
+<div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#0018a8;margin-bottom:8px">Snaphomz AI · the short answer</div>
+<div style="font-size:19px;line-height:1.34;font-weight:600;letter-spacing:-.01em;text-wrap:pretty">{{ verdictHeadline }}</div>
+<div style="font-size:14px;line-height:1.55;color:#444141;margin-top:9px;text-wrap:pretty">{{ verdictBody }}</div>
+<div style="display:flex;flex-direction:column;gap:7px;margin-top:12px;padding-top:12px;border-top:1px solid #e4e2e1">
+<div style="display:flex;gap:9px;font-size:13.5px;line-height:1.45"><i class="ph-duotone ph-arrow-down-right" style="color:#0018a8;font-size:17px"></i><span><strong style="font-weight:600">$125,000 under</strong> what comparable homes are worth today</span></div>
+<div style="display:flex;gap:9px;font-size:13.5px;line-height:1.45"><i class="ph-duotone ph-arrow-up-right" style="color:#aa0b56;font-size:17px"></i><span><strong style="font-weight:600">{{ monthlyLabel }} a month</strong> all in — {{ monthlyNote }}</span></div>
+<div style="display:flex;gap:9px;font-size:13.5px;line-height:1.45"><i class="ph-duotone ph-person-simple-walk" style="color:#0018a8;font-size:17px"></i><span><strong style="font-weight:600">100 walk score</strong>, groceries and a playground inside half a mile</span></div>
+</div>
+<sc-if value="{{ sourceLines }}" hint-placeholder-val="{{ true }}">
+<div style="font-size:11.5px;color:#7d7979;margin-top:11px;line-height:1.4">Written by Snaphomz AI from 8 comps, live rates and public records. Not an appraisal.</div>
+</sc-if>
+</div>
+
+<div style="margin-top:26px">
+<div style="display:flex;align-items:baseline;justify-content:space-between;padding:0 15px 10px">
+<h2 style="font-size:20px;font-weight:600;margin:0;letter-spacing:-.01em">Decision signals</h2>
+<span style="font-size:12px;color:#7d7979;font-feature-settings:'tnum'">{{ signalCounter }}</span>
+</div>
+<div class="nsb" onScroll="{{ onSignalScroll }}" style="display:flex;gap:11px;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 15px 4px">
+
+<div style="flex:none;width:296px;scroll-snap-align:center;background:#fff;border:1px solid #e4e2e1;border-radius:14px;padding:15px">
+<div style="font-size:16px;font-weight:600">Market position</div>
+<div style="font-size:24px;font-weight:600;color:#0018a8;margin-top:4px;font-feature-settings:'tnum'">7.3% below market</div>
+<p style="font-size:13.5px;line-height:1.55;color:#444141;margin:9px 0 0;text-wrap:pretty">The seller is asking $125,000 less than what similar homes in this area are currently worth, which is a pretty significant discount that puts you in a strong position as a buyer. Since the home just hit the market a week ago and is already priced below value, you should feel good about this opportunity and move quickly.</p>
+<button onClick="{{ noop }}" style="margin-top:12px;width:100%;min-height:44px;border-radius:10px;border:1px solid #d7d3d3;background:#f8f4f4;display:flex;align-items:center;gap:10px;padding:0 12px;cursor:pointer;text-align:left">
+<i class="ph-duotone ph-gauge" style="font-size:20px;color:#0018a8"></i>
+<span style="flex:1"><span style="display:block;font-size:13.5px;font-weight:600">How strong is your offer?</span><span style="display:block;font-size:11.5px;color:#605d5d">Get a score before you submit</span></span>
+<span style="color:#605d5d">›</span>
+</button>
+<sc-if value="{{ sourceLines }}" hint-placeholder-val="{{ true }}">
+<div style="font-size:11.5px;color:#7d7979;margin-top:10px">Estimate · 8 sold comps · high confidence</div>
+</sc-if>
+</div>
+
+<div style="flex:none;width:296px;scroll-snap-align:center;background:#fff;border:1px solid #e4e2e1;border-radius:14px;padding:15px">
+<div style="font-size:16px;font-weight:600">Total monthly cost</div>
+<div style="font-size:24px;font-weight:600;margin-top:4px;font-feature-settings:'tnum'">{{ monthlyLabel }}<span style="font-size:14px;color:#7d7979;font-weight:400"> /mo</span></div>
+<div style="font-size:12px;color:#605d5d;margin-top:2px">20% down · 30yr · 6.69% live rate</div>
+<div style="margin-top:11px;display:flex;flex-direction:column">
+<sc-for list="{{ costRows }}" as="c" hint-placeholder-count="7">
+<div style="display:flex;justify-content:space-between;font-size:13px;padding:5px 0;border-bottom:1px solid #f0eeed"><span style="color:#444141">{{ c.k }}</span><span style="font-feature-settings:'tnum'">{{ c.v }}</span></div>
+</sc-for>
+<div style="display:flex;justify-content:space-between;font-size:14px;font-weight:600;padding:9px 0 0"><span>Total</span><span style="font-feature-settings:'tnum'">{{ monthlyLabel }}</span></div>
+</div>
+<button onClick="{{ openForecast }}" style="margin-top:11px;background:none;border:none;padding:0;color:#0018a8;font-size:13.5px;font-weight:600;cursor:pointer">Open the payment calculator →</button>
+<sc-if value="{{ sourceLines }}" hint-placeholder-val="{{ true }}">
+<div style="font-size:11.5px;color:#7d7979;margin-top:9px">Estimate · live rate as of 8/6/26 · taxes from county records</div>
+</sc-if>
+</div>
+
+<div style="flex:none;width:296px;scroll-snap-align:center;background:#fff;border:1px solid #e4e2e1;border-radius:14px;padding:15px">
+<div style="font-size:16px;font-weight:600">Sold nearby</div>
+<div style="font-size:13px;color:#605d5d;margin-top:3px">3 similar homes, avg $1,139/sqft</div>
+<div style="display:flex;flex-direction:column;gap:10px;margin-top:11px">
+<div style="display:flex;gap:10px;align-items:center">
+<div style="width:60px;height:46px;border-radius:8px;background:#eae7e7;flex:none;display:flex;align-items:center;justify-content:center"><i class="ph-duotone ph-house" style="color:#9b9797;font-size:18px"></i></div>
+<div style="flex:1"><div style="font-size:14px;font-weight:600;font-feature-settings:'tnum'">$1,549,875</div><div style="font-size:12px;color:#605d5d;line-height:1.35">5265 Joseph Lane · 3bd 2ba 1,372 sqft</div></div>
+</div>
+<div style="display:flex;gap:10px;align-items:center">
+<img src="img/sold-harvard.png" alt="5477 Harvard Drive" style="width:60px;height:46px;border-radius:8px;object-fit:cover;flex:none">
+<div style="flex:1"><div style="font-size:14px;font-weight:600;font-feature-settings:'tnum'">$1,599,999</div><div style="font-size:12px;color:#605d5d;line-height:1.35">5477 Harvard Drive · 3bd 2ba 1,317 sqft</div></div>
+</div>
+<div style="display:flex;gap:10px;align-items:center">
+<img src="img/sold-calinoma.png" alt="1554 Calinoma Drive" style="width:60px;height:46px;border-radius:8px;object-fit:cover;flex:none">
+<div style="flex:1"><div style="font-size:14px;font-weight:600;font-feature-settings:'tnum'">$1,499,000</div><div style="font-size:12px;color:#605d5d;line-height:1.35">1554 Calinoma Drive · 3bd 2ba 1,400 sqft</div></div>
+</div>
+</div>
+<div style="margin-top:12px;padding-top:11px;border-top:1px solid #e4e2e1">
+<div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#7d7979;margin-bottom:6px">What this means for you</div>
+<p style="font-size:13px;line-height:1.5;color:#444141;margin:0;text-wrap:pretty">Buyers on this block paid about $1,138/sqft; this listing asks $1,122. The seller is priced to what the street has actually been supporting, so your offer strategy can focus on terms and timing rather than fighting the price.</p>
+</div>
+</div>
+
+<div style="flex:none;width:296px;scroll-snap-align:center;background:#fff;border:1px solid #e4e2e1;border-radius:14px;padding:15px">
+<div style="font-size:16px;font-weight:600">Neighborhood</div>
+<div style="font-size:24px;font-weight:600;color:#0018a8;margin-top:4px;font-feature-settings:'tnum'">100 · very walkable</div>
+<div style="display:flex;flex-direction:column;margin-top:11px">
+<sc-for list="{{ nearby }}" as="n" hint-placeholder-count="5">
+<div style="display:flex;justify-content:space-between;gap:10px;font-size:13px;padding:5px 0;border-bottom:1px solid #f0eeed"><span style="display:flex;gap:7px;align-items:center;color:#444141"><i class="{{ n.icon }}" style="color:#0018a8;font-size:15px"></i>{{ n.name }}</span><span style="color:#7d7979;font-feature-settings:'tnum'">{{ n.dist }}</span></div>
+</sc-for>
+</div>
+<div style="display:flex;gap:12px;font-size:12.5px;color:#444141;margin-top:10px;flex-wrap:wrap">
+<span>AQI <strong style="color:#0018a8;font-weight:600">87</strong> excellent</span>
+<span>Pollen: tree none · grass none</span>
+</div>
+<button onClick="{{ openNeighborhood }}" style="margin-top:11px;background:none;border:none;padding:0;color:#0018a8;font-size:13.5px;font-weight:600;cursor:pointer">See neighborhood details →</button>
+<sc-if value="{{ sourceLines }}" hint-placeholder-val="{{ true }}">
+<div style="font-size:11.5px;color:#7d7979;margin-top:9px">Within 1 mile · Google Places</div>
+</sc-if>
+</div>
+
+<div style="flex:none;width:296px;scroll-snap-align:center;background:#fff;border:1px solid #e4e2e1;border-radius:14px;padding:15px">
+<div style="font-size:16px;font-weight:600">Home value trend</div>
+<div style="font-size:13px;color:#605d5d;margin-top:3px">This home against its neighborhood and metro</div>
+<svg viewBox="0 0 260 120" style="width:100%;height:126px;margin-top:10px">
+<line x1="0" y1="100" x2="260" y2="100" stroke="#e4e2e1"></line>
+<line x1="0" y1="66" x2="260" y2="66" stroke="#f0eeed"></line>
+<line x1="0" y1="32" x2="260" y2="32" stroke="#f0eeed"></line>
+<path d="M2 92 L40 88 L78 74 L116 58 L154 40 L192 34 L230 24 L256 18" fill="none" stroke="#0018a8" stroke-width="2"></path>
+<path d="M2 96 L40 93 L78 84 L116 72 L154 60 L192 56 L230 50 L256 46" fill="none" stroke="#9b9797" stroke-width="1.5" stroke-dasharray="4 3"></path>
+<path d="M2 98 L40 96 L78 92 L116 86 L154 80 L192 78 L230 74 L256 71" fill="none" stroke="#d7d3d3" stroke-width="1.5"></path>
+</svg>
+<div style="display:flex;gap:12px;font-size:12px;color:#605d5d;flex-wrap:wrap">
+<span style="display:flex;align-items:center;gap:5px"><span style="width:14px;height:2px;background:#0018a8;display:inline-block"></span>This home</span>
+<span style="display:flex;align-items:center;gap:5px"><span style="width:14px;height:2px;background:#9b9797;display:inline-block"></span>Neighborhood</span>
+<span style="display:flex;align-items:center;gap:5px"><span style="width:14px;height:2px;background:#d7d3d3;display:inline-block"></span>Metro</span>
+</div>
+<sc-if value="{{ sourceLines }}" hint-placeholder-val="{{ true }}">
+<div style="font-size:11.5px;color:#7d7979;margin-top:10px">Indexed 2021–2026 · public records + Snaphomz model</div>
+</sc-if>
+</div>
+</div>
+<div style="display:flex;gap:5px;justify-content:center;padding:12px 0 0">
+<sc-for list="{{ signalDots }}" as="d" hint-placeholder-count="5">
+<span style="{{ d.style }}"></span>
+</sc-for>
+</div>
+</div>
+
+<div style="margin-top:26px;padding:0 15px">
+<h2 style="font-size:20px;font-weight:600;margin:0 0 3px;letter-spacing:-.01em">Estimated value</h2>
+<div style="font-size:13px;color:#605d5d;margin-bottom:11px">Four models, four different numbers. They disagree on purpose.</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+<div style="background:#fff;border:1px solid #e4e2e1;border-radius:14px;padding:13px">
+<div style="font-size:12px;color:#605d5d">House value</div>
+<div style="font-size:20px;font-weight:600;margin-top:2px;font-feature-settings:'tnum'">$1,580,818</div>
+<svg viewBox="0 0 120 34" style="width:100%;height:34px;margin-top:6px"><path d="M0 30 L14 27 L28 28 L42 20 L56 22 L70 14 L84 16 L98 8 L112 10 L120 4" fill="none" stroke="#0018a8" stroke-width="1.6"></path></svg>
+<div style="font-size:11px;color:#7d7979;margin-top:4px">AVM · 2016–2026</div>
+</div>
+<div style="background:#fff;border:1px solid #e4e2e1;border-radius:14px;padding:13px">
+<div style="font-size:12px;color:#605d5d">Appraisal (comps)</div>
+<div style="font-size:20px;font-weight:600;margin-top:2px;font-feature-settings:'tnum'">$1,725,000</div>
+<svg viewBox="0 0 120 34" style="width:100%;height:34px;margin-top:6px"><path d="M0 30 L30 26 L60 19 L90 12 L120 3" fill="none" stroke="#0018a8" stroke-width="1.6"></path></svg>
+<div style="font-size:11px;color:#7d7979;margin-top:4px">8 comps · high confidence</div>
+</div>
+<div style="background:#fff;border:1px solid #e4e2e1;border-radius:14px;padding:13px">
+<div style="font-size:12px;color:#605d5d">Est. rent</div>
+<div style="font-size:20px;font-weight:600;margin-top:2px;font-feature-settings:'tnum'">$3,282<span style="font-size:12px;color:#0018a8;font-weight:600"> +$742</span></div>
+<svg viewBox="0 0 120 34" style="width:100%;height:34px;margin-top:6px"><path d="M0 12 L20 10 L40 14 L52 26 L64 24 L82 22 L100 18 L120 8" fill="none" stroke="#aa0b56" stroke-width="1.6"></path></svg>
+<div style="font-size:11px;color:#7d7979;margin-top:4px">vs Jul 2026 · rent index</div>
+</div>
+<div style="background:#fff;border:1px solid #e4e2e1;border-radius:14px;padding:13px">
+<div style="font-size:12px;color:#605d5d">5-year projection</div>
+<div style="font-size:20px;font-weight:600;margin-top:2px;font-feature-settings:'tnum'">$1,809,549</div>
+<svg viewBox="0 0 120 34" style="width:100%;height:34px;margin-top:6px"><path d="M0 28 L20 22 L40 25 L58 14" fill="none" stroke="#201e1d" stroke-width="1.6"></path><path d="M58 14 L80 12 L100 8 L120 5" fill="none" stroke="#0018a8" stroke-width="1.6" stroke-dasharray="3 3"></path></svg>
+<div style="font-size:11px;color:#7d7979;margin-top:4px">+5.7% modelled · not a promise</div>
+</div>
+</div>
+</div>
+
+<div style="margin:26px 15px 0;background:#fff;border:1px solid #e4e2e1;border-radius:14px;padding:16px">
+<h2 style="font-size:20px;font-weight:600;margin:0 0 11px;letter-spacing:-.01em">Home highlights</h2>
+<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px">
+<span style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:5px 9px;background:#f8f4f4;border:1px solid #e4e2e1;border-radius:999px;color:#444141">Vaulted ceilings</span>
+<span style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:5px 9px;background:#f8f4f4;border:1px solid #e4e2e1;border-radius:999px;color:#444141">Nearby parks</span>
+<span style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:5px 9px;background:#f8f4f4;border:1px solid #e4e2e1;border-radius:999px;color:#444141">Rich hardwood floors</span>
+<span style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:5px 9px;background:#f8f4f4;border:1px solid #e4e2e1;border-radius:999px;color:#444141">Stainless steel appliances</span>
+</div>
+<p style="font-size:14px;line-height:1.6;color:#201e1d;margin:0;text-wrap:pretty">Welcome to 5308 Gatewood Lane, a beautifully renovated single-story home nestled in the desirable Cambrian area. With modern updates, this move-in-ready residence offers three bedrooms, two bathrooms, and a functional floor plan designed for both everyday living and entertaining. Upgrades include new windows throughout, engineered wood flooring, kitchen and laundry appliances, high-efficiency central furnace and AC, and many more.</p>
+<sc-if value="{{ expHighlights }}" hint-placeholder-val="{{ false }}">
+<p style="font-size:14px;line-height:1.6;color:#201e1d;margin:12px 0 0;text-wrap:pretty">Have peace of mind with a new roof on the main structure. Past owners installed a newer sewer line, copper plumbing, upgraded wall insulation, and built an attached structure in back that can be used as an office. 2-car garage.</p>
+<p style="font-size:14px;line-height:1.6;color:#201e1d;margin:12px 0 0;text-wrap:pretty">Section 1 items in pest report cleared. There's plenty of space in front and back for outdoor relaxation, gardening, and gatherings. Gated front fence for kids or pets to roam free.</p>
+<div style="margin-top:12px;padding:11px;background:#f8f4f4;border-radius:10px;font-size:12.5px;line-height:1.5;color:#605d5d">The listing says three bedrooms; county records say four. Snaphomz shows both until the agent confirms.</div>
+</sc-if>
+<button onClick="{{ toggleHighlights }}" style="margin-top:12px;background:none;border:none;padding:0;color:#0018a8;font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:5px">{{ highlightsLabel }}</button>
+</div>
+
+<div style="margin:26px 15px 0">
+<h2 style="font-size:20px;font-weight:600;margin:0 0 3px;letter-spacing:-.01em">Go deeper</h2>
+<div style="font-size:13px;color:#605d5d;margin-bottom:11px">Eight reports on this address. Each opens full screen.</div>
+<div style="background:#fff;border:1px solid #e4e2e1;border-radius:14px;overflow:hidden">
+<sc-for list="{{ explore }}" as="e" hint-placeholder-count="7">
+<button onClick="{{ e.open }}" style="width:100%;min-height:60px;display:flex;align-items:center;gap:12px;padding:12px 14px;background:#fff;border:none;border-bottom:1px solid #f0eeed;cursor:pointer;text-align:left" style-hover="background:#f8f4f4">
+<i class="{{ e.icon }}" style="font-size:22px;color:#0018a8;flex:none"></i>
+<span style="flex:1"><span style="display:block;font-size:15px;font-weight:600">{{ e.label }}</span><span style="display:block;font-size:12.5px;color:#605d5d;line-height:1.35;margin-top:1px">{{ e.sub }}</span></span>
+<span style="color:#9b9797;font-size:18px">›</span>
+</button>
+</sc-for>
+</div>
+</div>
+
+<div style="margin:26px 0 0">
+<div style="display:flex;align-items:center;justify-content:space-between;padding:0 15px 3px">
+<h2 style="font-size:20px;font-weight:600;margin:0;letter-spacing:-.01em">Similar homes</h2>
+<button onClick="{{ toggleCompare }}" style="min-height:36px;padding:0 12px;border-radius:999px;border:1px solid #0018a8;background:none;color:#0018a8;font-size:13px;font-weight:600;cursor:pointer">{{ compareLabel }}</button>
+</div>
+<div style="font-size:13px;color:#605d5d;padding:0 15px 11px">Comparable in price and location. Tap to add to a comparison.</div>
+<div class="nsb" style="display:flex;gap:11px;overflow-x:auto;padding:0 15px 4px;scroll-snap-type:x mandatory">
+<sc-for list="{{ similar }}" as="h" hint-placeholder-count="4">
+<div onClick="{{ h.pick }}" style="{{ h.style }}">
+<div style="height:104px;background:#eae7e7;background-image:radial-gradient(circle,rgba(0,0,0,.12) 30%,transparent 32%);background-size:4px 4px;display:flex;align-items:center;justify-content:center"><i class="ph-duotone ph-house-line" style="font-size:24px;color:#9b9797"></i></div>
+<div style="padding:11px 12px 13px">
+<div style="font-size:17px;font-weight:600;font-feature-settings:'tnum'">{{ h.price }}</div>
+<div style="font-size:12.5px;color:#605d5d;line-height:1.35;margin-top:2px">{{ h.addr }}</div>
+<div style="font-size:12.5px;color:#444141;margin-top:6px;font-feature-settings:'tnum'">{{ h.specs }}</div>
+<div style="font-size:12px;color:#0018a8;margin-top:6px;font-weight:600">{{ h.delta }}</div>
+</div>
+</div>
+</sc-for>
+</div>
+</div>
+
+<div style="margin:28px 15px 0;padding-top:18px;border-top:1px solid #d7d3d3">
+<div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#7d7979;margin-bottom:7px">Where these numbers come from</div>
+<p style="font-size:12px;line-height:1.55;color:#7d7979;margin:0;text-wrap:pretty">Values, rents and forecasts are model estimates, not appraisals or offers. Rates are pulled live and change daily. Tax and sale history come from public records and can lag. Snaphomz is not a lender, broker or financial advisor — talk to a licensed professional before you commit.</p>
+<div style="font-size:12px;color:#7d7979;margin-top:10px;font-feature-settings:'tnum'">Listing updated 8/12/26 09:37 · MLS 10646119810</div>
+</div>
+
+<div style="height:132px"></div>
+</div>
+
+<div style="position:absolute;left:0;right:0;bottom:0;padding:11px 15px 30px;background:rgba(243,242,242,.94);backdrop-filter:blur(12px);border-top:1px solid #e4e2e1;display:flex;gap:9px;z-index:3">
+<button onClick="{{ openTour }}" disabled="{{ tourDisabled }}" style="{{ primaryCtaStyle }}">{{ primaryCtaLabel }}</button>
+<button onClick="{{ openPre }}" style="flex:none;min-height:48px;padding:0 16px;border-radius:999px;border:1px solid #0018a8;background:none;color:#0018a8;font-size:15px;font-weight:600;cursor:pointer;white-space:nowrap" style-hover="background:#eaecf7">Pre-approval</button>
+</div>
+
+<button onClick="{{ openChat }}" aria-label="Ask Snaphomz AI" style="position:absolute;right:15px;bottom:96px;width:54px;height:54px;border-radius:50%;border:1px solid #001478;background:#0018a8;color:#fff;font-size:24px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(45,43,43,.22);z-index:4" style-hover="background:#001478"><i class="ph-duotone ph-sparkle"></i></button>
+
+<sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;left:15px;right:15px;bottom:100px;z-index:6;background:#201e1d;color:#f3f2f2;padding:12px 14px;border-radius:12px;font-size:13.5px;line-height:1.4;display:flex;gap:10px;align-items:center;animation:toastIn .25s ease">
+<i class="ph-duotone ph-info" style="font-size:18px"></i><span style="flex:1">{{ toast }}</span>
+<sc-if value="{{ toastAction }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ toastDo }}" style="background:none;border:none;color:#99e0ff;font-size:13.5px;font-weight:600;cursor:pointer;padding:0">{{ toastAction }}</button>
+</sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{ sheetOpen }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Detail sheet" style="position:absolute;inset:0;z-index:8;background:#f3f2f2;display:flex;flex-direction:column;animation:sheetUp .28s cubic-bezier(.32,.72,0,1)">
+<div style="flex:none;padding:58px 14px 10px;background:#f3f2f2;border-bottom:1px solid #e4e2e1;display:flex;align-items:center;gap:8px">
+<button onClick="{{ closeSheet }}" aria-label="Close" style="width:44px;height:44px;border:none;background:none;font-size:22px;color:#201e1d;cursor:pointer;display:flex;align-items:center;justify-content:center;margin-left:-8px"><i class="ph-duotone ph-caret-left"></i></button>
+<div style="flex:1"><div style="font-size:18px;font-weight:600;letter-spacing:-.01em">{{ sheetTitle }}</div><div style="font-size:12px;color:#7d7979">{{ sheetSub }}</div></div>
+</div>
+<div class="nsb" style="flex:1;overflow-y:auto;padding:16px 15px 120px">
+
+<sc-if value="{{ isProperty }}" hint-placeholder-val="{{ false }}">
+<div style="background:#fff;border:1px solid #e4e2e1;border-radius:14px;overflow:hidden">
+<sc-for list="{{ propertyGroups }}" as="g" hint-placeholder-count="5">
+<div style="border-bottom:1px solid #f0eeed;padding:14px">
+<div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#7d7979;margin-bottom:9px">{{ g.title }}</div>
+<sc-for list="{{ g.rows }}" as="r" hint-placeholder-count="3">
+<div style="display:flex;justify-content:space-between;gap:14px;font-size:14px;padding:6px 0;line-height:1.4"><span style="color:#605d5d;flex:none">{{ r.k }}</span><span style="text-align:right">{{ r.v }}</span></div>
+</sc-for>
+</div>
+</sc-for>
+</div>
+<div style="margin-top:14px;font-size:12px;color:#7d7979;line-height:1.5">Supplied by the listing agent. Snaphomz does not verify these fields — anything that matters to your offer should be confirmed in disclosures.</div>
+<button onClick="{{ noop }}" style="margin-top:12px;width:100%;min-height:48px;border-radius:999px;border:1px solid #d7d3d3;background:#fff;font-size:15px;cursor:pointer;color:#201e1d">Review disclosures</button>
+</sc-if>
+
+<sc-if value="{{ isSchools }}" hint-placeholder-val="{{ false }}">
+<div style="font-size:14px;line-height:1.5;color:#444141;margin-bottom:12px">This home is within <strong style="font-weight:600">Campbell Union High School District</strong>. Assignment can change year to year — confirm with the district before you buy on schools.</div>
+<div style="background:#fff;border:1px solid #e4e2e1;border-radius:14px;overflow:hidden">
+<sc-for list="{{ schools }}" as="s" hint-placeholder-count="5">
+<div style="padding:13px 14px;border-bottom:1px solid #f0eeed;display:flex;gap:12px;align-items:center">
+<div style="{{ s.badge }}">{{ s.rating }}</div>
+<div style="flex:1"><div style="font-size:14.5px;font-weight:600;line-height:1.3">{{ s.name }}</div><div style="font-size:12.5px;color:#605d5d;margin-top:2px">{{ s.meta }}</div></div>
+</div>
+</sc-for>
+</div>
+<div style="font-size:11.5px;color:#7d7979;margin-top:9px">Ratings 1–10 from GreatSchools via SnapGrad · updated Jul 2026</div>
+<h3 style="font-size:17px;font-weight:600;margin:24px 0 4px">College readiness</h3>
+<div style="font-size:13px;color:#605d5d;margin-bottom:11px">Where graduates of Beacon School enrolled</div>
+<div style="background:#fff;border:1px solid #e4e2e1;border-radius:14px;padding:14px">
+<sc-for list="{{ colleges }}" as="c" hint-placeholder-count="3">
+<div style="display:flex;align-items:center;gap:11px;padding:9px 0;border-bottom:1px solid #f0eeed">
+<div style="font-size:19px;font-weight:600;color:#d7d3d3;font-feature-settings:'tnum';width:28px">{{ c.rank }}</div>
+<div style="flex:1"><div style="font-size:14px;font-weight:600;line-height:1.3">{{ c.name }}</div><div style="font-size:11.5px;color:#7d7979;font-feature-settings:'tnum'">Institution ID {{ c.id }}</div></div>
+</div>
+</sc-for>
+<div style="display:flex;gap:14px;align-items:center;margin-top:14px">
+<svg viewBox="0 0 42 42" style="width:76px;height:76px;flex:none">
+<circle cx="21" cy="21" r="15.9" fill="none" stroke="#0018a8" stroke-width="8" stroke-dasharray="46 54" stroke-dashoffset="0"></circle>
+<circle cx="21" cy="21" r="15.9" fill="none" stroke="#7078d0" stroke-width="8" stroke-dasharray="27 73" stroke-dashoffset="-46"></circle>
+<circle cx="21" cy="21" r="15.9" fill="none" stroke="#aa0b56" stroke-width="8" stroke-dasharray="14 86" stroke-dashoffset="-73"></circle>
+<circle cx="21" cy="21" r="15.9" fill="none" stroke="#d7d3d3" stroke-width="8" stroke-dasharray="13 87" stroke-dashoffset="-87"></circle>
+</svg>
+<div style="flex:1;display:flex;flex-direction:column;gap:4px;font-size:12.5px;color:#444141">
+<div style="display:flex;gap:7px;align-items:center"><span style="width:9px;height:9px;border-radius:2px;background:#0018a8"></span>Asian 46%</div>
+<div style="display:flex;gap:7px;align-items:center"><span style="width:9px;height:9px;border-radius:2px;background:#7078d0"></span>Hispanic 27%</div>
+<div style="display:flex;gap:7px;align-items:center"><span style="width:9px;height:9px;border-radius:2px;background:#aa0b56"></span>White 14%</div>
+<div style="display:flex;gap:7px;align-items:center"><span style="width:9px;height:9px;border-radius:2px;background:#d7d3d3"></span>Other 13%</div>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isIntel }}" hint-placeholder-val="{{ false }}">
+<div class="nsb" style="display:flex;gap:7px;overflow-x:auto;margin-bottom:11px">
+<sc-for list="{{ weights }}" as="w" hint-placeholder-count="5">
+<button onClick="{{ w.pick }}" style="{{ w.style }}">{{ w.label }}</button>
+</sc-for>
+</div>
+<div style="position:relative;border-radius:14px;overflow:hidden;border:1px solid #e4e2e1">
+<img src="img/map.png" alt="Price heat map around 5308 Gatewood Ln" style="width:100%;display:block">
+<div style="position:absolute;left:0;right:0;bottom:0;padding:6px 9px;background:rgba(243,242,242,.9);font-size:10.5px;color:#605d5d">MapLibre · OpenFreeMap © OpenMapTiles · data from OpenStreetMap</div>
+</div>
+<div style="font-size:12.5px;color:#605d5d;margin-top:9px;line-height:1.5">Warm areas carry the higher {{ weightLabel }}. This home sits on the cool edge of the hot block — the usual sign of a renovated house on a cheaper street.</div>
+
+<h3 style="font-size:17px;font-weight:600;margin:22px 0 10px">Mortgage &amp; comps</h3>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+<div style="background:#fff;border:1px solid #e4e2e1;border-radius:14px;padding:13px">
+<div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#7d7979;margin-bottom:7px">Owner position</div>
+<sc-for list="{{ ownerRows }}" as="r" hint-placeholder-count="5">
+<div style="display:flex;justify-content:space-between;font-size:13px;padding:4px 0"><span style="color:#605d5d">{{ r.k }}</span><span style="font-feature-settings:'tnum'">{{ r.v }}</span></div>
+</sc-for>
+</div>
+<div style="background:#fff;border:1px solid #e4e2e1;border-radius:14px;padding:13px">
+<div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#7d7979;margin-bottom:7px">Comps</div>
+<sc-for list="{{ compRows }}" as="r" hint-placeholder-count="4">
+<div style="display:flex;justify-content:space-between;font-size:13px;padding:4px 0"><span style="color:#605d5d">{{ r.k }}</span><span style="font-feature-settings:'tnum'">{{ r.v }}</span></div>
+</sc-for>
+</div>
+</div>
+<div style="font-size:12px;color:#7d7979;margin-top:9px;line-height:1.5">Owner figures come from recorded deeds and can be years out of date. They tell you how much room a seller has, not what they will accept.</div>
+
+<h3 style="font-size:17px;font-weight:600;margin:22px 0 10px">Price &amp; sale history</h3>
+<div style="background:#fff;border:1px dashed #d7d3d3;border-radius:14px;padding:22px 16px;text-align:center">
+<i class="ph-duotone ph-file-dashed" style="font-size:28px;color:#9b9797"></i>
+<div style="font-size:15px;font-weight:600;margin-top:8px">No sale or tax record found</div>
+<div style="font-size:13px;color:#605d5d;line-height:1.5;margin-top:5px;text-wrap:pretty">Santa Clara County has nothing filed against this parcel since 1998. That usually means a long-held family home, not a data error — but it does mean we can’t show a price trail.</div>
+<button onClick="{{ requestRecords }}" style="margin-top:12px;min-height:44px;padding:0 16px;border-radius:999px;border:1px solid #0018a8;background:none;color:#0018a8;font-size:14px;font-weight:600;cursor:pointer">Ask the agent for history</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ isForecast }}" hint-placeholder-val="{{ false }}">
+<div style="background:#fff;border:1px solid #e4e2e1;border-radius:14px;padding:14px">
+<div style="display:flex;align-items:baseline;justify-content:space-between">
+<div><div style="font-size:16px;font-weight:600">Rate predictor</div><div style="font-size:12.5px;color:#605d5d">30-year fixed, national average</div></div>
+<div style="font-size:20px;font-weight:600;font-feature-settings:'tnum'">6.69%</div>
+</div>
+<div style="display:flex;gap:6px;margin:12px 0 6px">
+<sc-for list="{{ ranges }}" as="r" hint-placeholder-count="3">
+<button onClick="{{ r.pick }}" style="{{ r.style }}">{{ r.label }}</button>
+</sc-for>
+</div>
+<svg viewBox="0 0 300 130" style="width:100%;height:140px">
+<line x1="0" y1="110" x2="300" y2="110" stroke="#e4e2e1"></line>
+<line x1="0" y1="74" x2="300" y2="74" stroke="#f0eeed"></line>
+<line x1="0" y1="38" x2="300" y2="38" stroke="#f0eeed"></line>
+<path d="M4 84 L28 70 L52 62 L76 70 L100 58 L124 74 L140 46 L156 30" fill="none" stroke="#201e1d" stroke-width="2"></path>
+<path d="M156 30 L184 48 L212 68 L240 84 L268 92 L296 70" fill="none" stroke="#0018a8" stroke-width="2" stroke-dasharray="5 4"></path>
+<circle cx="156" cy="30" r="3" fill="#201e1d"></circle>
+</svg>
+<div style="display:flex;justify-content:space-between;font-size:11px;color:#7d7979;font-feature-settings:'tnum'"><span>May '26</span><span>today</span><span>Jan '27</span></div>
+<div style="font-size:13px;line-height:1.5;color:#444141;margin-top:10px;text-wrap:pretty">The model has rates easing to about 6.2% by November. On this loan that is roughly $520 a month — worth knowing before you lock, not worth waiting on.</div>
+<div style="font-size:11.5px;color:#7d7979;margin-top:9px">Forecast · updated 8/12/26 09:37 · a model, not a guarantee</div>
+</div>
+
+<h3 style="font-size:17px;font-weight:600;margin:22px 0 10px">Payment calculator</h3>
+<div style="background:#fff;border:1px solid #e4e2e1;border-radius:14px;padding:14px">
+<div style="display:flex;flex-direction:column;gap:13px">
+<div>
+<label style="display:block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#7d7979;margin-bottom:5px">Home price ($)</label>
+<input value="{{ calcPrice }}" onChange="{{ setPrice }}" inputmode="numeric" style="{{ priceInputStyle }}">
+<sc-if value="{{ errPrice }}" hint-placeholder-val="{{ false }}">
+<div style="font-size:12.5px;color:#aa0b56;margin-top:5px;line-height:1.4;display:flex;gap:6px"><i class="ph-duotone ph-warning-circle" style="font-size:15px"></i><span>{{ errPrice }}</span></div>
+</sc-if>
+</div>
+<div>
+<label style="display:block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#7d7979;margin-bottom:5px">Down payment</label>
+<div style="display:flex;gap:8px">
+<input value="{{ calcDown }}" onChange="{{ setDown }}" inputmode="numeric" style="{{ downInputStyle }}">
+<div style="display:flex;border:1px solid #d7d3d3;border-radius:10px;overflow:hidden;flex:none">
+<button onClick="{{ modePct }}" style="{{ modePctStyle }}">%</button>
+<button onClick="{{ modeAmt }}" style="{{ modeAmtStyle }}">$</button>
+</div>
+</div>
+<sc-if value="{{ errDown }}" hint-placeholder-val="{{ false }}">
+<div style="font-size:12.5px;color:#aa0b56;margin-top:5px;line-height:1.4;display:flex;gap:6px"><i class="ph-duotone ph-warning-circle" style="font-size:15px"></i><span>{{ errDown }}</span></div>
+</sc-if>
+</div>
+<div style="display:flex;gap:10px">
+<div style="flex:1">
+<label style="display:block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#7d7979;margin-bottom:5px">Term</label>
+<select value="{{ calcTerm }}" onChange="{{ setTerm }}" style="width:100%;min-height:46px;border:1px solid #d7d3d3;border-radius:10px;padding:0 10px;font-size:15px;background:#fff;color:#201e1d">
+<option value="30">30 years</option>
+<option value="20">20 years</option>
+<option value="15">15 years</option>
+</select>
+</div>
+<div style="flex:1">
+<label style="display:block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#7d7979;margin-bottom:5px">Rate (%)</label>
+<input value="{{ calcRate }}" onChange="{{ setRate }}" inputmode="decimal" style="{{ rateInputStyle }}">
+</div>
+</div>
+<sc-if value="{{ errRate }}" hint-placeholder-val="{{ false }}">
+<div style="font-size:12.5px;color:#aa0b56;margin-top:-4px;line-height:1.4;display:flex;gap:6px"><i class="ph-duotone ph-warning-circle" style="font-size:15px"></i><span>{{ errRate }}</span></div>
+</sc-if>
+</div>
+<div style="margin-top:14px;padding-top:13px;border-top:1px solid #e4e2e1">
+<div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#7d7979">Estimated monthly payment</div>
+<div style="font-size:30px;font-weight:600;font-feature-settings:'tnum';margin-top:3px;color:{{ resultColor }}">{{ calcTotal }}</div>
+<div style="font-size:12.5px;color:#605d5d;line-height:1.5;margin-top:4px">{{ calcCaption }}</div>
+<sc-if value="{{ pmiNote }}" hint-placeholder-val="{{ false }}">
+<div style="margin-top:10px;padding:10px 11px;background:#eaecf7;border-radius:10px;font-size:12.5px;line-height:1.45;color:#001478">{{ pmiNote }}</div>
+</sc-if>
+<sc-if value="{{ calcBroken }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ resetCalc }}" style="margin-top:11px;min-height:44px;width:100%;border-radius:999px;border:1px solid #0018a8;background:none;color:#0018a8;font-size:14px;font-weight:600;cursor:pointer">Reset to this listing</button>
+</sc-if>
+</div>
+</div>
+<div style="font-size:11.5px;color:#7d7979;margin-top:9px;line-height:1.5">Live rate as of 8/6/26. Tax, HOA, insurance and upkeep are held at the listing’s figures, so only the loan portion moves.</div>
+</sc-if>
+
+<sc-if value="{{ isRvb }}" hint-placeholder-val="{{ false }}">
+<sc-if value="{{ rvbResume }}" hint-placeholder-val="{{ false }}">
+<div style="background:#eaecf7;border:1px solid #b0b8e0;border-radius:12px;padding:13px;margin-bottom:14px">
+<div style="font-size:14px;font-weight:600;color:#001478">You were {{ rvbSavedCount }} of 5 questions in</div>
+<div style="font-size:13px;color:#001478;line-height:1.45;margin-top:3px">We kept your answers on this device. Nothing was sent anywhere.</div>
+<div style="display:flex;gap:8px;margin-top:10px">
+<button onClick="{{ rvbDismissResume }}" style="min-height:40px;padding:0 14px;border-radius:999px;border:none;background:#0018a8;color:#fff;font-size:13.5px;font-weight:600;cursor:pointer">Keep going</button>
+<button onClick="{{ rvbReset }}" style="min-height:40px;padding:0 14px;border-radius:999px;border:1px solid #0018a8;background:none;color:#0018a8;font-size:13.5px;cursor:pointer;white-space:nowrap">Start over</button>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{ rvbVerdictOn }}" hint-placeholder-val="{{ false }}">
+<div style="background:#fff;border:1px solid #e4e2e1;border-left:3px solid #0018a8;border-radius:14px;padding:16px;margin-bottom:14px">
+<div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#0018a8">Verdict</div>
+<div style="font-size:21px;font-weight:600;margin-top:6px;line-height:1.25">{{ rvbHeadline }}</div>
+<div style="font-size:14px;line-height:1.55;color:#444141;margin-top:8px;text-wrap:pretty">{{ rvbBody }}</div>
+<div style="font-size:11.5px;color:#7d7979;margin-top:10px">Estimate · your inputs · 36% DTI guideline · not a lending decision</div>
+</div>
+</sc-if>
+<div style="background:#fff;border:1px solid #e4e2e1;border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:14px">
+<div>
+<label style="display:block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#7d7979;margin-bottom:6px">Income type</label>
+<div style="display:flex;border:1px solid #d7d3d3;border-radius:10px;overflow:hidden">
+<sc-for list="{{ incomeTypes }}" as="t" hint-placeholder-count="2">
+<button onClick="{{ t.pick }}" style="{{ t.style }}">{{ t.label }}</button>
+</sc-for>
+</div>
+</div>
+<div>
+<label style="display:block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#7d7979;margin-bottom:5px">Gross annual income ($)</label>
+<input value="{{ rvbIncome }}" onChange="{{ setRvbIncome }}" placeholder="120,000" inputmode="numeric" style="width:100%;box-sizing:border-box;min-height:46px;border:1px solid #d7d3d3;border-radius:10px;padding:0 12px;font-size:15px;background:#fff;color:#201e1d">
+</div>
+<div style="display:flex;gap:10px">
+<div style="flex:1"><label style="display:block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#7d7979;margin-bottom:5px">Monthly debts ($)</label>
+<input value="{{ rvbDebts }}" onChange="{{ setRvbDebts }}" placeholder="400" inputmode="numeric" style="width:100%;box-sizing:border-box;min-height:46px;border:1px solid #d7d3d3;border-radius:10px;padding:0 12px;font-size:15px;background:#fff;color:#201e1d"></div>
+<div style="flex:1"><label style="display:block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#7d7979;margin-bottom:5px">Reserves (mo)</label>
+<input value="{{ rvbReserves }}" onChange="{{ setRvbReserves }}" placeholder="6" inputmode="numeric" style="width:100%;box-sizing:border-box;min-height:46px;border:1px solid #d7d3d3;border-radius:10px;padding:0 12px;font-size:15px;background:#fff;color:#201e1d"></div>
+</div>
+<div>
+<label style="display:block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#7d7979;margin-bottom:5px">Credit score</label>
+<input value="{{ rvbCredit }}" onChange="{{ setRvbCredit }}" placeholder="720" inputmode="numeric" style="width:100%;box-sizing:border-box;min-height:46px;border:1px solid #d7d3d3;border-radius:10px;padding:0 12px;font-size:15px;background:#fff;color:#201e1d">
+<div style="font-size:11.5px;color:#7d7979;margin-top:5px">A soft estimate is fine. Nothing here touches your credit file.</div>
+</div>
+<button onClick="{{ getVerdict }}" style="min-height:48px;border-radius:999px;border:1px solid #001478;background:#0018a8;color:#fff;font-size:15px;font-weight:600;cursor:pointer">Get the verdict</button>
+</div>
+<div style="font-size:11.5px;color:#7d7979;margin-top:10px;line-height:1.5">Answers stay on this device until you ask for a verdict. Leave any time — we keep your place.</div>
+</sc-if>
+
+<sc-if value="{{ isNbhd }}" hint-placeholder-val="{{ false }}">
+<div style="font-size:14px;line-height:1.5;color:#444141">Inside San Jose, drawn from Reddit, local forums and city planning records. Opinions, not statistics.</div>
+<div class="nsb" style="display:flex;gap:7px;overflow-x:auto;margin:12px 0 14px">
+<sc-for list="{{ topics }}" as="t" hint-placeholder-count="6">
+<button onClick="{{ t.pick }}" style="{{ t.style }}">{{ t.label }}</button>
+</sc-for>
+</div>
+<div style="font-size:19px;font-weight:600;color:#0018a8;margin-bottom:9px">{{ topicLabel }}</div>
+<div style="background:#fff;border-left:3px solid #0018a8;border-radius:0 12px 12px 0;padding:14px">
+<p style="font-size:14.5px;line-height:1.6;margin:0;font-style:italic;text-wrap:pretty">{{ topicQuote }}</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:10px;margin-top:14px">
+<sc-for list="{{ topicNotes }}" as="n" hint-placeholder-count="3">
+<div style="background:#fff;border:1px solid #e4e2e1;border-radius:12px;padding:13px">
+<div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#7d7979;margin-bottom:5px">{{ n.src }}</div>
+<div style="font-size:13.5px;line-height:1.55;color:#201e1d;text-wrap:pretty">{{ n.t }}</div>
+</div>
+</sc-for>
+</div>
+<div style="font-size:11.5px;color:#7d7979;margin-top:12px;line-height:1.5">Summarised by Snaphomz AI from public posts. Individual accounts, not verified fact.</div>
+</sc-if>
+
+<sc-if value="{{ isSnaplife }}" hint-placeholder-val="{{ false }}">
+<div style="background:#fff;border:1px solid #e4e2e1;border-radius:14px;overflow:hidden">
+<img src="img/exterior.png" alt="Street view of the block" style="width:100%;height:170px;object-fit:cover;display:block">
+<div style="padding:15px">
+<div style="font-size:19px;font-weight:600;letter-spacing:-.01em">Ever think what life at 5308 Gatewood Ln looks like?</div>
+<p style="font-size:14px;line-height:1.6;color:#444141;margin:9px 0 0;text-wrap:pretty">Answer a few quick questions and SnapAI builds a full picture of your life at this address — your commute, school fit, and weekend spots. See if this home actually fits your lifestyle before you make an offer.</p>
+<div style="display:flex;flex-wrap:wrap;gap:7px;margin-top:13px">
+<span style="font-size:12.5px;padding:6px 11px;border:1px solid #d7d3d3;border-radius:999px;display:flex;align-items:center;gap:6px"><i class="ph-duotone ph-car" style="color:#0018a8"></i>Commute analysis</span>
+<span style="font-size:12.5px;padding:6px 11px;border:1px solid #d7d3d3;border-radius:999px;display:flex;align-items:center;gap:6px"><i class="ph-duotone ph-graduation-cap" style="color:#0018a8"></i>School fit</span>
+<span style="font-size:12.5px;padding:6px 11px;border:1px solid #d7d3d3;border-radius:999px;display:flex;align-items:center;gap:6px"><i class="ph-duotone ph-fork-knife" style="color:#0018a8"></i>Dining &amp; lifestyle</span>
+</div>
+<button onClick="{{ startSim }}" style="margin-top:15px;width:100%;min-height:48px;border-radius:999px;border:1px solid #001478;background:#0018a8;color:#fff;font-size:15px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px">Start lifestyle simulation <i class="ph-duotone ph-arrow-right"></i></button>
+<div style="font-size:11.5px;color:#7d7979;margin-top:10px;line-height:1.5">Takes about two minutes. You can stop anywhere — we keep what you’ve answered.</div>
+</div>
+</div>
+</sc-if>
+
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ viewer }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Photo viewer" style="position:absolute;inset:0;z-index:70;background:#201e1d;display:flex;flex-direction:column;animation:fadeIn .2s ease">
+<div style="flex:none;padding:58px 14px 10px;display:flex;align-items:center;gap:10px">
+<button onClick="{{ closeViewer }}" aria-label="Close" style="width:44px;height:44px;border:none;background:none;color:#f3f2f2;font-size:20px;cursor:pointer">✕</button>
+<div style="flex:1;color:#f3f2f2;font-size:15px">All photos <span style="color:#9b9797;font-feature-settings:'tnum'">· 48</span></div>
+<button onClick="{{ noop }}" style="min-height:36px;padding:0 12px;border-radius:999px;border:1px solid rgba(243,242,242,.4);background:none;color:#f3f2f2;font-size:12.5px;cursor:pointer;display:flex;align-items:center;gap:6px"><i class="ph-duotone ph-sparkle"></i>By room</button>
+</div>
+<div class="nsb" style="flex:1;overflow-y:auto;padding:0 12px 30px">
+<sc-for list="{{ viewerGroups }}" as="g" hint-placeholder-count="3">
+<div style="margin-bottom:20px">
+<div style="position:sticky;top:0;background:#201e1d;padding:8px 2px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#9b9797;z-index:2">{{ g.title }}</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+<sc-for list="{{ g.items }}" as="p" hint-placeholder-count="4">
+<div style="{{ p.style }}"></div>
+</sc-for>
+</div>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ tourOpen }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Tour booking" style="position:absolute;inset:0;z-index:9;background:rgba(32,30,29,.45);display:flex;align-items:flex-end;animation:fadeIn .2s ease">
+<div style="width:100%;background:#f3f2f2;border-radius:20px 20px 0 0;max-height:86%;display:flex;flex-direction:column;animation:sheetUp .3s cubic-bezier(.32,.72,0,1)">
+<div style="flex:none;padding:14px 15px 10px;border-bottom:1px solid #e4e2e1;display:flex;align-items:center;gap:10px">
+<div style="flex:1"><div style="font-size:17px;font-weight:600">{{ tourTitle }}</div><div style="font-size:12px;color:#7d7979">{{ tourStepLabel }}</div></div>
+<button onClick="{{ closeTour }}" aria-label="Close" style="width:40px;height:40px;border:none;background:none;font-size:17px;color:#605d5d;cursor:pointer">✕</button>
+</div>
+<div class="nsb" style="flex:1;overflow-y:auto;padding:15px">
+<sc-if value="{{ tourStep0 }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;flex-direction:column;gap:9px">
+<sc-for list="{{ tourTypes }}" as="t" hint-placeholder-count="3">
+<button onClick="{{ t.pick }}" style="{{ t.style }}">
+<i class="{{ t.icon }}" style="font-size:22px;color:#0018a8"></i>
+<span style="flex:1;text-align:left"><span style="display:block;font-size:15px;font-weight:600">{{ t.label }}</span><span style="display:block;font-size:12.5px;color:#605d5d;line-height:1.35;margin-top:1px">{{ t.sub }}</span></span>
+</button>
+</sc-for>
+</div>
+</sc-if>
+<sc-if value="{{ tourStep1 }}" hint-placeholder-val="{{ false }}">
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px">
+<sc-for list="{{ tourDates }}" as="d" hint-placeholder-count="8">
+<button onClick="{{ d.pick }}" style="{{ d.style }}"><span style="font-size:11px;color:#7d7979">{{ d.dow }}</span><span style="font-size:17px;font-weight:600;font-feature-settings:'tnum'">{{ d.day }}</span></button>
+</sc-for>
+</div>
+<div style="font-size:12.5px;color:#605d5d;margin-top:11px;line-height:1.5">Greyed days are outside the seller's showing window. The open house on Sat 8/15 needs no appointment.</div>
+</sc-if>
+<sc-if value="{{ tourStep2 }}" hint-placeholder-val="{{ false }}">
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
+<sc-for list="{{ tourTimes }}" as="t" hint-placeholder-count="6">
+<button onClick="{{ t.pick }}" style="{{ t.style }}">{{ t.label }}</button>
+</sc-for>
+</div>
+<div style="font-size:12.5px;color:#605d5d;margin-top:11px;line-height:1.5">Times refresh every 30 seconds. Booking one holds it for 10 minutes.</div>
+</sc-if>
+<sc-if value="{{ tourStep3 }}" hint-placeholder-val="{{ false }}">
+<div style="background:#fff;border:1px solid #e4e2e1;border-radius:14px;padding:15px">
+<div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#7d7979">You're requesting</div>
+<div style="font-size:19px;font-weight:600;margin-top:6px;line-height:1.3">{{ tourSummary }}</div>
+<div style="font-size:14px;color:#444141;margin-top:4px">5308 Gatewood Ln, San Jose</div>
+<div style="margin-top:13px;padding-top:12px;border-top:1px solid #e4e2e1;font-size:13px;line-height:1.55;color:#444141">A Snaphomz agent confirms within two hours. Nothing is booked until they do — you'll get a text either way, and cancelling costs nothing.</div>
+</div>
+</sc-if>
+<sc-if value="{{ tourErr }}" hint-placeholder-val="{{ false }}">
+<div style="margin-top:12px;padding:11px 12px;background:#ffdee6;border-radius:10px;font-size:13px;line-height:1.45;color:#79093d;display:flex;gap:8px"><i class="ph-duotone ph-warning-circle" style="font-size:17px"></i><span>{{ tourErr }}</span></div>
+</sc-if>
+</div>
+<div style="flex:none;padding:12px 15px 24px;border-top:1px solid #e4e2e1;display:flex;gap:9px">
+<sc-if value="{{ tourCanBack }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ tourBack }}" style="min-height:48px;padding:0 18px;border-radius:999px;border:1px solid #d7d3d3;background:none;font-size:15px;cursor:pointer;color:#444141">Back</button>
+</sc-if>
+<button onClick="{{ tourNext }}" style="flex:1;min-height:48px;border-radius:999px;border:1px solid #001478;background:#0018a8;color:#fff;font-size:15px;font-weight:600;cursor:pointer">{{ tourCta }}</button>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ preOpen }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Pre-approval" style="position:absolute;inset:0;z-index:8;background:#f3f2f2;display:flex;flex-direction:column;animation:sheetUp .28s cubic-bezier(.32,.72,0,1)">
+<div style="flex:none;padding:58px 15px 10px;border-bottom:1px solid #e4e2e1">
+<div style="display:flex;align-items:center;gap:10px">
+<button onClick="{{ closePre }}" aria-label="Close" style="width:44px;height:44px;border:none;background:none;font-size:20px;color:#201e1d;cursor:pointer;margin-left:-8px"><i class="ph-duotone ph-caret-left"></i></button>
+<div style="flex:1"><div style="font-size:17px;font-weight:600">Get pre-approved</div><div style="font-size:12px;color:#7d7979">{{ preStepLabel }}</div></div>
+</div>
+<div style="height:3px;background:#e4e2e1;border-radius:999px;margin-top:8px"><div style="{{ preBarStyle }}"></div></div>
+</div>
+<div class="nsb" style="flex:1;overflow-y:auto;padding:18px 15px 30px">
+<div style="font-size:21px;font-weight:600;line-height:1.25;letter-spacing:-.01em">{{ preQuestion }}</div>
+<div style="font-size:13.5px;color:#605d5d;line-height:1.5;margin-top:6px">{{ prePrompt }}</div>
+<div style="margin-top:16px">
+<sc-if value="{{ preStep0 }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;flex-direction:column;gap:9px">
+<sc-for list="{{ employmentTypes }}" as="e" hint-placeholder-count="3">
+<button onClick="{{ e.pick }}" style="{{ e.style }}">{{ e.label }}</button>
+</sc-for>
+</div>
+</sc-if>
+<sc-if value="{{ preStep1 }}" hint-placeholder-val="{{ false }}">
+<label style="display:block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#7d7979;margin-bottom:5px">Gross annual income ($)</label>
+<input value="{{ preIncome }}" onChange="{{ setPreIncome }}" placeholder="240,000" inputmode="numeric" style="width:100%;box-sizing:border-box;min-height:50px;border:1px solid #d7d3d3;border-radius:10px;padding:0 12px;font-size:17px;background:#fff;color:#201e1d;font-feature-settings:'tnum'">
+<label style="display:block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#7d7979;margin:14px 0 5px">Monthly debt payments ($)</label>
+<input value="{{ preDebts }}" onChange="{{ setPreDebts }}" placeholder="850" inputmode="numeric" style="width:100%;box-sizing:border-box;min-height:50px;border:1px solid #d7d3d3;border-radius:10px;padding:0 12px;font-size:17px;background:#fff;color:#201e1d;font-feature-settings:'tnum'">
+<div style="font-size:12.5px;color:#7d7979;margin-top:7px;line-height:1.5">Car, student and card minimums. Skip rent — that's the thing you'd be replacing.</div>
+</sc-if>
+<sc-if value="{{ preStep2 }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;gap:9px">
+<sc-for list="{{ creditBands }}" as="c" hint-placeholder-count="4">
+<button onClick="{{ c.pick }}" style="{{ c.style }}"><span style="flex:1;text-align:left">{{ c.label }}</span><span style="font-size:12.5px;color:#605d5d;font-feature-settings:'tnum'">{{ c.rate }}</span></button>
+</sc-for>
+</div>
+<label style="display:block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#7d7979;margin:16px 0 5px">Cash for down payment ($)</label>
+<input value="{{ preDown }}" onChange="{{ setPreDown }}" inputmode="numeric" style="width:100%;box-sizing:border-box;min-height:50px;border:1px solid #d7d3d3;border-radius:10px;padding:0 12px;font-size:17px;background:#fff;color:#201e1d;font-feature-settings:'tnum'">
+</sc-if>
+<sc-if value="{{ preStep3 }}" hint-placeholder-val="{{ false }}">
+<label style="display:block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#7d7979;margin-bottom:5px">Full name</label>
+<input value="{{ preName }}" onChange="{{ setPreName }}" placeholder="Jordan Ellis" style="width:100%;box-sizing:border-box;min-height:50px;border:1px solid #d7d3d3;border-radius:10px;padding:0 12px;font-size:17px;background:#fff;color:#201e1d">
+<label style="display:block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#7d7979;margin:14px 0 5px">Mobile</label>
+<input value="{{ prePhone }}" onChange="{{ setPrePhone }}" placeholder="(408) 555-0148" inputmode="tel" style="width:100%;box-sizing:border-box;min-height:50px;border:1px solid #d7d3d3;border-radius:10px;padding:0 12px;font-size:17px;background:#fff;color:#201e1d">
+<button onClick="{{ toggleConsent }}" style="margin-top:16px;width:100%;display:flex;gap:11px;align-items:flex-start;text-align:left;background:#fff;border:1px solid #d7d3d3;border-radius:12px;padding:13px;cursor:pointer">
+<span style="{{ consentBoxStyle }}">✓</span>
+<span style="flex:1;font-size:13px;line-height:1.5;color:#444141">Run a soft credit check. It does not affect your score, and Snaphomz never sells this data. You can withdraw it any time.</span>
+</button>
+</sc-if>
+<sc-if value="{{ preStep4 }}" hint-placeholder-val="{{ false }}">
+<div style="background:#fff;border:1px solid #e4e2e1;border-left:3px solid #0018a8;border-radius:14px;padding:16px">
+<div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#0018a8">Indicative only</div>
+<div style="font-size:29px;font-weight:600;margin-top:6px;font-feature-settings:'tnum'">{{ preMax }}</div>
+<div style="font-size:13.5px;color:#444141;line-height:1.55;margin-top:6px;text-wrap:pretty">{{ preVerdict }}</div>
+<div style="margin-top:13px;padding-top:12px;border-top:1px solid #e4e2e1;display:flex;flex-direction:column;gap:6px;font-size:13px">
+<div style="display:flex;justify-content:space-between"><span style="color:#605d5d">Rate used</span><span style="font-feature-settings:'tnum'">{{ preRate }}</span></div>
+<div style="display:flex;justify-content:space-between"><span style="color:#605d5d">This listing</span><span style="font-feature-settings:'tnum'">{{ priceLabel }}</span></div>
+</div>
+<div style="font-size:11.5px;color:#7d7979;margin-top:11px;line-height:1.5">Estimate from what you told us · 36% DTI guideline · not a commitment to lend. A lender letter takes about a day.</div>
+</div>
+</sc-if>
+</div>
+<sc-if value="{{ preErr }}" hint-placeholder-val="{{ false }}">
+<div style="margin-top:14px;padding:11px 12px;background:#ffdee6;border-radius:10px;font-size:13px;line-height:1.45;color:#79093d;display:flex;gap:8px"><i class="ph-duotone ph-warning-circle" style="font-size:17px"></i><span>{{ preErr }}</span></div>
+</sc-if>
+</div>
+<div style="flex:none;padding:12px 15px 26px;border-top:1px solid #e4e2e1;display:flex;gap:9px">
+<sc-if value="{{ preCanBack }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ preBack }}" style="min-height:48px;padding:0 18px;border-radius:999px;border:1px solid #d7d3d3;background:none;font-size:15px;cursor:pointer;color:#444141">Back</button>
+</sc-if>
+<button onClick="{{ preAdvance }}" style="flex:1;min-height:48px;border-radius:999px;border:1px solid #001478;background:#0018a8;color:#fff;font-size:15px;font-weight:600;cursor:pointer">{{ preCta }}</button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ chat }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Ask Snaphomz AI" style="position:absolute;inset:0;z-index:9;background:rgba(32,30,29,.45);display:flex;align-items:flex-end;animation:fadeIn .2s ease">
+<div style="width:100%;height:78%;background:#f3f2f2;border-radius:20px 20px 0 0;display:flex;flex-direction:column;animation:sheetUp .3s cubic-bezier(.32,.72,0,1)">
+<div style="flex:none;padding:14px 15px 11px;border-bottom:1px solid #e4e2e1;display:flex;align-items:center;gap:10px">
+<div style="width:32px;height:32px;border-radius:50%;background:#0018a8;display:flex;align-items:center;justify-content:center;color:#fff"><i class="ph-duotone ph-sparkle"></i></div>
+<div style="flex:1"><div style="font-size:16px;font-weight:600">Ask Snaphomz AI <span style="font-size:10px;letter-spacing:.1em;background:#eaecf7;color:#0018a8;padding:2px 6px;border-radius:4px;vertical-align:middle">BETA</span></div><div style="font-size:11.5px;color:#7d7979">Answers about this address only</div></div>
+<button onClick="{{ closeChat }}" aria-label="Close" style="width:40px;height:40px;border:none;background:none;font-size:17px;color:#605d5d;cursor:pointer">✕</button>
+</div>
+<div class="nsb" style="flex:1;overflow-y:auto;padding:14px 15px;display:flex;flex-direction:column;gap:10px">
+<sc-if value="{{ chatEmpty }}" hint-placeholder-val="{{ true }}">
+<div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#7d7979">Quick questions</div>
+<sc-for list="{{ quickQs }}" as="q" hint-placeholder-count="4">
+<button onClick="{{ q.ask }}" style="width:100%;text-align:left;background:#fff;border:1px solid #d7d3d3;border-radius:12px;padding:13px;font-size:14px;cursor:pointer;color:#201e1d;line-height:1.4" style-hover="border-color:#0018a8">{{ q.t }}</button>
+</sc-for>
+</sc-if>
+<sc-for list="{{ chatLog }}" as="m" hint-placeholder-count="0">
+<div style="{{ m.style }}">{{ m.t }}</div>
+</sc-for>
+</div>
+<div style="flex:none;padding:11px 15px 24px;border-top:1px solid #e4e2e1;display:flex;gap:9px;align-items:center">
+<input value="{{ draft }}" onChange="{{ setDraft }}" onKeyDown="{{ chatKey }}" placeholder="Ask about this home" style="flex:1;min-height:46px;border:1px solid #d7d3d3;border-radius:999px;padding:0 15px;font-size:15px;background:#fff;color:#201e1d">
+<button onClick="{{ sendChat }}" aria-label="Send" style="width:46px;height:46px;flex:none;border-radius:50%;border:1px solid #001478;background:#0018a8;color:#fff;font-size:18px;cursor:pointer"><i class="ph-duotone ph-arrow-up"></i></button>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ savePrompt }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;inset:0;z-index:9;background:rgba(32,30,29,.45);display:flex;align-items:flex-end;animation:fadeIn .2s ease">
+<div style="width:100%;background:#f3f2f2;border-radius:20px 20px 0 0;padding:20px 18px 28px;animation:sheetUp .3s cubic-bezier(.32,.72,0,1)">
+<div style="width:36px;height:4px;border-radius:999px;background:#d7d3d3;margin:0 auto 16px"></div>
+<div style="font-size:21px;font-weight:600;line-height:1.25">Save this home to your account</div>
+<p style="font-size:14px;line-height:1.55;color:#444141;margin:8px 0 0;text-wrap:pretty">An account lets us alert you when the price moves or the status changes — this listing is a week old and already below comps, so that matters here.</p>
+<button onClick="{{ finishSave }}" style="margin-top:16px;width:100%;min-height:50px;border-radius:999px;border:1px solid #001478;background:#0018a8;color:#fff;font-size:15px;font-weight:600;cursor:pointer">Continue with email</button>
+<button onClick="{{ guestSave }}" style="margin-top:9px;width:100%;min-height:50px;border-radius:999px;border:1px solid #d7d3d3;background:none;color:#201e1d;font-size:15px;cursor:pointer">Just save it on this device</button>
+<button onClick="{{ cancelSave }}" style="margin-top:9px;width:100%;min-height:44px;border:none;background:none;color:#605d5d;font-size:14px;cursor:pointer">Not now</button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ share }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;inset:0;z-index:9;background:rgba(32,30,29,.45);display:flex;align-items:flex-end;animation:fadeIn .2s ease">
+<div style="width:100%;background:#f3f2f2;border-radius:20px 20px 0 0;padding:20px 18px 28px;animation:sheetUp .3s cubic-bezier(.32,.72,0,1)">
+<div style="width:36px;height:4px;border-radius:999px;background:#d7d3d3;margin:0 auto 16px"></div>
+<div style="font-size:18px;font-weight:600">Share 5308 Gatewood Ln</div>
+<div style="display:flex;gap:10px;margin-top:15px">
+<sc-for list="{{ shareTargets }}" as="t" hint-placeholder-count="4">
+<button onClick="{{ t.go }}" style="flex:1;min-height:76px;border-radius:14px;border:1px solid #d7d3d3;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;cursor:pointer;font-size:12px;color:#444141"><i class="{{ t.icon }}" style="font-size:22px;color:#0018a8"></i>{{ t.label }}</button>
+</sc-for>
+</div>
+<div style="margin-top:14px;padding:12px;background:#fff;border:1px solid #e4e2e1;border-radius:12px;font-size:12.5px;color:#605d5d;line-height:1.5">Anyone with the link sees the listing and the public estimates. Your saved notes and pre-approval stay private.</div>
+<button onClick="{{ closeShare }}" style="margin-top:12px;width:100%;min-height:46px;border:none;background:none;color:#605d5d;font-size:14px;cursor:pointer">Cancel</button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ promo }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;left:15px;right:15px;bottom:98px;z-index:7;background:#fff;border:1px solid #d7d3d3;border-radius:16px;padding:15px;box-shadow:0 12px 32px rgba(45,43,43,.22);animation:popIn .3s cubic-bezier(.32,.72,0,1)">
+<button onClick="{{ closePromo }}" aria-label="Dismiss" style="position:absolute;top:8px;right:8px;width:34px;height:34px;border:none;background:none;color:#7d7979;font-size:15px;cursor:pointer">✕</button>
+<div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#aa0b56">Snaphomz offer</div>
+<div style="font-size:17px;font-weight:600;margin-top:5px;line-height:1.3;padding-right:24px">$1,200 back, and up to $25,000 in potential savings</div>
+<div style="font-size:13px;color:#605d5d;line-height:1.5;margin-top:5px">Buy with a Snaphomz agent and we rebate part of our commission at close.</div>
+<div style="display:flex;gap:9px;margin-top:12px">
+<button onClick="{{ closePromo }}" style="flex:1;min-height:44px;border-radius:999px;border:1px solid #001478;background:#0018a8;color:#fff;font-size:14px;font-weight:600;cursor:pointer">See the terms</button>
+<button onClick="{{ closePromo }}" style="min-height:44px;padding:0 14px;border-radius:999px;border:1px solid #d7d3d3;background:none;color:#605d5d;font-size:14px;cursor:pointer">No thanks</button>
+</div>
+</div>
+</sc-if>
+
+</div>
+</x-import>
+<div style="font-size:12px;color:#7d7979;text-align:center;max-width:390px;line-height:1.5">390 × 844 · iPhone. Everything below the price is reachable in two taps.</div>
+</div>
+
+<sc-if value="{{ demoPanel }}" hint-placeholder-val="{{ true }}">
+<div style="width:330px;flex:none;display:flex;flex-direction:column;gap:22px">
+<div>
+<div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#7d7979">Break it on purpose</div>
+<p style="font-size:13px;line-height:1.5;color:#605d5d;margin:8px 0 0">Each of these is a real state in the prototype, with its own copy. Tap one, then use the phone.</p>
+</div>
+<div style="display:flex;flex-direction:column;gap:10px">
+<sc-for list="{{ triggers }}" as="g" hint-placeholder-count="6">
+<button onClick="{{ g.run }}" style="text-align:left;background:#fff;border:1px solid #d7d3d3;border-radius:12px;padding:13px 14px;cursor:pointer;display:flex;flex-direction:column;gap:4px" style-hover="border-color:#0018a8;background:#f8f4f4">
+<span style="font-size:14.5px;font-weight:600;color:#201e1d">{{ g.label }}</span>
+<span style="font-size:12.5px;line-height:1.45;color:#605d5d">{{ g.note }}</span>
+</button>
+</sc-for>
+</div>
+<div style="border-top:1px solid #d7d3d3;padding-top:16px">
+<div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#7d7979;margin-bottom:8px">Still open</div>
+<div style="font-size:13px;line-height:1.5;color:#605d5d;display:flex;flex-direction:column;gap:7px">
+<div>Real photography for 47 of 48 slides — only the kitchen exists in your screenshots.</div>
+<div>Compare mode is a tray here; a full side-by-side screen is the next piece.</div>
+<div>SnapLife simulation is entered but not built out.</div>
+</div>
+</div>
+</div>
+</sc-if>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1400,&quot;height&quot;:1100},&quot;promoAfterPx&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:900,&quot;tsType&quot;:&quot;number&quot;,&quot;min&quot;:300,&quot;max&quot;:4000,&quot;step&quot;:100,&quot;unit&quot;:&quot;px&quot;,&quot;section&quot;:&quot;Behaviour&quot;},&quot;sourceLines&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Behaviour&quot;},&quot;demoPanel&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Behaviour&quot;}}">
+const money = n => '$' + Math.round(n).toLocaleString('en-US');
+const PMT = (p, r, n) => { const i = r / 1200; return i === 0 ? p / n : p * i / (1 - Math.pow(1 + i, -n)); };
+const OTHER = { tax: 1654, hoa: 562, ins: 463, util: 290, pest: 55, maint: 1323 };
+
+class Component extends DCLogic {
+  state = {
+    sheet: null, photo: 0, room: 'All', viewer: false, signal: 0,
+    expHighlights: false, saved: false, savePrompt: false, share: false,
+    chat: false, chatLog: [], draft: '',
+    promo: false, promoDone: false, scrolled: 0,
+    price: 1588000, priceChanged: false, pending: false, alert: null,
+    tourOpen: false, tourStep: 0, tourType: '', tourDate: '', tourTime: '', tourErr: '', tourDone: false,
+    preOpen: false, preStep: 0, preErr: '', pre: { employment: '', income: '', debts: '', credit: '', down: '317600', name: '', phone: '', consent: false },
+    calc: { price: '1588000', down: '20', mode: '%', term: '30', rate: '6.69' },
+    rvb: { type: 'W2 employee', income: '', debts: '', reserves: '', credit: '' }, rvbSaved: null, rvbVerdict: null, rvbResume: false,
+    compare: [], compareOn: false, weight: '$/sqft', topic: 'Market', simTab: 'For Sale',
+    toast: '', toastAction: '', toastFn: null, schoolsAll: false, offersAll: false
+  };
+
+  set = (k, v) => this.setState({ [k]: v });
+  flash = (msg, action, fn) => {
+    this.setState({ toast: msg, toastAction: action || '', toastFn: fn || null });
+    clearTimeout(this._t); this._t = setTimeout(() => this.setState({ toast: '' }), 4200);
+  };
+
+  calcOut() {
+    const c = this.state.calc;
+    const num = v => parseFloat(String(v).replace(/[^0-9.\-]/g, ''));
+    const price = num(c.price);
+    const rate = parseFloat(c.rate);
+    const term = parseInt(c.term, 10) || 30;
+    const downRaw = num(c.down);
+    const errs = {};
+    if (!price || price <= 0) errs.price = 'Enter a price above $0. We can’t estimate a payment without one.';
+    else if (price > 50000000) errs.price = 'That’s above the range we model. Try $50,000,000 or less.';
+    const downAmt = c.mode === '%' ? (price || 0) * (downRaw || 0) / 100 : (downRaw || 0);
+    if (isNaN(downRaw) || downRaw < 0) errs.down = 'Down payment can’t be negative.';
+    else if (!errs.price && price > 0 && downAmt >= price) errs.down = 'That covers the whole price — there’s no loan left to estimate.';
+    if (!rate || rate <= 0) errs.rate = 'Enter a rate above 0%.';
+    else if (rate > 25) errs.rate = 'Above 25% is outside anything we can source. Check the number.';
+    const loan = Math.max(0, (price || 0) - downAmt);
+    const ltv = price ? loan / price : 0;
+    let pmi = 0, note = '';
+    if (!Object.keys(errs).length) {
+      if (ltv > 0.8) { pmi = loan * 0.0055 / 12; note = 'Under 20% down, lenders add PMI. We’ve included ' + money(pmi) + '/mo.'; }
+      if (downRaw === 0) note = '0% down is rare outside VA and USDA loans. We kept the estimate, but treat it as a ceiling. PMI of ' + money(pmi) + '/mo is included.';
+    }
+    const pi = Object.keys(errs).length ? 0 : PMT(loan, rate, term * 12);
+    const total = pi + pmi + OTHER.tax + OTHER.hoa + OTHER.ins + OTHER.util + OTHER.pest + OTHER.maint;
+    return { errs, ok: !Object.keys(errs).length, pi, pmi, note, total, loan, downAmt };
+  }
+
+  monthly() {
+    const base = PMT(this.state.price * 0.8, 6.69, 360);
+    return base + OTHER.tax + OTHER.hoa + OTHER.ins + OTHER.util + OTHER.pest + OTHER.maint;
+  }
+
+  openSheet = id => this.setState({ sheet: id, rvbResume: id === 'rvb' && !!this.state.rvbSaved });
+  closeSheet = () => {
+    const s = this.state;
+    if (s.sheet === 'rvb') {
+      const filled = ['income', 'debts', 'reserves', 'credit'].filter(k => s.rvb[k]).length;
+      if (filled > 0 && !s.rvbVerdict) {
+        this.setState({ rvbSaved: filled, sheet: null });
+        this.flash('Saved your ' + filled + ' answers. Pick up any time.', 'Resume', () => this.openSheet('rvb'));
+        return;
+      }
+    }
+    this.setState({ sheet: null });
+  };
+
+  onPageScroll = e => {
+    const y = e.target.scrollTop;
+    if (!this.state.promoDone && y > (this.props.promoAfterPx ?? 900)) this.setState({ promo: true, promoDone: true });
+    this.state.scrolled = y;
+  };
+  onGalleryScroll = e => {
+    const i = Math.round(e.target.scrollLeft / 390);
+    if (i !== this.state.photo) this.setState({ photo: i });
+  };
+  onSignalScroll = e => {
+    const i = Math.round(e.target.scrollLeft / 307);
+    if (i !== this.state.signal) this.setState({ signal: i });
+  };
+
+  priceDrop = () => {
+    this.setState({
+      priceChanged: true, price: 1565000,
+      alert: { title: 'The price changed while you were reading', body: 'The seller dropped it $23,000 about a minute ago. Every number on this page still shows the old price until you refresh.', action: 'Use the new price' }
+    });
+  };
+  goPending = () => {
+    this.setState({
+      pending: true,
+      alert: { title: 'This home is now sale pending', body: 'The seller accepted an offer. Tours are paused, but roughly 1 in 8 pending sales falls through — we can watch it for you.', action: 'Notify me if it returns' }
+    });
+  };
+  acceptAlert = () => {
+    const a = this.state.alert;
+    this.setState({ alert: null });
+    this.flash(this.state.pending ? 'Watching this listing. We’ll text you if it comes back.' : 'Updated. Monthly cost is now ' + money(this.monthly()) + '.');
+  };
+  dismissAlert = () => this.setState({ alert: null });
+
+  toggleSave = () => {
+    if (this.state.saved) { this.setState({ saved: false }); this.flash('Removed from saved homes.'); return; }
+    this.setState({ savePrompt: true });
+  };
+  finishSave = () => { this.setState({ savePrompt: false, saved: true }); this.flash('Saved. We’ll email you if the price moves.'); };
+  guestSave = () => { this.setState({ savePrompt: false, saved: true }); this.flash('Saved on this device only. Create an account to keep it.', 'Create', () => this.setState({ savePrompt: true })); };
+
+  submitTour = () => {
+    const s = this.state;
+    if (s.tourStep === 0 && !s.tourType) { this.setState({ tourErr: 'Pick how you’d like to see it.' }); return; }
+    if (s.tourStep === 1 && !s.tourDate) { this.setState({ tourErr: 'Pick a day.' }); return; }
+    if (s.tourStep === 2) {
+      if (!s.tourTime) { this.setState({ tourErr: 'Pick a time.' }); return; }
+      if (s.tourTime === '11:00 AM' && !s._retry) { this.setState({ tourErr: 'That slot was taken while you were choosing. The times below are live.', tourTime: '', _retry: true }); return; }
+      this.setState({ tourStep: 3, tourErr: '' }); return;
+    }
+    this.setState({ tourStep: s.tourStep + 1, tourErr: '' });
+  };
+  confirmTour = () => { this.setState({ tourOpen: false, tourDone: true, tourStep: 0 }); this.flash('Tour requested. An agent confirms within 2 hours.'); };
+
+  preNext = () => {
+    const s = this.state, p = s.pre;
+    if (s.preStep === 0 && !p.employment) return this.setState({ preErr: 'Pick one so we use the right income rules.' });
+    if (s.preStep === 1) {
+      const inc = parseFloat(String(p.income).replace(/[^0-9.]/g, ''));
+      if (!inc) return this.setState({ preErr: 'We need gross annual income to estimate anything.' });
+      if (inc < 12000) return this.setState({ preErr: 'That reads as a monthly figure. Enter income for the full year.' });
+    }
+    if (s.preStep === 2 && !p.credit) return this.setState({ preErr: 'Pick the range that fits. A guess is fine — this is a soft check.' });
+    if (s.preStep === 3) {
+      if (!p.name || !p.phone) return this.setState({ preErr: 'We need a name and number for the lender to respond.' });
+      if (!p.consent) return this.setState({ preErr: 'We can’t run the soft check without your consent.' });
+    }
+    this.setState({ preStep: s.preStep + 1, preErr: '' });
+  };
+  preResult() {
+    const p = this.state.pre;
+    const inc = parseFloat(String(p.income).replace(/[^0-9.]/g, '')) || 0;
+    const debts = parseFloat(String(p.debts).replace(/[^0-9.]/g, '')) || 0;
+    const down = parseFloat(String(p.down).replace(/[^0-9.]/g, '')) || 0;
+    const budget = Math.max(0, (inc / 12 * 0.36 - debts - OTHER.tax - OTHER.hoa - OTHER.ins));
+    const rate = p.credit === '760+' ? 6.49 : p.credit === '700–759' ? 6.69 : p.credit === '640–699' ? 7.15 : 7.9;
+    const loan = budget > 0 ? budget / (PMT(100000, rate, 360) / 100000) : 0;
+    return { max: loan + down, rate, enough: loan + down >= this.state.price };
+  }
+
+  rvbVerdictNow = () => {
+    const r = this.state.rvb;
+    const inc = parseFloat(String(r.income).replace(/[^0-9.]/g, '')) || 0;
+    const debts = parseFloat(String(r.debts).replace(/[^0-9.]/g, '')) || 0;
+    if (!inc) { this.flash('Add your gross annual income first.'); return; }
+    const dti = (this.monthly() + debts) / (inc / 12);
+    this.setState({ rvbVerdict: { dti, buy: dti < 0.45 }, rvbSaved: null });
+  };
+
+  ask = q => {
+    const log = this.state.chatLog.concat([{ me: true, t: q }]);
+    this.setState({ chatLog: log, draft: '' });
+    setTimeout(() => this.setState({
+      chatLog: this.state.chatLog.concat([{ me: false, t: this._answer(q) }])
+    }), 700);
+  };
+  _answer(q) {
+    const l = q.toLowerCase();
+    if (l.includes('offer')) return 'At $1,588,000 the ask is already $125,000 under comps, so I’d open at or near list with a short inspection window rather than lowballing. Sellers here signed in about 19 days on average this quarter.';
+    if (l.includes('school')) return 'Lietz Elementary and Dartmouth Middle both rate 8/10 and sit within 0.4 mi. The assigned high school, Beacon, rates 3/10 — worth weighing if you have older kids.';
+    if (l.includes('rent')) return 'Estimated rent is $3,282/mo against a $12,536 carrying cost, so this doesn’t pencil as a rental. It’s a live-in buy.';
+    return 'Short version: it’s priced below comps, the block supports the number, and the monthly cost is the real constraint at $12,536. Ask me about the offer, the schools or the neighborhood and I’ll go deeper.';
+  }
+
+  renderVals() {
+    const s = this.state, out = this.calcOut(), monthly = this.monthly();
+    const tabDefs = [['signals', 'Signals'], ['property', 'Property'], ['schools', 'Schools'], ['intel', 'Intelligence'], ['forecast', 'Forecast'], ['rvb', 'Rent vs Buy'], ['nbhd', 'Neighborhood'], ['snaplife', 'SnapLife']];
+    const roomDefs = [['All', 'All 48'], ['Kitchen', 'Kitchen 7'], ['Living', 'Living 6'], ['Bedrooms', 'Bedrooms 9'], ['Bath', 'Bath 5'], ['Exterior', 'Exterior 12'], ['Yard', 'Yard 9']];
+    const slideDefs = [
+      { room: 'Kitchen', src: 'img/kitchen.png', label: 'Kitchen' },
+      { room: 'Living', label: 'Living room · photo 2 of 48' },
+      { room: 'Bedrooms', label: 'Primary bedroom · photo 3 of 48' },
+      { room: 'Bath', label: 'Bath · photo 4 of 48' },
+      { room: 'Exterior', src: 'img/exterior.png', label: 'Exterior' },
+      { room: 'Yard', label: 'Back yard · photo 6 of 48' }
+    ];
+    const slides = slideDefs.map((d, i) => ({
+      isPlate: !d.src, label: d.label,
+      style: 'flex:none;width:390px;height:252px;scroll-snap-align:start;position:relative;cursor:pointer;' + (d.src ? "background:url('" + d.src + "') center/cover" : '')
+    }));
+
+    const INP = 'width:100%;box-sizing:border-box;min-height:46px;border-radius:10px;padding:0 12px;font-size:15px;background:#fff;color:#201e1d;font-feature-settings:"tnum";border:1px solid ';
+    const opt = (on, extra) => 'width:100%;min-height:52px;display:flex;align-items:center;gap:11px;padding:0 14px;border-radius:12px;cursor:pointer;font-family:inherit;font-size:15px;background:' + (on ? '#eaecf7' : '#fff') + ';border:1px solid ' + (on ? '#0018a8' : '#d7d3d3') + ';color:#201e1d';
+    const pill = on => 'flex:none;min-height:38px;padding:0 13px;border-radius:999px;font-size:13px;cursor:pointer;white-space:nowrap;font-family:inherit;border:1px solid ' + (on ? '#0018a8' : '#d7d3d3') + ';background:' + (on ? '#0018a8' : 'transparent') + ';color:' + (on ? '#fff' : '#444141');
+    const sheetMeta = {
+      property: ['What this place offers', 'Listing detail · supplied by the agent'],
+      schools: ['Schools', 'Campbell Union High School District'],
+      intel: ['Property intelligence', 'Records, comps and the local market'],
+      forecast: ['Forecast', 'Rates and what they do to your payment'],
+      rvb: ['Rent vs Buy', 'Five questions, one verdict'],
+      nbhd: ['Neighborhood', 'Inside San Jose'],
+      snaplife: ['SnapLife', 'Simulate living at this address']
+    };
+    const meta = sheetMeta[s.sheet] || ['', ''];
+    const dates = [['Wed', '12'], ['Thu', '13'], ['Fri', '14'], ['Sat', '15'], ['Sun', '16'], ['Mon', '17'], ['Tue', '18'], ['Wed', '19']];
+    const times = ['9:00 AM', '10:00 AM', '11:00 AM', '1:00 PM', '3:00 PM', '5:00 PM'];
+    const preQs = [
+      ['How do you earn?', 'Lenders read W2 and self-employed income differently, so this changes the maths more than anything else here.'],
+      ['What comes in, what goes out?', 'Before tax, and the minimums you owe each month.'],
+      ['Where does your credit sit?', 'A range is enough. It sets the rate we estimate with.'],
+      ['Who should the lender call?', 'One person will call once. No mailing list.'],
+      ['Here’s the range you can work with', '']
+    ];
+    const topicText = {
+      Market: ['The median home price just crossed $1.4 million and homes are selling in under three weeks. Sellers stopped negotiating in 2024, but 2026 is showing motion without mania. The market is still competitive as hell, especially for single-family homes in good zip codes, though some neighborhoods are offering real leverage for buyers who plan instead of panic.', [{ src: 'r/bayarea · Jul 2026', t: 'Cambrian is the last pocket under $1.6M where you get a real yard. It goes fast but it does not go crazy.' }, { src: 'City planning · 2026', t: 'No multi-family rezoning proposed within half a mile through 2029.' }]],
+      Lifestyle: ['Cambrian runs quiet and domestic — school-run traffic in the morning, dog walkers at dusk, and a farmers market on Sunday that locals treat as a social obligation. It is not a nightlife neighborhood and nobody pretends otherwise.', [{ src: 'r/SanJose · May 2026', t: 'You are ten minutes from everything and in bed by ten. That is the whole pitch.' }]],
+      'Hidden Gems': ['Ask about the taqueria behind the plaza and the second-hand bookshop on Union — both come up constantly and neither shows on the usual lists.', [{ src: 'Local forum · Mar 2026', t: 'Garudas Indian Mart has the best produce prices in the area and nobody outside the neighborhood knows.' }]],
+      News: ['Union Avenue repaving finishes in October. The Cambrian Park Plaza redevelopment cleared its final appeal in June — 300 units and a public square by 2029.', [{ src: 'City council · Jun 2026', t: 'Expect construction traffic on Union between 2027 and 2029.' }]],
+      'Must Visit': ['De Anza Playground, the Sunday market, and the Los Gatos Creek Trail head fifteen minutes south.', []],
+      Schools: ['Lietz Elementary and Dartmouth Middle both rate 8/10 and are within walking distance. The assigned high school rates lower, and families here talk openly about that gap.', [{ src: 'r/bayarea · Feb 2026', t: 'Everyone in Cambrian either loves the elementary schools or has already planned around the high school.' }]],
+      Social: ['A neighborhood association that actually meets, a street-wide Halloween, and a very active Nextdoor. Make of that what you will.', []]
+    };
+    const tp = topicText[s.topic] || topicText.Market;
+    const pr = this.preResult();
+    return {
+      noop: () => {},
+      sourceLines: this.props.sourceLines ?? true,
+      demoPanel: this.props.demoPanel ?? true,
+      sheetOpen: !!s.sheet, sheetTitle: meta[0], sheetSub: meta[1], closeSheet: this.closeSheet,
+      isProperty: s.sheet === 'property', isSchools: s.sheet === 'schools', isIntel: s.sheet === 'intel',
+      isForecast: s.sheet === 'forecast', isRvb: s.sheet === 'rvb', isNbhd: s.sheet === 'nbhd', isSnaplife: s.sheet === 'snaplife',
+      propertyGroups: [
+        { title: 'Bedrooms & bathrooms', rows: [{ k: 'Bedrooms', v: '4' }, { k: 'Bathrooms', v: '2' }, { k: 'Full bathrooms', v: '2' }] },
+        { title: 'Appliances', rows: [{ k: 'Included', v: 'Dryer, dishwasher, refrigerator, gas range, washer' }] },
+        { title: 'Features', rows: [{ k: 'Flooring', v: 'Vinyl' }, { k: 'Basement', v: 'No' }, { k: 'Fireplace', v: 'Yes' }, { k: 'Garage', v: '2 car, attached' }] },
+        { title: 'Heating & cooling', rows: [{ k: 'Heating', v: 'Forced air' }, { k: 'Cooling', v: 'Central AC, high efficiency' }] },
+        { title: 'Construction', rows: [{ k: 'Year built', v: '1962' }, { k: 'Roof', v: 'New, main structure' }, { k: 'Plumbing', v: 'Copper, replaced' }, { k: 'Sewer', v: 'Newer line' }] }
+      ],
+      schools: [
+        { name: 'Lietz Elementary School', meta: 'Elementary · K–5 · 0.3 mi', rating: '8', good: true },
+        { name: 'Dartmouth Middle School', meta: 'Middle · 6–8 · 0.4 mi', rating: '8', good: true },
+        { name: 'Appleseed Almaden Montessori', meta: 'Elementary · 6–8 · 0.3 mi', rating: '4', good: false },
+        { name: 'Stratford School Almaden', meta: 'Middle · K–4 · 0.3 mi', rating: '3', good: false },
+        { name: 'Beacon School', meta: 'High · 6–12 · 0.8 mi · assigned', rating: '3', good: false }
+      ].map(x => ({ ...x, badge: 'width:38px;height:38px;flex:none;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:600;font-feature-settings:"tnum";background:' + (x.good ? '#eaecf7' : '#f8f4f4') + ';color:' + (x.good ? '#0018a8' : '#605d5d') })),
+      colleges: [{ rank: '#1', name: 'California State University, Fresno', id: '993122' }, { rank: '#2', name: 'Loyola Marymount University', id: '818286' }, { rank: '#3', name: 'Pomona College', id: '615388' }],
+      weights: ['$/sqft', 'Price', 'Noise', 'Weather risk', 'Air quality'].map(w => ({ label: w, pick: () => this.set('weight', w), style: pill(s.weight === w) })),
+      weightLabel: s.weight === '$/sqft' ? 'price per square foot' : s.weight.toLowerCase(),
+      ownerRows: [{ k: 'Assessed', v: '$364,777' }, { k: 'Equity', v: '37%' }, { k: 'Mortgage bal.', v: '$229,810' }, { k: 'Liens', v: '0' }, { k: 'Distress', v: 'None' }],
+      compRows: [{ k: 'Estimate', v: '$1,725,000' }, { k: '$/sqft', v: '$1,219' }, { k: 'Comps used', v: '8' }, { k: 'Confidence', v: 'High' }],
+      requestRecords: () => this.flash('Request sent. The agent usually replies same day.'),
+      ranges: ['6 months', '12 months', '24 months'].map((r, i) => ({ label: r, pick: () => this.set('range', r), style: pill((s.range || '6 months') === r) })),
+      calcPrice: s.calc.price, calcDown: s.calc.down, calcTerm: s.calc.term, calcRate: s.calc.rate,
+      setPrice: e => this.setState({ calc: { ...s.calc, price: e.target.value } }),
+      setDown: e => this.setState({ calc: { ...s.calc, down: e.target.value } }),
+      setTerm: e => this.setState({ calc: { ...s.calc, term: e.target.value } }),
+      setRate: e => this.setState({ calc: { ...s.calc, rate: e.target.value } }),
+      modePct: () => this.setState({ calc: { ...s.calc, mode: '%', down: '20' } }),
+      modeAmt: () => this.setState({ calc: { ...s.calc, mode: '$', down: '317600' } }),
+      modePctStyle: 'width:44px;min-height:46px;border:none;cursor:pointer;font-size:15px;background:' + (s.calc.mode === '%' ? '#0018a8' : '#fff') + ';color:' + (s.calc.mode === '%' ? '#fff' : '#605d5d'),
+      modeAmtStyle: 'width:44px;min-height:46px;border:none;border-left:1px solid #d7d3d3;cursor:pointer;font-size:15px;background:' + (s.calc.mode === '$' ? '#0018a8' : '#fff') + ';color:' + (s.calc.mode === '$' ? '#fff' : '#605d5d'),
+      priceInputStyle: INP + (out.errs.price ? '#aa0b56' : '#d7d3d3'),
+      downInputStyle: 'flex:1;' + INP + (out.errs.down ? '#aa0b56' : '#d7d3d3'),
+      rateInputStyle: INP + (out.errs.rate ? '#aa0b56' : '#d7d3d3'),
+      errPrice: out.errs.price || '', errDown: out.errs.down || '', errRate: out.errs.rate || '',
+      pmiNote: out.note, calcBroken: !out.ok,
+      calcTotal: out.ok ? money(out.total) : '—',
+      resultColor: out.ok ? '#201e1d' : '#9b9797',
+      calcCaption: out.ok ? money(out.pi) + ' loan · ' + money(OTHER.tax + OTHER.hoa + OTHER.ins + OTHER.util + OTHER.pest + OTHER.maint) + ' tax, HOA, insurance and upkeep' : 'Fix the fields above and the estimate comes back. Nothing you typed is lost.',
+      resetCalc: () => this.setState({ calc: { price: '1588000', down: '20', mode: '%', term: '30', rate: '6.69' } }),
+      rvbResume: s.rvbResume && !!s.rvbSaved, rvbSavedCount: s.rvbSaved,
+      rvbDismissResume: () => this.set('rvbResume', false),
+      rvbReset: () => this.setState({ rvb: { type: 'W2 employee', income: '', debts: '', reserves: '', credit: '' }, rvbSaved: null, rvbResume: false }),
+      rvbVerdictOn: !!s.rvbVerdict,
+      rvbHeadline: s.rvbVerdict ? (s.rvbVerdict.buy ? 'Buying wins after about four years.' : 'Renting wins at this price.') : '',
+      rvbBody: s.rvbVerdict ? (s.rvbVerdict.buy
+        ? 'At ' + Math.round(s.rvbVerdict.dti * 100) + '% of gross income the payment is inside what lenders will write, and the rent you would pay instead is rising faster than this carrying cost. Below four years, selling costs eat the gain.'
+        : 'The payment lands at ' + Math.round(s.rvbVerdict.dti * 100) + '% of gross income, past the 45% most lenders stop at. Renting nearby and revisiting when rates ease is the cheaper year.') : '',
+      incomeTypes: ['W2 employee', 'Self-employed'].map(t => ({ label: t, pick: () => this.setState({ rvb: { ...s.rvb, type: t } }), style: 'flex:1;min-height:46px;border:none;cursor:pointer;font-family:inherit;font-size:14px;background:' + (s.rvb.type === t ? '#eaecf7' : '#fff') + ';color:' + (s.rvb.type === t ? '#0018a8' : '#605d5d') + ';font-weight:' + (s.rvb.type === t ? '600' : '400') })),
+      rvbIncome: s.rvb.income, rvbDebts: s.rvb.debts, rvbReserves: s.rvb.reserves, rvbCredit: s.rvb.credit,
+      setRvbIncome: e => this.setState({ rvb: { ...s.rvb, income: e.target.value } }),
+      setRvbDebts: e => this.setState({ rvb: { ...s.rvb, debts: e.target.value } }),
+      setRvbReserves: e => this.setState({ rvb: { ...s.rvb, reserves: e.target.value } }),
+      setRvbCredit: e => this.setState({ rvb: { ...s.rvb, credit: e.target.value } }),
+      getVerdict: this.rvbVerdictNow,
+      topics: Object.keys(topicText).map(t => ({ label: t, pick: () => this.set('topic', t), style: pill(s.topic === t) })),
+      topicLabel: s.topic, topicQuote: tp[0], topicNotes: tp[1],
+      startSim: () => this.flash('Simulation starts with your commute. Not built in this prototype.'),
+      viewer: s.viewer, closeViewer: () => this.set('viewer', false),
+      viewerGroups: [
+        { title: 'Kitchen · 7', items: [0, 1, 2, 3] },
+        { title: 'Living · 6', items: [0, 1, 2, 3] },
+        { title: 'Exterior · 12', items: [0, 1, 2, 3] }
+      ].map((g, gi) => ({ title: g.title, items: g.items.map(i => ({ style: 'height:104px;border-radius:8px;background:' + (gi === 0 && i === 0 ? "url('img/kitchen.png') center/cover" : gi === 2 && i === 0 ? "url('img/exterior.png') center/cover" : '#2d2b2b') })) })),
+      tourOpen: s.tourOpen, closeTour: () => this.setState({ tourOpen: false }),
+      tourTitle: ['How do you want to see it?', 'Pick a day', 'Pick a time', 'Confirm your request'][s.tourStep],
+      tourStepLabel: 'Step ' + (s.tourStep + 1) + ' of 4',
+      tourStep0: s.tourStep === 0, tourStep1: s.tourStep === 1, tourStep2: s.tourStep === 2, tourStep3: s.tourStep === 3,
+      tourTypes: [
+        { label: 'In person', sub: 'An agent meets you at the house', icon: 'ph-duotone ph-house' },
+        { label: 'Video tour', sub: 'An agent walks it on a call', icon: 'ph-duotone ph-video-camera' },
+        { label: 'Open house Sat 8/15', sub: 'Just turn up · 7:00–10:00 PM', icon: 'ph-duotone ph-door-open' }
+      ].map(t => ({ ...t, pick: () => this.setState({ tourType: t.label, tourErr: '' }), style: opt(s.tourType === t.label) })),
+      tourDates: dates.map(([dow, day]) => ({
+        dow, day,
+        pick: () => (day === '12' || day === '18') ? this.setState({ tourErr: 'The seller is not showing on the ' + day + 'th.' }) : this.setState({ tourDate: dow + ' 8/' + day, tourErr: '' }),
+        style: 'min-height:56px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:10px;cursor:pointer;font-family:inherit;background:' + (s.tourDate === dow + ' 8/' + day ? '#eaecf7' : '#fff') + ';border:1px solid ' + (s.tourDate === dow + ' 8/' + day ? '#0018a8' : '#d7d3d3') + ';opacity:' + (day === '12' || day === '18' ? '.4' : '1')
+      })),
+      tourTimes: times.map(t => ({ label: t, pick: () => this.setState({ tourTime: t, tourErr: '' }), style: 'min-height:46px;border-radius:10px;cursor:pointer;font-family:inherit;font-size:14px;background:' + (s.tourTime === t ? '#eaecf7' : '#fff') + ';border:1px solid ' + (s.tourTime === t ? '#0018a8' : '#d7d3d3') + ';color:#201e1d' })),
+      tourSummary: (s.tourType || 'Tour') + ' · ' + (s.tourDate || '') + ' ' + (s.tourTime || ''),
+      tourErr: s.tourErr, tourCanBack: s.tourStep > 0,
+      tourBack: () => this.setState({ tourStep: s.tourStep - 1, tourErr: '' }),
+      tourNext: s.tourStep === 3 ? this.confirmTour : this.submitTour,
+      tourCta: s.tourStep === 3 ? 'Request this tour' : 'Continue',
+      preOpen: s.preOpen, closePre: () => this.setState({ preOpen: false }),
+      preStepLabel: s.preStep === 4 ? 'Result' : 'Step ' + (s.preStep + 1) + ' of 4',
+      preBarStyle: 'height:3px;border-radius:999px;background:#0018a8;width:' + ((s.preStep + 1) / 5 * 100) + '%;transition:width .25s',
+      preQuestion: preQs[s.preStep][0], prePrompt: preQs[s.preStep][1],
+      preStep0: s.preStep === 0, preStep1: s.preStep === 1, preStep2: s.preStep === 2, preStep3: s.preStep === 3, preStep4: s.preStep === 4,
+      employmentTypes: ['W2 employee', 'Self-employed', 'Both'].map(e => ({ label: e, pick: () => this.setState({ pre: { ...s.pre, employment: e }, preErr: '' }), style: opt(s.pre.employment === e) })),
+      preIncome: s.pre.income, preDebts: s.pre.debts, preDown: s.pre.down, preName: s.pre.name, prePhone: s.pre.phone,
+      setPreIncome: e => this.setState({ pre: { ...s.pre, income: e.target.value } }),
+      setPreDebts: e => this.setState({ pre: { ...s.pre, debts: e.target.value } }),
+      setPreDown: e => this.setState({ pre: { ...s.pre, down: e.target.value } }),
+      setPreName: e => this.setState({ pre: { ...s.pre, name: e.target.value } }),
+      setPrePhone: e => this.setState({ pre: { ...s.pre, phone: e.target.value } }),
+      creditBands: [['760+', '6.49%'], ['700–759', '6.69%'], ['640–699', '7.15%'], ['Below 640', '7.90%']].map(([label, rate]) => ({ label, rate, pick: () => this.setState({ pre: { ...s.pre, credit: label }, preErr: '' }), style: opt(s.pre.credit === label) })),
+      toggleConsent: () => this.setState({ pre: { ...s.pre, consent: !s.pre.consent }, preErr: '' }),
+      consentBoxStyle: 'width:22px;height:22px;flex:none;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px;background:' + (s.pre.consent ? '#0018a8' : '#fff') + ';border:1px solid ' + (s.pre.consent ? '#0018a8' : '#d7d3d3') + ';color:' + (s.pre.consent ? '#fff' : 'transparent'),
+      preMax: money(pr.max),
+      preRate: pr.rate + '%',
+      preVerdict: pr.enough ? 'That clears this listing with room to spare. Ask the lender to put it in writing before you tour — sellers here read a letter as seriousness.' : 'That falls short of the ' + money(s.price) + ' ask. Either the down payment grows or the search moves down a bracket — both are normal, and we can filter for it.',
+      preErr: s.preErr, preCanBack: s.preStep > 0 && s.preStep < 4,
+      preBack: () => this.setState({ preStep: s.preStep - 1, preErr: '' }),
+      preAdvance: s.preStep === 4 ? () => { this.setState({ preOpen: false, preStep: 0 }); this.flash('A lender will call within one business day.'); } : this.preNext,
+      preCta: s.preStep === 3 ? 'Run the soft check' : s.preStep === 4 ? 'Have a lender call me' : 'Continue',
+      chat: s.chat, closeChat: () => this.set('chat', false), chatEmpty: s.chatLog.length === 0,
+      quickQs: ['What should I offer on this home?', 'How are the schools here, really?', 'Would this work as a rental?'].map(t => ({ t, ask: () => this.ask(t) })),
+      chatLog: s.chatLog.map(m => ({ t: m.t, style: 'max-width:82%;font-size:14px;line-height:1.55;padding:11px 13px;border-radius:14px;' + (m.me ? 'align-self:flex-end;background:#0018a8;color:#fff' : 'align-self:flex-start;background:#fff;border:1px solid #e4e2e1;color:#201e1d') })),
+      draft: s.draft, setDraft: e => this.set('draft', e.target.value),
+      chatKey: e => { if (e.key === 'Enter' && s.draft.trim()) this.ask(s.draft.trim()); },
+      sendChat: () => { if (s.draft.trim()) this.ask(s.draft.trim()); },
+      savePrompt: s.savePrompt, finishSave: this.finishSave, guestSave: this.guestSave,
+      cancelSave: () => this.set('savePrompt', false),
+      share: s.share, closeShare: () => this.set('share', false),
+      shareTargets: [
+        { label: 'Copy link', icon: 'ph-duotone ph-link' }, { label: 'Message', icon: 'ph-duotone ph-chat-circle' },
+        { label: 'Email', icon: 'ph-duotone ph-envelope' }, { label: 'My agent', icon: 'ph-duotone ph-user-circle' }
+      ].map(t => ({ ...t, go: () => { this.setState({ share: false }); this.flash(t.label === 'Copy link' ? 'Link copied.' : 'Shared via ' + t.label.toLowerCase() + '.'); } })),
+      promo: s.promo, closePromo: () => this.set('promo', false),
+      tabs: tabDefs.map(([id, label]) => ({
+        label,
+        open: () => id === 'signals' ? this.flash('Signals are the cards below the price.') : this.openSheet(id),
+        style: 'flex:none;min-height:44px;padding:0 12px;border:none;background:none;font-family:inherit;font-size:14.5px;cursor:pointer;white-space:nowrap;color:' + (s.sheet === id ? '#0018a8' : '#605d5d') + ';font-weight:' + (s.sheet === id ? '600' : '400') + ';border-bottom:2px solid ' + (s.sheet === id ? '#0018a8' : 'transparent')
+      })),
+      rooms: roomDefs.map(([id, label]) => ({
+        label,
+        pick: () => { this.setState({ room: id }); this.flash(id === 'All' ? 'Showing all 48 photos.' : 'Filtered to ' + id.toLowerCase() + '. Snaphomz AI grouped these.'); },
+        style: 'flex:none;min-height:36px;padding:0 12px;border-radius:999px;font-size:12.5px;cursor:pointer;white-space:nowrap;font-family:inherit;border:1px solid ' + (s.room === id ? '#0018a8' : '#d7d3d3') + ';background:' + (s.room === id ? '#0018a8' : 'transparent') + ';color:' + (s.room === id ? '#fff' : '#444141')
+      })),
+      slides,
+      photoCounter: (s.photo + 1) + ' / 48',
+      openViewer: () => this.set('viewer', true),
+      saveIcon: s.saved ? 'ph-duotone ph-heart-straight-fill' : 'ph-duotone ph-heart-straight',
+      saveColor: s.saved ? '#aa0b56' : '#201e1d',
+      toggleSave: this.toggleSave,
+      openShare: () => this.set('share', true),
+      priceLabel: money(s.price),
+      priceChanged: s.priceChanged,
+      statusLabel: s.pending ? 'Sale pending' : 'For sale',
+      statusStyle: 'font-size:11.5px;padding:4px 9px;border-radius:999px;font-weight:600;' + (s.pending ? 'background:#ffdee6;color:#79093d' : 'background:#eaecf7;color:#0018a8'),
+      alertOpen: !!s.alert,
+      alertTitle: s.alert ? s.alert.title : '',
+      alertBody: s.alert ? s.alert.body : '',
+      alertAction: s.alert ? s.alert.action : '',
+      acceptAlert: this.acceptAlert, dismissAlert: this.dismissAlert,
+      verdictHeadline: s.pending ? 'Worth watching, not touring.' : 'Worth the Saturday.',
+      verdictBody: s.pending
+        ? 'The seller accepted an offer, so you can’t tour it today. The reasons it was a good buy still hold, which is why it went in seven days — we’ll tell you if it comes back.'
+        : 'Priced under what the block has been paying, in a walkable pocket, and only a week old. The catch is the carrying cost, not the price.',
+      monthlyLabel: money(monthly),
+      monthlyNote: 'about ' + money(monthly - PMT(s.price * 0.8, 6.69, 360)) + ' of it is tax, HOA and upkeep',
+      costRows: [
+        { k: 'Mortgage (P&I)', v: money(PMT(s.price * 0.8, 6.69, 360)) },
+        { k: 'Property tax', v: money(OTHER.tax) }, { k: 'HOA', v: money(OTHER.hoa) },
+        { k: 'Home insurance', v: money(OTHER.ins) }, { k: 'Utilities', v: money(OTHER.util) },
+        { k: 'Pest control', v: money(OTHER.pest) }, { k: 'Maintenance & repairs', v: money(OTHER.maint) }
+      ],
+      nearby: [
+        { name: 'Garudas Indian Mart', dist: '0.5 mi', icon: 'ph-duotone ph-shopping-cart' },
+        { name: 'Meridian & Dentwood', dist: '0.4 mi', icon: 'ph-duotone ph-bus' },
+        { name: 'De Anza Playground', dist: '0.4 mi', icon: 'ph-duotone ph-tree' },
+        { name: 'Competitive EDGE Physical', dist: '0.5 mi', icon: 'ph-duotone ph-first-aid-kit' },
+        { name: 'Cambrian Park Plaza', dist: '0.6 mi', icon: 'ph-duotone ph-storefront' }
+      ],
+      signalCounter: (s.signal + 1) + ' of 5',
+      signalDots: [0, 1, 2, 3, 4].map(i => ({ style: 'width:' + (i === s.signal ? '18px' : '6px') + ';height:6px;border-radius:999px;background:' + (i === s.signal ? '#0018a8' : '#d7d3d3') + ';transition:width .2s' })),
+      onPageScroll: this.onPageScroll, onGalleryScroll: this.onGalleryScroll, onSignalScroll: this.onSignalScroll,
+      expHighlights: s.expHighlights,
+      highlightsLabel: s.expHighlights ? 'Show less' : 'See more',
+      toggleHighlights: () => this.set('expHighlights', !s.expHighlights),
+      explore: [
+        { id: 'property', label: 'Property', sub: 'Rooms, appliances, heating, flooring', icon: 'ph-duotone ph-house-line' },
+        { id: 'schools', label: 'Schools', sub: '5 schools · college readiness', icon: 'ph-duotone ph-graduation-cap' },
+        { id: 'intel', label: 'Intelligence', sub: 'Heat map, liens, sale history', icon: 'ph-duotone ph-map-trifold' },
+        { id: 'forecast', label: 'Forecast', sub: 'Rate predictor · payment calculator', icon: 'ph-duotone ph-chart-line-up' },
+        { id: 'rvb', label: 'Rent vs Buy', sub: s.rvbSaved ? s.rvbSaved + ' of 5 answered — resume' : 'Five questions, one verdict', icon: 'ph-duotone ph-scales' },
+        { id: 'nbhd', label: 'Neighborhood', sub: 'What locals actually say', icon: 'ph-duotone ph-buildings' },
+        { id: 'snaplife', label: 'SnapLife', sub: 'Simulate living here', icon: 'ph-duotone ph-compass-rose' }
+      ].map(e => ({ ...e, open: () => this.openSheet(e.id) })),
+      similar: [
+        { price: '$1,899,900', addr: '1532 Kooser Road', specs: '4 bd · 3 ba · 1,844 sqft', delta: '+$311,900 · $1,030/sqft' },
+        { price: '$1,550,000', addr: '5267 Woodstock Way', specs: '3 bd · 2 ba · 1,383 sqft', delta: '−$38,000 · $1,121/sqft' },
+        { price: '$1,349,950', addr: '1562 Kooser Road', specs: '3 bd · 2 ba · 1,211 sqft', delta: '−$238,050 · $1,115/sqft' },
+        { price: '$1,599,000', addr: '3288 Payne Avenue', specs: '4 bd · 2 ba · 1,502 sqft', delta: '+$11,000 · $1,064/sqft' }
+      ].map((h, i) => ({
+        ...h,
+        pick: () => {
+          const c = s.compare.includes(i) ? s.compare.filter(x => x !== i) : s.compare.concat([i]);
+          this.setState({ compare: c, compareOn: c.length > 0 });
+        },
+        style: 'flex:none;width:206px;scroll-snap-align:start;background:#fff;border-radius:14px;overflow:hidden;cursor:pointer;border:' + (s.compare.includes(i) ? '2px solid #0018a8' : '1px solid #e4e2e1')
+      })),
+      compareLabel: s.compare.length ? 'Compare ' + s.compare.length : 'Compare',
+      toggleCompare: () => s.compare.length ? this.flash(s.compare.length + ' homes selected. Side-by-side opens next.') : this.flash('Tap the cards you want to compare.'),
+      openForecast: () => this.openSheet('forecast'),
+      openNeighborhood: () => this.openSheet('nbhd'),
+      openChat: () => this.set('chat', true),
+      openTour: () => s.pending ? this.flash('Tours are paused while this sale is pending.') : this.setState({ tourOpen: true, tourStep: 0, tourErr: '' }),
+      openPre: () => this.setState({ preOpen: true, preStep: 0, preErr: '' }),
+      tourDisabled: s.pending,
+      primaryCtaLabel: s.pending ? 'Tours paused — notify me' : s.tourDone ? 'Tour requested ✓' : 'Schedule a tour',
+      primaryCtaStyle: 'flex:1;min-height:48px;border-radius:999px;font-size:15px;font-weight:600;cursor:pointer;font-family:inherit;border:1px solid ' + (s.pending ? '#d7d3d3' : '#001478') + ';background:' + (s.pending ? '#eae7e7' : '#0018a8') + ';color:' + (s.pending ? '#7d7979' : '#fff'),
+      toast: s.toast, toastAction: s.toastAction,
+      toastDo: () => { const f = s.toastFn; this.setState({ toast: '' }); if (f) f(); },
+      triggers: [
+        { label: 'Price changes mid-read', note: 'Drops $23,000 while the page is open. Banner explains what is now stale and lets you accept it.', run: this.priceDrop },
+        { label: 'Listing goes pending', note: 'Verdict, CTA and tour flow all change. Nothing dead-ends.', run: this.goPending },
+        { label: 'Break the calculator', note: 'Sets a negative price and a 0% down payment. Open Forecast to see the errors.', run: () => this.setState({ calc: { ...s.calc, price: '-1588000', down: '0' }, sheet: 'forecast' }) },
+        { label: 'Abandon Rent vs Buy', note: 'Fills two answers and closes the sheet. Progress is kept and offered back.', run: () => this.setState({ rvb: { ...s.rvb, income: '240000', debts: '850' }, rvbSaved: 2, sheet: null, rvbVerdict: null }) },
+        { label: 'Save while signed out', note: 'Account prompt with a guest escape hatch. The tap is never thrown away.', run: () => this.setState({ saved: false, savePrompt: true }) },
+        { label: 'Reset everything', note: 'Back to a clean first load.', run: () => this.setState({ price: 1588000, priceChanged: false, pending: false, alert: null, saved: false, rvbSaved: null, rvbVerdict: null, rvb: { type: 'W2 employee', income: '', debts: '', reserves: '', credit: '' }, calc: { price: '1588000', down: '20', mode: '%', term: '30', rate: '6.69' }, sheet: null, compare: [], tourDone: false, promoDone: false, toast: '', tourOpen: false, preOpen: false, chat: false, chatLog: [], viewer: false, share: false, savePrompt: false, promo: false, expHighlights: false, tourStep: 0, preStep: 0, tourType: '', tourDate: '', tourTime: '', _retry: false, pre: { employment: '', income: '', debts: '', credit: '', down: '317600', name: '', phone: '', consent: false } }) }
+      ]
+    };
+  }
+}
+
+</script>
+</body>
+</html>

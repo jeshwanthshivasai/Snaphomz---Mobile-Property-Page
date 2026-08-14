@@ -1,0 +1,94 @@
+/* Broadsheet & Liquid Glass Design System Tokens */
+:root {
+  --color-bg: #f3f2f2;
+  --color-surface: #eae9e9;
+  --color-text: #201e1d;
+  --color-accent: #0088b0;
+  --color-accent-2: #d6006c;
+  --color-divider: color-mix(in srgb, #201e1d 16%, transparent);
+
+  /* Color Tonal Ramps */
+  --color-neutral-100: #f8f4f4;
+  --color-neutral-200: #eae7e7;
+  --color-neutral-300: #d7d3d3;
+  --color-neutral-400: #bab6b6;
+  --color-neutral-500: #9b9797;
+  --color-neutral-600: #7d7979;
+  --color-neutral-700: #605d5d;
+  --color-neutral-800: #444141;
+  --color-neutral-900: #2d2b2b;
+
+  --color-accent-100: #e9f8ff;
+  --color-accent-200: #cbeeff;
+  --color-accent-300: #99e0ff;
+  --color-accent-400: #62c5ee;
+  --color-accent-500: #38a6cf;
+  --color-accent-600: #1186ac;
+  --color-accent-700: #006786;
+  --color-accent-800: #004961;
+  --color-accent-900: #0a303e;
+
+  --color-accent-2-100: #fff1f4;
+  --color-accent-2-200: #ffdee6;
+  --color-accent-2-300: #ffc0d0;
+  --color-accent-2-400: #ff90b1;
+  --color-accent-2-500: #ff458e;
+  --color-accent-2-600: #d82071;
+  --color-accent-2-700: #aa0b56;
+  --color-accent-2-800: #790e3d;
+  --color-accent-2-900: #4b1528;
+
+  --color-process-yellow: #edbb00;
+
+  --font-heading: "Source Serif 4", -apple-system, system-ui, serif;
+  --font-heading-weight: 600;
+  --font-body: "Source Serif 4", -apple-system, system-ui, serif;
+
+  --shadow-sm: 0 1px 2px color-mix(in srgb, #2d2b2b 14%, transparent);
+  --shadow-md: 0 3px 10px color-mix(in srgb, #2d2b2b 16%, transparent);
+  --shadow-lg: 0 12px 32px color-mix(in srgb, #2d2b2b 22%, transparent);
+
+  /* Theme specific defaults (Light) */
+  --ink: 32, 30, 29;
+  --paper: 243, 242, 242;
+  --brand: #0018a8;
+  --brand-2: #001478;
+  --brand-rgb: 0, 24, 168;
+  --brand-soft: #7078d0;
+  --seg-on: #ffffff;
+  --lift: 0 1px 2px rgba(32, 30, 29, 0.05), 0 10px 26px -10px rgba(32, 30, 29, 0.2), inset 0 0.5px 0 rgba(255, 255, 255, 0.75);
+}
+
+/* Dark Mode Overrides */
+.app.dark {
+  --ink: 236, 236, 241;
+  --paper: 28, 28, 30;
+  --brand: #8ea3ff;
+  --brand-2: #b4c2ff;
+  --brand-rgb: 142, 163, 255;
+  --brand-soft: #6f7fd8;
+  --seg-on: #48484a;
+
+  --color-bg: #1c1c1e;
+  --color-surface: #2c2c2e;
+  --color-text: #f2f2f7;
+  --color-divider: rgba(255, 255, 255, 0.14);
+
+  --color-neutral-100: #2c2c2e;
+  --color-neutral-200: #000000;
+  --color-neutral-300: #000000;
+  --color-neutral-400: #48484a;
+  --color-neutral-500: #636366;
+  --color-neutral-600: #8e8e93;
+  --color-neutral-700: #a1a1a8;
+  --color-neutral-800: #98989f;
+  --color-neutral-900: #f2f2f7;
+
+  --color-accent-200: #0f2c38;
+  --color-accent-300: #15414f;
+  --color-accent-2-200: #3d1526;
+  --color-accent-2-700: #ff77ac;
+  --color-accent-2-800: #ffb0cd;
+
+  --lift: 0 1px 1px rgba(0, 0, 0, 0.5), 0 12px 30px -12px rgba(0, 0, 0, 0.75), inset 0 0.5px 0 rgba(255, 255, 255, 0.09);
+}

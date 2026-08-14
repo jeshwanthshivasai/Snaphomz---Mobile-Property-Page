@@ -1,0 +1,1469 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics="">
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&amp;display=swap">
+<link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/duotone/style.css">
+<link rel="stylesheet" href="_ds/broadsheet-00e67cfd-8b20-4e48-976e-1a5bd0c98ebd/styles.css">
+<script src="_ds/broadsheet-00e67cfd-8b20-4e48-976e-1a5bd0c98ebd/_ds_bundle.js"></script>
+<style>
+body{margin:0;background:var(--color-neutral-200);color:var(--color-text);font-family:var(--font-body)}
+a{color:var(--brand);text-decoration:none}
+a:hover{color:var(--brand-2);text-decoration:underline}
+.nsb{scrollbar-width:none;-ms-overflow-style:none}
+.nsb::-webkit-scrollbar{display:none}
+@keyframes sheetUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes popIn{from{opacity:0;transform:translateY(16px) scale(.96)}to{opacity:1;transform:none}}
+input,select,textarea,button{font-family:inherit}
+input:focus-visible,button:focus-visible,select:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+::selection{background:var(--color-accent-200)}
+body{--ink:32,30,29;--paper:243,242,242;--brand:#0018a8;--brand-2:#001478;--brand-rgb:0,24,168;--brand-soft:#7078d0;--seg-on:#fff;
+--lift:0 1px 2px rgba(32,30,29,.05),0 10px 26px -10px rgba(32,30,29,.2),inset 0 .5px 0 rgba(255,255,255,.75)}
+.app{font-family:-apple-system,"SF Pro Text","SF Pro Display","Helvetica Neue",Helvetica,Arial,sans-serif;font-variant-numeric:tabular-nums}
+.app.dark{--ink:236,236,241;--paper:28,28,30;--brand:#8ea3ff;--brand-2:#b4c2ff;--brand-rgb:142,163,255;--brand-soft:#6f7fd8;--seg-on:#48484a;
+--color-bg:#1c1c1e;--color-surface:#2c2c2e;--color-text:#f2f2f7;--color-divider:rgba(255,255,255,.14);
+--color-neutral-100:#2c2c2e;--color-neutral-200:#000;--color-neutral-300:#000;--color-neutral-400:#48484a;--color-neutral-500:#636366;--color-neutral-600:#8e8e93;--color-neutral-700:#a1a1a8;--color-neutral-800:#98989f;--color-neutral-900:#f2f2f7;
+--color-accent-200:#0f2c38;--color-accent-300:#15414f;--color-accent-2-200:#3d1526;--color-accent-2-700:#ff77ac;--color-accent-2-800:#ffb0cd;
+--lift:0 1px 1px rgba(0,0,0,.5),0 12px 30px -12px rgba(0,0,0,.75),inset 0 .5px 0 rgba(255,255,255,.09)}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes tick{0%{transform:scaleY(1)}40%{transform:scaleY(2.1)}100%{transform:scaleY(1)}}
+.rng{-webkit-appearance:none;appearance:none;width:100%;height:28px;background:none;cursor:grab}
+.rng::-webkit-slider-runnable-track{height:5px;border-radius:999px;background:rgba(var(--ink),.12)}
+.rng::-webkit-slider-thumb{-webkit-appearance:none;width:27px;height:27px;margin-top:-11px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.28),0 5px 14px rgba(0,0,0,.14);border:.5px solid rgba(0,0,0,.06)}
+.app.dark .rng::-webkit-slider-thumb{background:#f2f2f7}
+.app h1,.app h2,.app h3,.app h4,.app h5,.app p,.app label,.app button,.app input,.app select,.app textarea,.app li{font-family:inherit;font-variant-numeric:inherit}
+</style>
+</helmet>
+
+<div style="min-height:100vh;background:var(--color-neutral-200);padding:46px 52px 90px;display:flex;gap:46px;align-items:flex-start;font-family:var(--font-body);color:var(--color-text)">
+
+
+
+<div style="display:flex;gap:5px;padding:4px;border-radius:14px;background:rgba(var(--ink),.06)">
+<sc-for list="{{ modeTabs }}" as="m" hint-placeholder-count="2">
+<button onClick="{{ m.pick }}" style="{{ m.style }}">{{ m.label }}</button>
+</sc-for>
+</div><div style="flex:none;display:flex;flex-direction:column;gap:14px;align-items:center">
+<x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" width="{{ 390 }}" height="{{ 844 }}" dark="{{ darkMode }}" hint-size="390px,844px">
+<div data-screen-label="Property preview" class="app {{ darkClass }}" style="height:100%;position:relative;overflow:hidden;background:var(--color-neutral-300);display:flex;flex-direction:column;color:var(--color-text)">
+
+<sc-if value="{{ pulling }}" hint-placeholder-val="{{ false }}">
+<div style="{{ pullStyle }}"><i class="{{ pullIcon }}"></i></div>
+</sc-if>
+
+<div class="nsb" onScroll="{{ onPageScroll }}" onWheel="{{ onPull }}" style="flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch">
+
+<sc-if value="{{ alertOpen }}" hint-placeholder-val="{{ false }}">
+<div style="margin:0 10px;padding:104px 16px 16px;background:var(--color-accent-2-200);border-radius:0 0 22px 22px;display:flex;gap:11px;align-items:flex-start;animation:fadeIn .3s ease">
+<i class="ph-duotone ph-warning-circle" style="font-size:20px;color:var(--color-accent-2-700);margin-top:2px"></i>
+<div style="flex:1">
+<div style="font-size:16px;font-weight:600;color:var(--color-accent-2-800);line-height:1.3">{{ alertTitle }}</div>
+<div style="font-size:14px;color:var(--color-accent-2-800);line-height:1.45;margin-top:4px">{{ alertBody }}</div>
+<div style="display:flex;gap:16px;margin-top:11px;align-items:center">
+<button onClick="{{ acceptAlert }}" style="min-height:44px;border:none;background:none;padding:0;color:var(--color-accent-2-700);font-size:15px;font-weight:600;cursor:pointer;white-space:nowrap">{{ alertAction }}</button>
+<button onClick="{{ dismissAlert }}" style="min-height:44px;border:none;background:none;padding:0;color:var(--color-accent-2-800);font-size:15px;cursor:pointer">Dismiss</button>
+</div>
+</div>
+</div>
+</sc-if>
+
+<div style="{{ heroWrapStyle }}">
+<div class="nsb" onScroll="{{ onGalleryScroll }}" style="display:flex;overflow-x:auto;scroll-snap-type:x mandatory;height:{{ heroHeight }}">
+<sc-for list="{{ slides }}" as="s" hint-placeholder-count="6">
+<div onClick="{{ openViewer }}" style="{{ s.style }}">
+<sc-if value="{{ s.isPlate }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;background:var(--color-neutral-300);background-image:radial-gradient(circle,rgba(var(--ink),.11) 30%,transparent 32%);background-size:5px 5px">
+<i class="ph-duotone ph-image" style="font-size:28px;color:rgba(var(--ink),.35)"></i>
+<div style="font-size:13px;color:var(--color-neutral-800)">{{ s.label }}</div>
+</div>
+</sc-if>
+</div>
+</sc-for>
+</div>
+<div style="position:absolute;left:0;right:0;bottom:122px;display:flex;justify-content:center;pointer-events:none">
+<div style="display:flex;gap:6px;align-items:center;padding:7px 12px;border-radius:999px;background:rgba(var(--ink),.32);backdrop-filter:blur(16px) saturate(180%);-webkit-backdrop-filter:blur(16px) saturate(180%);box-shadow:inset 0 .5px 0 rgba(255,255,255,.28)">
+<sc-for list="{{ photoDots }}" as="d" hint-placeholder-count="6">
+<span style="{{ d.style }}"></span>
+</sc-for>
+</div>
+</div>
+<button onClick="{{ openViewer }}" style="position:absolute;right:14px;bottom:112px;min-height:34px;padding:0 13px;border-radius:999px;border:none;background:rgba(var(--ink),.32);backdrop-filter:blur(16px) saturate(180%);-webkit-backdrop-filter:blur(16px) saturate(180%);box-shadow:inset 0 .5px 0 rgba(255,255,255,.28);color:#fff;font-size:13.5px;cursor:pointer;display:flex;align-items:center;gap:6px;font-feature-settings:'tnum'"><i class="ph-duotone ph-squares-four"></i>{{ photoCounter }}</button>
+<div style="position:absolute;left:10px;right:10px;bottom:10px;padding:12px 15px 13px;border-radius:20px;background:rgba(var(--paper),.74);backdrop-filter:blur(30px) saturate(180%);-webkit-backdrop-filter:blur(30px) saturate(180%);box-shadow:inset 0 .5px 0 rgba(255,255,255,.9),inset 0 -.5px 0 rgba(var(--ink),.06),0 12px 34px rgba(var(--ink),.2)">
+<div style="display:flex;align-items:center;gap:8px;margin-bottom:5px">
+<span style="{{ statusStyle }}">{{ statusLabel }}</span>
+<span style="font-size:12.5px;color:rgba(var(--ink),.55)">7 days on Snaphomz</span>
+</div>
+<div style="display:flex;align-items:baseline;gap:10px">
+<h1 style="font-size:37px;line-height:1;font-weight:600;letter-spacing:-.035em;margin:0">{{ priceLabel }}</h1>
+<sc-if value="{{ priceChanged }}" hint-placeholder-val="{{ false }}">
+<span style="font-size:15px;color:rgba(var(--ink),.42);text-decoration:line-through">$1,588,000</span>
+</sc-if>
+<span style="flex:1"></span>
+<span style="font-size:13px;font-weight:600;color:var(--brand);white-space:nowrap">{{ netEffect }} in your favour</span>
+</div>
+</div>
+</div>
+
+<div style="margin:9px 10px 0;border-radius:20px;overflow:hidden;box-shadow:var(--lift);background:var(--color-bg);position:relative">
+<div style="padding:17px 15px 0">
+<div style="font-size:19px;font-weight:600;letter-spacing:-.02em;line-height:1.3">5308 Gatewood Ln<span style="color:rgba(var(--ink),.55)">, San Jose, CA 95118</span></div>
+<div style="font-size:15px;color:rgba(var(--ink),.55);margin-top:8px;display:flex;align-items:center;gap:7px"><i class="ph-duotone ph-calendar-dot" style="font-size:17px;color:var(--brand)"></i>Open house Sat 8/15, 7–10 PM</div>
+</div>
+
+<div style="padding:15px 15px 0;display:flex;align-items:stretch">
+<div style="flex:1"><div style="font-size:24px;font-weight:600;font-feature-settings:'tnum';line-height:1.1">4</div><div style="font-size:13px;color:var(--color-neutral-700);margin-top:2px">beds</div></div>
+<div style="width:1px;background:rgba(var(--ink),.12);margin:2px 14px"></div>
+<div style="flex:1"><div style="font-size:24px;font-weight:600;font-feature-settings:'tnum';line-height:1.1">2</div><div style="font-size:13px;color:var(--color-neutral-700);margin-top:2px">baths</div></div>
+<div style="width:1px;background:rgba(var(--ink),.12);margin:2px 14px"></div>
+<div style="flex:1"><div style="font-size:24px;font-weight:600;font-feature-settings:'tnum';line-height:1.1">1,415</div><div style="font-size:13px;color:var(--color-neutral-700);margin-top:2px">sqft</div></div>
+</div>
+
+<div style="padding:13px 15px 15px">
+<sc-for list="{{ factRows }}" as="f" hint-placeholder-count="4">
+<div style="display:flex;justify-content:space-between;align-items:baseline;padding:11px 0;border-top:1px solid rgba(var(--ink),.1);font-size:16px"><span style="color:rgba(var(--ink),.55)">{{ f.k }}</span><span style="font-feature-settings:'tnum'">{{ f.v }}</span></div>
+</sc-for>
+</div>
+</div>
+
+<div style="margin:9px 10px 0;padding:19px 15px;background:var(--color-bg);border-radius:20px;box-shadow:var(--lift)">
+<div style="font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--brand);margin-bottom:9px">Snaphomz AI · the short answer</div>
+<div style="font-family:var(--font-body);font-size:27px;line-height:1.2;font-weight:500;letter-spacing:-.012em;font-variant-numeric:proportional-nums;text-wrap:pretty">{{ verdictHeadline }}</div>
+<p style="font-family:var(--font-body);font-size:16.5px;line-height:1.62;color:rgba(var(--ink),.72);margin:10px 0 0;font-variant-numeric:proportional-nums;text-wrap:pretty">{{ verdictBody }}</p>
+<div style="display:flex;flex-direction:column;margin-top:16px">
+<div style="display:flex;gap:11px;font-size:16px;line-height:1.4;padding:11px 0;border-top:1px solid rgba(var(--ink),.1)"><i class="ph-duotone ph-arrow-down-right" style="color:var(--brand);font-size:19px;flex:none"></i><span><strong style="font-weight:600">$125,000 under</strong> what comparable homes are worth today</span></div>
+<div style="display:flex;gap:11px;font-size:16px;line-height:1.4;padding:11px 0;border-top:1px solid rgba(var(--ink),.1)"><i class="ph-duotone ph-arrow-up-right" style="color:var(--color-accent-2-700);font-size:19px;flex:none"></i><span><strong style="font-weight:600">{{ monthlyLabel }} a month</strong> all in — {{ monthlyNote }}</span></div>
+<div style="display:flex;gap:11px;font-size:16px;line-height:1.4;padding:11px 0;border-top:1px solid rgba(var(--ink),.1)"><i class="ph-duotone ph-person-simple-walk" style="color:var(--brand);font-size:19px;flex:none"></i><span><strong style="font-weight:600">100 walk score</strong>, groceries and a playground inside half a mile</span></div>
+</div>
+<sc-if value="{{ sourceLines }}" hint-placeholder-val="{{ true }}">
+<div style="font-size:12.5px;color:var(--color-neutral-700);margin-top:12px;line-height:1.45">Written by Snaphomz AI from 8 comps, live rates and public records. Not an appraisal.</div>
+</sc-if>
+</div>
+
+<div style="margin:9px 10px 0;padding:19px 0;background:var(--color-bg);border-radius:20px;box-shadow:var(--lift)">
+<div style="display:flex;align-items:baseline;justify-content:space-between;padding:0 16px 14px">
+<h2 style="font-size:22px;font-weight:600;margin:0;letter-spacing:-.026em">Decision signals</h2>
+<div style="display:flex;align-items:center;gap:9px"><div style="width:66px;height:5px;border-radius:999px;background:var(--color-neutral-300);overflow:hidden"><div style="{{ signalBarStyle }}"></div></div><span style="font-size:13px;color:var(--color-neutral-700);font-feature-settings:'tnum'">{{ signalCounter }}</span></div>
+</div>
+<div class="nsb" onScroll="{{ onSignalScroll }}" style="display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-left:16px;padding:0 16px;gap:12px">
+
+<div style="flex:none;width:282px;padding:16px;background:var(--color-neutral-100);border-radius:18px;box-shadow:var(--shadow-sm);scroll-snap-align:start">
+<div style="display:flex;align-items:center;gap:7px;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--color-neutral-700)"><i class="ph-duotone ph-tag" style="font-size:15px;color:var(--brand)"></i>Market position</div>
+<div style="font-size:27px;font-weight:600;color:var(--brand);margin-top:6px;letter-spacing:-.026em;font-feature-settings:'tnum'">7.3% below market</div>
+<p style="font-size:16px;line-height:1.55;color:rgba(var(--ink),.75);margin:9px 0 0;text-wrap:pretty">The seller is asking $125,000 less than what similar homes in this area are currently worth, a significant discount that puts you in a strong position as a buyer. The home is a week old and already priced below value, so move quickly — you should not need to stretch to negotiate.</p>
+<button onClick="{{ noop }}" style="margin-top:14px;width:100%;min-height:52px;border-radius:14px;border:none;background:rgba(var(--brand-rgb),.06);display:flex;align-items:center;gap:10px;padding:11px 12px;cursor:pointer;text-align:left" style-hover="background:rgba(var(--brand-rgb),.11)">
+<i class="ph-duotone ph-gauge" style="flex:none;font-size:21px;color:var(--brand)"></i>
+<span style="flex:1;min-width:0"><span style="display:block;font-size:15px;font-weight:600;line-height:1.25;letter-spacing:-.005em">Is your offer strong?</span><span style="display:block;font-size:13px;line-height:1.35;margin-top:2px;color:var(--color-neutral-700)">Score it before you submit</span></span>
+<i class="ph-duotone ph-caret-right" style="flex:none;font-size:15px;color:var(--color-neutral-700)"></i>
+</button>
+<sc-if value="{{ sourceLines }}" hint-placeholder-val="{{ true }}">
+<div style="font-size:12.5px;color:var(--color-neutral-700);margin-top:12px">Estimate · 8 sold comps · high confidence</div>
+</sc-if>
+</div>
+
+<div style="flex:none;width:282px;padding:16px;background:var(--color-neutral-100);border-radius:18px;box-shadow:var(--shadow-sm);scroll-snap-align:start">
+<div style="display:flex;align-items:center;gap:7px;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--color-neutral-700)"><i class="ph-duotone ph-wallet" style="font-size:15px;color:var(--brand)"></i>Total monthly cost</div>
+<div style="font-size:27px;font-weight:600;margin-top:6px;letter-spacing:-.026em;font-feature-settings:'tnum'">{{ monthlyLabel }}<span style="font-size:15px;color:var(--color-neutral-700);font-weight:400"> /mo</span></div>
+<div style="font-size:13px;color:var(--color-neutral-700);margin-top:3px">20% down · 30yr · 6.69% live rate</div>
+<div style="margin-top:12px">
+<sc-for list="{{ costRows }}" as="c" hint-placeholder-count="7">
+<div style="display:flex;justify-content:space-between;font-size:15px;padding:8px 0;border-top:1px solid rgba(var(--ink),.1)"><span style="color:rgba(var(--ink),.65)">{{ c.k }}</span><span style="font-feature-settings:'tnum'">{{ c.v }}</span></div>
+</sc-for>
+<div style="display:flex;justify-content:space-between;font-size:16px;font-weight:600;padding:10px 0 0;border-top:1px solid rgba(var(--ink),.28)"><span>Total</span><span style="font-feature-settings:'tnum'">{{ monthlyLabel }}</span></div>
+</div>
+<button onClick="{{ openForecast }}" style="margin-top:13px;background:none;border:none;padding:0;min-height:44px;color:var(--brand);font-size:16px;font-weight:600;cursor:pointer">Open the calculator</button>
+</div>
+
+<div style="flex:none;width:282px;padding:16px;background:var(--color-neutral-100);border-radius:18px;box-shadow:var(--shadow-sm);scroll-snap-align:start">
+<div style="display:flex;align-items:center;gap:7px;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--color-neutral-700)"><i class="ph-duotone ph-map-pin" style="font-size:15px;color:var(--brand)"></i>Sold nearby</div>
+<div style="font-size:27px;font-weight:600;margin-top:6px;letter-spacing:-.026em;font-feature-settings:'tnum'">$1,139<span style="font-size:15px;color:var(--color-neutral-700);font-weight:400"> /sqft avg</span></div>
+<div style="font-size:13px;color:var(--color-neutral-700);margin-top:3px">3 comparable sales, this listing asks $1,122</div>
+<div style="margin-top:12px">
+<div style="display:flex;gap:12px;align-items:center;padding:10px 0;border-top:1px solid rgba(var(--ink),.1)">
+<div style="width:56px;height:42px;border-radius:6px;background:var(--color-neutral-300);flex:none;display:flex;align-items:center;justify-content:center"><i class="ph-duotone ph-house" style="color:rgba(var(--ink),.35);font-size:18px"></i></div>
+<div style="flex:1"><div style="font-size:15px;font-weight:600;font-feature-settings:'tnum'">$1,549,875</div><div style="font-size:13px;color:var(--color-neutral-700);line-height:1.3">5265 Joseph Ln · 1,372 sqft</div></div>
+</div>
+<div style="display:flex;gap:12px;align-items:center;padding:10px 0;border-top:1px solid rgba(var(--ink),.1)">
+<img src="img/sold-harvard.png" alt="5477 Harvard Drive" style="width:56px;height:42px;border-radius:6px;object-fit:cover;flex:none">
+<div style="flex:1"><div style="font-size:15px;font-weight:600;font-feature-settings:'tnum'">$1,599,999</div><div style="font-size:13px;color:var(--color-neutral-700);line-height:1.3">5477 Harvard Dr · 1,317 sqft</div></div>
+</div>
+<div style="display:flex;gap:12px;align-items:center;padding:10px 0;border-top:1px solid rgba(var(--ink),.1)">
+<img src="img/sold-calinoma.png" alt="1554 Calinoma Drive" style="width:56px;height:42px;border-radius:6px;object-fit:cover;flex:none">
+<div style="flex:1"><div style="font-size:15px;font-weight:600;font-feature-settings:'tnum'">$1,499,000</div><div style="font-size:13px;color:var(--color-neutral-700);line-height:1.3">1554 Calinoma Dr · 1,400 sqft</div></div>
+</div>
+</div>
+<p style="font-size:15px;line-height:1.5;color:rgba(var(--ink),.75);margin:12px 0 0;text-wrap:pretty"><em>The street supports the ask.</em> Your offer strategy can focus on terms and timing rather than fighting the price.</p>
+</div>
+
+<div style="flex:none;width:282px;padding:16px;background:var(--color-neutral-100);border-radius:18px;box-shadow:var(--shadow-sm);scroll-snap-align:start">
+<div style="display:flex;align-items:center;gap:7px;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--color-neutral-700)"><i class="ph-duotone ph-person-simple-walk" style="font-size:15px;color:var(--brand)"></i>Neighborhood</div>
+<div style="font-size:27px;font-weight:600;color:var(--brand);margin-top:6px;letter-spacing:-.026em;font-feature-settings:'tnum'">100 · very walkable</div>
+<div style="margin-top:12px">
+<sc-for list="{{ nearby }}" as="n" hint-placeholder-count="5">
+<div style="display:flex;justify-content:space-between;gap:10px;font-size:15px;padding:9px 0;border-top:1px solid rgba(var(--ink),.1)"><span style="display:flex;gap:9px;align-items:center;color:rgba(var(--ink),.75)"><i class="{{ n.icon }}" style="color:var(--brand);font-size:17px"></i>{{ n.name }}</span><span style="color:var(--color-neutral-700);font-feature-settings:'tnum'">{{ n.dist }}</span></div>
+</sc-for>
+</div>
+<div style="font-size:15px;color:rgba(var(--ink),.75);margin-top:11px;line-height:1.5">Air quality index <strong style="color:var(--brand);font-weight:600">87</strong>, excellent. No tree or grass pollen today.</div>
+<button onClick="{{ openNeighborhood }}" style="margin-top:11px;background:none;border:none;padding:0;min-height:44px;color:var(--brand);font-size:16px;font-weight:600;cursor:pointer">What locals say</button>
+</div>
+
+<div style="flex:none;width:282px;padding:16px;background:var(--color-neutral-100);border-radius:18px;box-shadow:var(--shadow-sm);scroll-snap-align:start">
+<div style="display:flex;align-items:center;gap:7px;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--color-neutral-700)"><i class="ph-duotone ph-trend-up" style="font-size:15px;color:var(--brand)"></i>Home value trend</div>
+<div style="font-size:27px;font-weight:600;margin-top:6px;letter-spacing:-.026em">Outpacing the metro</div>
+<div style="font-size:13px;color:var(--color-neutral-700);margin-top:3px">Indexed 2021 to today</div>
+<svg viewBox="0 0 260 120" style="width:100%;height:130px;margin-top:12px">
+<line x1="0" y1="100" x2="260" y2="100" stroke="rgba(var(--ink),.12)"></line>
+<path d="M2 92 L40 88 L78 74 L116 58 L154 40 L192 34 L230 24 L256 18" fill="none" stroke="var(--brand)" stroke-width="2"></path>
+<path d="M2 96 L40 93 L78 84 L116 72 L154 60 L192 56 L230 50 L256 46" fill="none" stroke="rgba(var(--ink),.4)" stroke-width="1.5" stroke-dasharray="4 3"></path>
+<path d="M2 98 L40 96 L78 92 L116 86 L154 80 L192 78 L230 74 L256 71" fill="none" stroke="rgba(var(--ink),.18)" stroke-width="1.5"></path>
+</svg>
+<div style="display:flex;gap:14px;font-size:13px;color:var(--color-neutral-700);flex-wrap:wrap;margin-top:2px">
+<span style="display:flex;align-items:center;gap:5px"><span style="width:14px;height:2px;background:var(--brand);display:inline-block"></span>This home</span>
+<span style="display:flex;align-items:center;gap:5px"><span style="width:14px;height:2px;background:rgba(var(--ink),.4);display:inline-block"></span>Neighborhood</span>
+<span style="display:flex;align-items:center;gap:5px"><span style="width:14px;height:2px;background:rgba(var(--ink),.18);display:inline-block"></span>Metro</span>
+</div>
+</div>
+</div>
+</div>
+
+<div style="margin:9px 10px 0;padding:19px 15px;background:var(--color-bg);border-radius:20px;box-shadow:var(--lift)">
+<h2 style="font-size:22px;font-weight:600;margin:0;letter-spacing:-.026em">Four models, four numbers</h2>
+<p style="font-size:16px;line-height:1.5;color:rgba(var(--ink),.65);margin:6px 0 16px;text-wrap:pretty">They disagree by $144,000. The comps figure is the one lenders care about; the projection is the one to trust least.</p>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:20px 22px">
+<div>
+<div style="font-size:13px;color:var(--color-neutral-700)">House value</div>
+<div style="font-size:21px;font-weight:600;margin-top:1px;font-feature-settings:'tnum'">$1,580,818</div>
+<svg viewBox="0 0 120 30" style="width:100%;height:30px;margin-top:5px"><path d="M0 26 L14 23 L28 24 L42 17 L56 19 L70 12 L84 14 L98 7 L112 9 L120 3" fill="none" stroke="var(--brand)" stroke-width="1.6"></path></svg>
+<div style="font-size:12px;color:var(--color-neutral-700);margin-top:3px">AVM · 2016–2026</div>
+</div>
+<div>
+<div style="font-size:13px;color:var(--color-neutral-700)">Appraisal, comps</div>
+<div style="font-size:21px;font-weight:600;margin-top:1px;font-feature-settings:'tnum'">$1,725,000</div>
+<svg viewBox="0 0 120 30" style="width:100%;height:30px;margin-top:5px"><path d="M0 26 L30 22 L60 16 L90 10 L120 2" fill="none" stroke="var(--brand)" stroke-width="1.6"></path></svg>
+<div style="font-size:12px;color:var(--color-neutral-700);margin-top:3px">8 comps · high confidence</div>
+</div>
+<div>
+<div style="font-size:13px;color:var(--color-neutral-700)">Estimated rent</div>
+<div style="font-size:21px;font-weight:600;margin-top:1px;font-feature-settings:'tnum'">$3,282</div>
+<svg viewBox="0 0 120 30" style="width:100%;height:30px;margin-top:5px"><path d="M0 11 L20 9 L40 13 L52 23 L64 21 L82 19 L100 16 L120 7" fill="none" stroke="var(--color-accent-2-800)" stroke-width="1.6"></path></svg>
+<div style="font-size:12px;color:var(--color-neutral-700);margin-top:3px">+$742 vs Jul 2026</div>
+</div>
+<div>
+<div style="font-size:13px;color:var(--color-neutral-700)">5-year projection</div>
+<div style="font-size:21px;font-weight:600;margin-top:1px;font-feature-settings:'tnum'">$1,809,549</div>
+<svg viewBox="0 0 120 30" style="width:100%;height:30px;margin-top:5px"><path d="M0 25 L20 19 L40 22 L58 12" fill="none" stroke="var(--color-text)" stroke-width="1.6"></path><path d="M58 12 L80 10 L100 7 L120 4" fill="none" stroke="var(--brand)" stroke-width="1.6" stroke-dasharray="3 3"></path></svg>
+<div style="font-size:12px;color:var(--color-neutral-700);margin-top:3px">+5.7% modelled</div>
+</div>
+</div>
+</div>
+
+<div style="margin:9px 10px 0;padding:19px 15px;background:var(--color-bg);border-radius:20px;box-shadow:var(--lift)">
+<h2 style="font-size:22px;font-weight:600;margin:0 0 12px;letter-spacing:-.026em">Home highlights</h2>
+<div style="display:flex;align-items:flex-end;justify-content:space-between;gap:12px;padding:12px 14px;border-radius:15px;background:rgba(var(--brand-rgb),.07);margin-bottom:4px">
+<div style="min-width:0">
+<div style="font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--brand)">Net effect on your offer</div>
+<div style="font-size:13.5px;color:rgba(var(--ink),.6);line-height:1.4;margin-top:3px">One-time, before the {{ hoaYear }} a year in dues</div>
+</div>
+<div style="font-size:24px;font-weight:600;letter-spacing:-.03em;color:var(--brand);white-space:nowrap">{{ netEffect }}</div>
+</div>
+<sc-for list="{{ verdicts }}" as="v" hint-placeholder-count="5">
+<div style="padding:13px 0;border-top:1px solid rgba(var(--ink),.1)">
+<div style="display:flex;gap:10px;align-items:baseline">
+<i class="{{ v.icon }}" style="font-size:18px;flex:none;color:{{ v.color }}"></i>
+<div style="flex:1;min-width:0;font-size:16px;font-weight:600;line-height:1.3;letter-spacing:-.01em">{{ v.what }}</div>
+<div style="flex:none;font-size:15.5px;font-weight:600;white-space:nowrap;color:{{ v.color }}">{{ v.money }}</div>
+</div>
+<div style="margin:4px 0 0 28px;font-size:14.5px;color:rgba(var(--ink),.6);line-height:1.45;text-wrap:pretty">{{ v.why }} <span style="color:rgba(var(--ink),.38)">{{ v.src }}</span></div>
+</div>
+</sc-for>
+<div style="padding:12px 0 15px;border-top:1px solid rgba(var(--ink),.1);font-size:13px;color:var(--color-neutral-700);line-height:1.45">Each figure is an estimate we derived from the listing, county records and eight closed comps — not a quote.</div>
+<p style="font-size:17px;line-height:1.6;margin:0;text-wrap:pretty">Welcome to 5308 Gatewood Lane, a beautifully renovated single-story home nestled in the desirable Cambrian area. With modern updates, this move-in-ready residence offers three bedrooms, two bathrooms, and a functional floor plan designed for both everyday living and entertaining. Upgrades include new windows throughout, engineered wood flooring, kitchen and laundry appliances, high-efficiency central furnace and AC, and many more.</p>
+<sc-if value="{{ expHighlights }}" hint-placeholder-val="{{ false }}">
+<p style="font-size:17px;line-height:1.6;margin:14px 0 0;text-wrap:pretty">Have peace of mind with a new roof on the main structure. Past owners installed a newer sewer line, copper plumbing, upgraded wall insulation, and built an attached structure in back that can be used as an office. 2-car garage.</p>
+<p style="font-size:17px;line-height:1.6;margin:14px 0 0;text-wrap:pretty">Section 1 items in pest report cleared. There's plenty of space in front and back for outdoor relaxation, gardening, and gatherings. Gated front fence for kids or pets to roam free.</p>
+<div style="margin-top:14px;padding-left:13px;border-left:2px solid var(--color-accent-2-700);font-size:15px;line-height:1.5;color:rgba(var(--ink),.7)">The listing says three bedrooms; county records say four. We show both until the agent confirms which is right.</div>
+</sc-if>
+<button onClick="{{ toggleHighlights }}" style="margin-top:12px;background:none;border:none;padding:0;min-height:44px;color:var(--brand);font-size:16px;font-weight:600;cursor:pointer">{{ highlightsLabel }}</button>
+</div>
+
+<div style="margin:9px 10px 0;padding:19px 15px;background:var(--color-bg);border-radius:20px;box-shadow:var(--lift)">
+<h2 style="font-size:22px;font-weight:600;margin:0;letter-spacing:-.026em">Know what you can borrow</h2>
+<p style="font-size:16px;line-height:1.5;color:rgba(var(--ink),.65);margin:6px 0 14px;text-wrap:pretty">Four questions, a soft check that does not touch your score, and a number you can put in front of this seller. Sellers here read a lender letter as seriousness.</p>
+<button onClick="{{ openPre }}" style="min-height:50px;padding:0 22px;border-radius:25px;border:none;background:var(--brand);color:#fff;font-size:17px;font-weight:600;cursor:pointer" style-hover="background:var(--brand-2)">Get pre-approved</button>
+</div>
+
+<div style="margin:9px 10px 0;padding:19px 0;background:var(--color-bg);border-radius:20px;box-shadow:var(--lift)">
+<h2 style="font-size:22px;font-weight:600;margin:0 16px 4px;letter-spacing:-.026em">Reports on this address</h2>
+<p style="font-size:16px;color:rgba(var(--ink),.65);margin:0 16px 14px">Seven of them. Each opens full screen.</p>
+<sc-for list="{{ explore }}" as="e" hint-placeholder-count="7">
+<button onClick="{{ e.open }}" style="width:100%;min-height:60px;display:flex;align-items:center;gap:13px;padding:12px 16px;background:none;border:none;border-top:1px solid rgba(var(--ink),.1);cursor:pointer;text-align:left" style-hover="background:rgba(var(--ink),.04)">
+<i class="{{ e.icon }}" style="font-size:24px;color:var(--brand);flex:none"></i>
+<span style="flex:1"><span style="display:block;font-size:17px;font-weight:600">{{ e.label }}</span><span style="display:block;font-size:14px;color:var(--color-neutral-700);line-height:1.35;margin-top:1px">{{ e.sub }}</span></span>
+<i class="ph-duotone ph-caret-right" style="color:rgba(var(--ink),.3);font-size:17px"></i>
+</button>
+</sc-for>
+</div>
+
+<div style="margin:9px 10px 0;padding:19px 0;background:var(--color-bg);border-radius:20px;box-shadow:var(--lift)">
+<div style="padding:0 16px 6px;display:flex;align-items:center;justify-content:space-between">
+<h2 style="font-size:22px;font-weight:600;margin:0;letter-spacing:-.026em">Similar homes</h2>
+<button onClick="{{ toggleCompare }}" style="min-height:38px;padding:0 14px;border-radius:19px;border:none;background:rgba(var(--brand-rgb),.1);color:var(--brand);font-size:15px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:7px" style-hover="background:rgba(var(--brand-rgb),.18)"><i class="ph-duotone ph-columns" style="font-size:16px"></i>{{ compareLabel }}</button>
+</div>
+<p style="font-size:16px;color:rgba(var(--ink),.65);margin:0 16px 14px">Tap to add to a comparison.</p>
+<div class="nsb" style="display:flex;gap:12px;overflow-x:auto;padding:0 16px 4px;scroll-snap-type:x mandatory;scroll-padding-left:16px">
+<sc-for list="{{ similar }}" as="h" hint-placeholder-count="4">
+<div onClick="{{ h.pick }}" onPointerDown="{{ h.peekDown }}" onPointerUp="{{ h.peekUp }}" onPointerLeave="{{ h.peekUp }}" style="{{ h.style }}">
+<div style="height:112px;background:var(--color-neutral-300);background-image:radial-gradient(circle,rgba(var(--ink),.1) 30%,transparent 32%);background-size:5px 5px;display:flex;align-items:center;justify-content:center;position:relative">
+<i class="ph-duotone ph-house-line" style="font-size:26px;color:rgba(var(--ink),.32)"></i>
+<sc-if value="{{ h.on }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;top:9px;right:9px;width:26px;height:26px;border-radius:50%;background:var(--brand);color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;box-shadow:0 2px 8px rgba(var(--ink),.25)">✓</div>
+</sc-if>
+</div>
+<div style="padding:12px 13px 14px">
+<div style="font-size:18px;font-weight:600;font-feature-settings:'tnum'">{{ h.price }}</div>
+<div style="font-size:14px;color:var(--color-neutral-700);line-height:1.35;margin-top:2px">{{ h.addr }}</div>
+<div style="font-size:14px;color:rgba(var(--ink),.75);margin-top:7px;font-feature-settings:'tnum'">{{ h.specs }}</div>
+<div style="font-size:13.5px;margin-top:6px;font-weight:600;color:{{ h.deltaColor }};font-feature-settings:'tnum'">{{ h.delta }}</div>
+</div>
+</div>
+</sc-for>
+</div>
+</div>
+
+<div style="margin:22px 15px 0;padding-top:4px">
+<div style="font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--color-neutral-800);margin-bottom:8px">Where these numbers come from</div>
+<p style="font-size:14px;line-height:1.55;color:var(--color-neutral-800);margin:0;text-wrap:pretty">Values, rents and forecasts are model estimates, not appraisals or offers. Rates are pulled live and change daily. Tax and sale history come from public records and can lag. Snaphomz is not a lender, broker or financial advisor.</p>
+<div style="font-size:13px;color:var(--color-neutral-800);margin-top:10px;font-feature-settings:'tnum'">Listing updated 8/12/26 09:37 · MLS 10646119810</div>
+</div>
+
+<div style="height:150px"></div>
+</div>
+
+<div style="{{ navStyle }}">
+<button onClick="{{ noop }}" aria-label="Back" style="{{ navBtnStyle }}"><i class="ph-duotone ph-caret-left"></i></button>
+<div style="flex:1;text-align:center;min-width:0;padding:0 4px">
+<sc-if value="{{ navSolid }}" hint-placeholder-val="{{ false }}">
+<div style="font-size:17px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;animation:fadeIn .2s ease">5308 Gatewood Ln</div>
+<div style="font-size:12px;color:var(--color-neutral-700);font-feature-settings:'tnum'">{{ priceLabel }}</div>
+</sc-if>
+</div>
+<button onClick="{{ openShare }}" aria-label="Share" style="{{ navBtnStyle }}"><i class="ph-duotone ph-share-network"></i></button>
+<button onClick="{{ toggleSave }}" aria-label="Save" style="{{ saveBtnStyle }}"><i class="{{ saveIcon }}"></i></button>
+</div>
+
+<div style="position:absolute;left:0;right:0;bottom:0;height:96px;z-index:2;pointer-events:none;background:linear-gradient(to top,rgba(var(--paper),1) 26%,rgba(var(--paper),.86) 52%,rgba(var(--paper),0))"></div>
+
+<div style="position:absolute;left:16px;right:16px;bottom:26px;z-index:3;display:flex;gap:9px;align-items:center;padding:8px;border-radius:32px;background:rgba(var(--paper),.62);backdrop-filter:blur(28px) saturate(180%);-webkit-backdrop-filter:blur(28px) saturate(180%);box-shadow:inset 0 .5px 0 rgba(255,255,255,.9),inset 0 -.5px 0 rgba(var(--ink),.06),0 8px 28px rgba(var(--ink),.14)">
+<button onClick="{{ openChat }}" aria-label="Ask Snaphomz AI" style="width:48px;height:48px;flex:none;border-radius:50%;border:none;background:rgba(var(--brand-rgb),.1);color:var(--brand);font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center" style-hover="background:rgba(var(--brand-rgb),.18)"><i class="ph-duotone ph-sparkle"></i></button>
+<button onClick="{{ openTour }}" disabled="{{ tourDisabled }}" style="{{ primaryCtaStyle }}">{{ primaryCtaLabel }}</button>
+</div>
+
+<sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;left:16px;right:16px;bottom:92px;z-index:6;background:rgba(var(--ink),.86);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);box-shadow:inset 0 .5px 0 rgba(255,255,255,.2),0 8px 24px rgba(var(--ink),.2);color:var(--color-bg);padding:13px 15px;border-radius:18px;font-size:15px;line-height:1.4;display:flex;gap:11px;align-items:center;animation:popIn .25s ease">
+<i class="ph-duotone ph-info" style="font-size:19px"></i><span style="flex:1">{{ toast }}</span>
+<sc-if value="{{ toastAction }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ toastDo }}" style="background:none;border:none;color:var(--color-accent-300);font-size:15px;font-weight:600;cursor:pointer;padding:0;min-height:44px;white-space:nowrap">{{ toastAction }}</button>
+</sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{ sheetOpen }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;inset:0;z-index:7;background:rgba(var(--ink),.3);animation:fadeIn .25s ease" onClick="{{ closeSheet }}"></div>
+<div data-screen-label="Detail sheet" onPointerDown="{{ edgeDown }}" onPointerMove="{{ edgeMove }}" onPointerUp="{{ edgeUp }}" style="{{ sheetStyle }}">
+<div onPointerDown="{{ dragDown }}" onPointerMove="{{ dragMove }}" onPointerUp="{{ dragUp }}" onPointerCancel="{{ dragUp }}" style="flex:none;position:relative;padding:8px 16px 11px;background:rgba(var(--paper),.72);backdrop-filter:blur(28px) saturate(180%);-webkit-backdrop-filter:blur(28px) saturate(180%);box-shadow:inset 0 -.5px 0 rgba(var(--ink),.12);touch-action:none;cursor:grab">
+<div style="{{ grabberStyle }}"></div>
+<div style="display:flex;align-items:flex-start;gap:12px">
+<div style="flex:1;min-width:0"><div style="font-size:22px;font-weight:600;letter-spacing:-.026em;line-height:1.2">{{ sheetTitle }}</div><div style="font-size:13.5px;color:var(--color-neutral-700);margin-top:1px">{{ sheetSub }}</div></div>
+<button onClick="{{ closeSheet }}" aria-label="Close" style="width:44px;height:44px;flex:none;margin-top:-4px;border-radius:50%;border:none;background:rgba(var(--ink),.07);color:rgba(var(--ink),.55);font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center" style-hover="background:rgba(var(--ink),.13)"><i class="ph-duotone ph-x"></i></button>
+</div>
+<div class="nsb" style="display:flex;gap:6px;overflow-x:auto;margin:9px -16px -2px;padding:2px 16px 2px;scroll-snap-type:x proximity">
+<sc-for list="{{ reportTabs }}" as="r" hint-placeholder-count="7">
+<button onClick="{{ r.go }}" style="{{ r.style }}">{{ r.label }}</button>
+</sc-for>
+</div>
+</div>
+<div class="nsb" style="flex:1;overflow-y:auto;padding:4px 16px 120px">
+
+<sc-if value="{{ isProperty }}" hint-placeholder-val="{{ false }}">
+<sc-for list="{{ propertyGroups }}" as="g" hint-placeholder-count="5">
+<div style="padding:20px 0 4px">
+<div style="font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--color-neutral-700);margin-bottom:4px">{{ g.title }}</div>
+<sc-for list="{{ g.rows }}" as="r" hint-placeholder-count="3">
+<div style="display:flex;justify-content:space-between;gap:16px;font-size:16px;padding:11px 0;line-height:1.4;border-top:1px solid rgba(var(--ink),.1)"><span style="color:rgba(var(--ink),.55);flex:none">{{ r.k }}</span><span style="text-align:right">{{ r.v }}</span></div>
+</sc-for>
+</div>
+</sc-for>
+<div style="margin-top:22px;font-size:14px;color:var(--color-neutral-700);line-height:1.55">Supplied by the listing agent and not verified by Snaphomz. Anything that matters to your offer should be confirmed in the disclosures.</div>
+<button onClick="{{ noop }}" style="margin-top:16px;width:100%;min-height:50px;border-radius:25px;border:none;background:rgba(var(--ink),.07);font-size:17px;cursor:pointer;color:var(--color-text)" style-hover="background:rgba(var(--ink),.12)">Review disclosures</button>
+</sc-if>
+
+<sc-if value="{{ isSchools }}" hint-placeholder-val="{{ false }}">
+<p style="font-size:17px;line-height:1.55;color:rgba(var(--ink),.75);margin:14px 0 18px;text-wrap:pretty">This home is within <strong style="font-weight:600;color:var(--color-text)">Campbell Union High School District</strong>. Assignment can change year to year — confirm with the district before you buy on schools.</p>
+<sc-for list="{{ schools }}" as="s" hint-placeholder-count="5">
+<div style="padding:12px 0;border-top:1px solid rgba(var(--ink),.1);display:flex;gap:13px;align-items:center">
+<div style="{{ s.badge }}">{{ s.rating }}</div>
+<div style="flex:1"><div style="font-size:16.5px;font-weight:600;line-height:1.3">{{ s.name }}</div><div style="font-size:14px;color:var(--color-neutral-700);margin-top:1px">{{ s.meta }}</div></div>
+</div>
+</sc-for>
+<sc-if value="{{ sourceLines }}" hint-placeholder-val="{{ true }}">
+<div style="font-size:12.5px;color:var(--color-neutral-700);margin-top:11px">Ratings 1–10 from GreatSchools via SnapGrad · updated Jul 2026</div>
+</sc-if>
+<h3 style="font-size:20px;font-weight:600;margin:30px 0 3px;letter-spacing:-.026em">College readiness</h3>
+<div style="font-size:15px;color:rgba(var(--ink),.55);margin-bottom:8px">Where graduates of Beacon School enrolled</div>
+<sc-for list="{{ colleges }}" as="c" hint-placeholder-count="3">
+<div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-top:1px solid rgba(var(--ink),.1)">
+<div style="font-size:21px;font-weight:600;color:rgba(var(--ink),.28);font-feature-settings:'tnum';width:22px">{{ c.rank }}</div>
+<div style="flex:1"><div style="font-size:16px;font-weight:600;line-height:1.3">{{ c.name }}</div><div style="font-size:12.5px;color:var(--color-neutral-700);font-feature-settings:'tnum'">Institution ID {{ c.id }}</div></div>
+</div>
+</sc-for>
+<div style="display:flex;gap:18px;align-items:center;margin-top:22px;padding-top:20px;border-top:1px solid rgba(var(--ink),.1)">
+<svg viewBox="0 0 42 42" style="width:84px;height:84px;flex:none">
+<circle cx="21" cy="21" r="15.9" fill="none" stroke="var(--brand)" stroke-width="7" stroke-dasharray="46 54"></circle>
+<circle cx="21" cy="21" r="15.9" fill="none" stroke="var(--brand-soft)" stroke-width="7" stroke-dasharray="27 73" stroke-dashoffset="-46"></circle>
+<circle cx="21" cy="21" r="15.9" fill="none" stroke="var(--color-accent-2-800)" stroke-width="7" stroke-dasharray="14 86" stroke-dashoffset="-73"></circle>
+<circle cx="21" cy="21" r="15.9" fill="none" stroke="rgba(var(--ink),.16)" stroke-width="7" stroke-dasharray="13 87" stroke-dashoffset="-87"></circle>
+</svg>
+<div style="flex:1;display:flex;flex-direction:column;gap:6px;font-size:14.5px;color:rgba(var(--ink),.75)">
+<div style="display:flex;gap:9px;align-items:center"><span style="width:10px;height:10px;border-radius:3px;background:var(--brand)"></span>Asian 46%</div>
+<div style="display:flex;gap:9px;align-items:center"><span style="width:10px;height:10px;border-radius:3px;background:var(--brand-soft)"></span>Hispanic 27%</div>
+<div style="display:flex;gap:9px;align-items:center"><span style="width:10px;height:10px;border-radius:3px;background:var(--color-accent-2-700)"></span>White 14%</div>
+<div style="display:flex;gap:9px;align-items:center"><span style="width:10px;height:10px;border-radius:3px;background:rgba(var(--ink),.16)"></span>Other 13%</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isIntel }}" hint-placeholder-val="{{ false }}">
+<div class="nsb" style="display:flex;gap:7px;overflow-x:auto;margin:14px 0 12px">
+<sc-for list="{{ weights }}" as="w" hint-placeholder-count="5">
+<button onClick="{{ w.pick }}" style="{{ w.style }}">{{ w.label }}</button>
+</sc-for>
+</div>
+<div style="position:relative;border-radius:18px;overflow:hidden">
+<img src="img/map.png" alt="Price heat map around 5308 Gatewood Ln" style="width:100%;display:block">
+<div style="position:absolute;left:0;right:0;bottom:0;padding:7px 10px;background:rgba(var(--paper),.78);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);font-size:10.5px;color:var(--color-neutral-700)">MapLibre · OpenFreeMap © OpenMapTiles · data from OpenStreetMap</div>
+</div>
+<p style="font-size:16px;line-height:1.55;color:rgba(var(--ink),.75);margin:11px 0 0;text-wrap:pretty">Warm areas carry the higher {{ weightLabel }}. This home sits on the cool edge of the hot block — the usual sign of a renovated house on a cheaper street.</p>
+
+<h3 style="font-size:20px;font-weight:600;margin:30px 0 4px;letter-spacing:-.026em">Owner position</h3>
+<div style="font-size:15px;color:rgba(var(--ink),.55);margin-bottom:6px">From recorded deeds. Tells you how much room the seller has.</div>
+<sc-for list="{{ ownerRows }}" as="r" hint-placeholder-count="5">
+<div style="display:flex;justify-content:space-between;font-size:16px;padding:11px 0;border-top:1px solid rgba(var(--ink),.1)"><span style="color:rgba(var(--ink),.55)">{{ r.k }}</span><span style="font-feature-settings:'tnum'">{{ r.v }}</span></div>
+</sc-for>
+<h3 style="font-size:20px;font-weight:600;margin:26px 0 4px;letter-spacing:-.026em">Comps</h3>
+<sc-for list="{{ compRows }}" as="r" hint-placeholder-count="4">
+<div style="display:flex;justify-content:space-between;font-size:16px;padding:11px 0;border-top:1px solid rgba(var(--ink),.1)"><span style="color:rgba(var(--ink),.55)">{{ r.k }}</span><span style="font-feature-settings:'tnum'">{{ r.v }}</span></div>
+</sc-for>
+
+<h3 style="font-size:20px;font-weight:600;margin:30px 0 0;letter-spacing:-.026em">Price &amp; sale history</h3>
+<div style="padding:26px 0 4px;text-align:center">
+<i class="ph-duotone ph-file-dashed" style="font-size:34px;color:rgba(var(--ink),.28)"></i>
+<div style="font-size:17px;font-weight:600;margin-top:10px">No sale or tax record found</div>
+<p style="font-size:15.5px;color:rgba(var(--ink),.6);line-height:1.55;margin:6px auto 0;max-width:280px;text-wrap:pretty">Santa Clara County has nothing filed against this parcel since 1998. That usually means a long-held family home, not a data error — but it does mean we can’t show a price trail.</p>
+<button onClick="{{ requestRecords }}" style="margin-top:16px;min-height:48px;padding:0 20px;border-radius:24px;border:none;background:rgba(var(--brand-rgb),.1);color:var(--brand);font-size:16px;font-weight:600;cursor:pointer" style-hover="background:rgba(var(--brand-rgb),.17)">Ask the agent for history</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ isForecast }}" hint-placeholder-val="{{ false }}">
+<div style="padding:16px 0 0">
+<div style="display:flex;align-items:baseline;justify-content:space-between">
+<div><div style="font-size:20px;font-weight:600;letter-spacing:-.026em">Rate predictor</div><div style="font-size:14px;color:var(--color-neutral-700)">30-year fixed, national average</div></div>
+<div style="font-size:24px;font-weight:600;font-feature-settings:'tnum'">6.69%</div>
+</div>
+<div style="display:flex;gap:7px;margin:14px 0 4px">
+<sc-for list="{{ ranges }}" as="r" hint-placeholder-count="3">
+<button onClick="{{ r.pick }}" style="{{ r.style }}">{{ r.label }}</button>
+</sc-for>
+</div>
+<svg viewBox="0 0 300 130" style="width:100%;height:150px">
+<line x1="0" y1="110" x2="300" y2="110" stroke="rgba(var(--ink),.12)"></line>
+<path d="M4 84 L28 70 L52 62 L76 70 L100 58 L124 74 L140 46 L156 30" fill="none" stroke="var(--color-text)" stroke-width="2"></path>
+<path d="M156 30 L184 48 L212 68 L240 84 L268 92 L296 70" fill="none" stroke="var(--brand)" stroke-width="2" stroke-dasharray="5 4"></path>
+<circle cx="156" cy="30" r="3.5" fill="var(--color-text)"></circle>
+</svg>
+<div style="display:flex;justify-content:space-between;font-size:12.5px;color:var(--color-neutral-700);font-feature-settings:'tnum'"><span>May '26</span><span>today</span><span>Jan '27</span></div>
+<p style="font-size:16px;line-height:1.55;color:rgba(var(--ink),.75);margin:12px 0 0;text-wrap:pretty">The model has rates easing to about 6.2% by November. On this loan that is roughly $520 a month — worth knowing before you lock, not worth waiting on.</p>
+<sc-if value="{{ sourceLines }}" hint-placeholder-val="{{ true }}">
+<div style="font-size:12.5px;color:var(--color-neutral-700);margin-top:10px">Forecast · updated 8/12/26 09:37 · a model, not a guarantee</div>
+</sc-if>
+</div>
+
+<h3 style="font-size:20px;font-weight:600;margin:32px 0 14px;letter-spacing:-.026em">Payment calculator</h3>
+<div style="display:flex;flex-direction:column;gap:15px">
+<div>
+<label style="display:block;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--color-neutral-700);margin-bottom:6px">Home price ($)</label>
+<input value="{{ calcPrice }}" onChange="{{ setPrice }}" inputmode="numeric" style="{{ priceInputStyle }}">
+<sc-if value="{{ errPrice }}" hint-placeholder-val="{{ false }}">
+<div style="font-size:14px;color:var(--color-accent-2-700);margin-top:7px;line-height:1.4;display:flex;gap:7px"><i class="ph-duotone ph-warning-circle" style="font-size:17px"></i><span>{{ errPrice }}</span></div>
+</sc-if>
+</div>
+<div>
+<label style="display:block;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--color-neutral-700);margin-bottom:6px">Down payment</label>
+<div style="display:flex;gap:9px">
+<input value="{{ calcDown }}" onChange="{{ setDown }}" inputmode="numeric" style="{{ downInputStyle }}">
+<div style="display:flex;border-radius:12px;background:rgba(var(--ink),.05);flex:none">
+<button onClick="{{ modePct }}" style="{{ modePctStyle }}">%</button>
+<button onClick="{{ modeAmt }}" style="{{ modeAmtStyle }}">$</button>
+</div>
+</div>
+<sc-if value="{{ errDown }}" hint-placeholder-val="{{ false }}">
+<div style="font-size:14px;color:var(--color-accent-2-700);margin-top:7px;line-height:1.4;display:flex;gap:7px"><i class="ph-duotone ph-warning-circle" style="font-size:17px"></i><span>{{ errDown }}</span></div>
+</sc-if>
+<div style="margin-top:13px">
+<input class="rng" type="range" min="0" max="40" step="0.5" value="{{ downPct }}" onInput="{{ setDownSlider }}" aria-label="Down payment percent">
+<div style="display:flex;justify-content:space-between;align-items:flex-end;height:9px;padding:0 13px">
+<sc-for list="{{ downTicks }}" as="k" hint-placeholder-count="9">
+<span style="{{ k.style }}"></span>
+</sc-for>
+</div>
+<div style="display:flex;justify-content:space-between;align-items:baseline;margin-top:6px;font-size:12px;color:rgba(var(--ink),.5)"><span>0%</span><span style="font-size:14px;font-weight:600;color:var(--color-text)">{{ downRead }}</span><span>40%</span></div>
+</div>
+</div>
+<div style="display:flex;gap:11px">
+<div style="flex:1">
+<label style="display:block;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--color-neutral-700);margin-bottom:6px">Term</label>
+<select value="{{ calcTerm }}" onChange="{{ setTerm }}" style="width:100%;box-sizing:border-box;min-height:50px;border:none;border-radius:12px;padding:0 12px;font-size:17px;background:rgba(var(--ink),.05);color:var(--color-text)">
+<option value="30">30 years</option>
+<option value="20">20 years</option>
+<option value="15">15 years</option>
+</select>
+</div>
+<div style="flex:1">
+<label style="display:block;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--color-neutral-700);margin-bottom:6px">Rate (%)</label>
+<input value="{{ calcRate }}" onChange="{{ setRate }}" inputmode="decimal" style="{{ rateInputStyle }}">
+</div>
+</div>
+<sc-if value="{{ errRate }}" hint-placeholder-val="{{ false }}">
+<div style="font-size:14px;color:var(--color-accent-2-700);margin-top:-6px;line-height:1.4;display:flex;gap:7px"><i class="ph-duotone ph-warning-circle" style="font-size:17px"></i><span>{{ errRate }}</span></div>
+</sc-if>
+</div>
+<div style="margin-top:22px;padding-top:18px;border-top:1px solid rgba(var(--ink),.14)">
+<div style="font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--color-neutral-700)">Estimated monthly payment</div>
+<div style="font-size:34px;font-weight:600;font-feature-settings:'tnum';margin-top:4px;letter-spacing:-.02em;color:{{ resultColor }}">{{ calcTotal }}</div>
+<div style="font-size:15px;color:rgba(var(--ink),.6);line-height:1.5;margin-top:5px">{{ calcCaption }}</div>
+<sc-if value="{{ pmiNote }}" hint-placeholder-val="{{ false }}">
+<div style="margin-top:13px;padding-left:13px;border-left:2px solid var(--brand);font-size:15px;line-height:1.5;color:var(--brand)">{{ pmiNote }}</div>
+</sc-if>
+<sc-if value="{{ calcBroken }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ resetCalc }}" style="margin-top:16px;min-height:48px;width:100%;border-radius:24px;border:none;background:rgba(var(--brand-rgb),.1);color:var(--brand);font-size:16px;font-weight:600;cursor:pointer">Reset to this listing</button>
+</sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{ isRvb }}" hint-placeholder-val="{{ false }}">
+<sc-if value="{{ rvbResume }}" hint-placeholder-val="{{ false }}">
+<div style="margin:16px 0 4px;padding-left:14px;border-left:2px solid var(--brand)">
+<div style="font-size:17px;font-weight:600;color:var(--brand)">You were {{ rvbSavedCount }} of 5 questions in</div>
+<div style="font-size:15px;color:rgba(var(--ink),.7);line-height:1.5;margin-top:3px">We kept your answers on this device. Nothing was sent anywhere.</div>
+<div style="display:flex;gap:18px;margin-top:8px">
+<button onClick="{{ rvbDismissResume }}" style="min-height:44px;border:none;background:none;padding:0;color:var(--brand);font-size:16px;font-weight:600;cursor:pointer">Keep going</button>
+<button onClick="{{ rvbReset }}" style="min-height:44px;border:none;background:none;padding:0;color:rgba(var(--ink),.55);font-size:16px;cursor:pointer;white-space:nowrap">Start over</button>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{ rvbVerdictOn }}" hint-placeholder-val="{{ false }}">
+<div style="margin:18px 0 6px">
+<div style="font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--brand)">Verdict</div>
+<div style="font-size:25px;font-weight:600;margin-top:6px;line-height:1.2;letter-spacing:-.015em">{{ rvbHeadline }}</div>
+<p style="font-size:17px;line-height:1.55;color:rgba(var(--ink),.75);margin:9px 0 0;text-wrap:pretty">{{ rvbBody }}</p>
+<sc-if value="{{ sourceLines }}" hint-placeholder-val="{{ true }}">
+<div style="font-size:12.5px;color:var(--color-neutral-700);margin-top:10px">Estimate · your inputs · 36% DTI guideline · not a lending decision</div>
+</sc-if>
+</div>
+</sc-if>
+<div style="display:flex;flex-direction:column;gap:15px;padding-top:20px">
+<div>
+<label style="display:block;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--color-neutral-700);margin-bottom:7px">Income type</label>
+<div style="display:flex;border-radius:12px;background:rgba(var(--ink),.05)">
+<sc-for list="{{ incomeTypes }}" as="t" hint-placeholder-count="2">
+<button onClick="{{ t.pick }}" style="{{ t.style }}">{{ t.label }}</button>
+</sc-for>
+</div>
+</div>
+<div>
+<label style="display:block;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--color-neutral-700);margin-bottom:6px">Gross annual income ($)</label>
+<input value="{{ rvbIncome }}" onChange="{{ setRvbIncome }}" placeholder="120,000" inputmode="numeric" style="{{ plainInput }}">
+</div>
+<div style="display:flex;gap:11px">
+<div style="flex:1"><label style="display:block;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--color-neutral-700);margin-bottom:6px">Monthly debts</label>
+<input value="{{ rvbDebts }}" onChange="{{ setRvbDebts }}" placeholder="400" inputmode="numeric" style="{{ plainInput }}"></div>
+<div style="flex:1"><label style="display:block;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--color-neutral-700);margin-bottom:6px">Reserves (mo)</label>
+<input value="{{ rvbReserves }}" onChange="{{ setRvbReserves }}" placeholder="6" inputmode="numeric" style="{{ plainInput }}"></div>
+</div>
+<div>
+<label style="display:block;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--color-neutral-700);margin-bottom:6px">Credit score</label>
+<input value="{{ rvbCredit }}" onChange="{{ setRvbCredit }}" placeholder="720" inputmode="numeric" style="{{ plainInput }}">
+<div style="font-size:13px;color:var(--color-neutral-700);margin-top:6px">A soft estimate is fine. Nothing here touches your credit file.</div>
+</div>
+<button onClick="{{ getVerdict }}" style="min-height:52px;border-radius:26px;border:none;background:var(--brand);color:#fff;font-size:17px;font-weight:600;cursor:pointer" style-hover="background:var(--brand-2)">Get the verdict</button>
+<div style="font-size:13px;color:var(--color-neutral-700);line-height:1.5">Answers stay on this device until you ask for a verdict. Leave any time — we keep your place.</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isNbhd }}" hint-placeholder-val="{{ false }}">
+<p style="font-size:16px;line-height:1.55;color:rgba(var(--ink),.7);margin:14px 0 0">Drawn from Reddit, local forums and city planning records. Opinions, not statistics.</p>
+<div class="nsb" style="display:flex;gap:7px;overflow-x:auto;margin:14px 0 18px">
+<sc-for list="{{ topics }}" as="t" hint-placeholder-count="6">
+<button onClick="{{ t.pick }}" style="{{ t.style }}">{{ t.label }}</button>
+</sc-for>
+</div>
+<div style="font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--brand);margin-bottom:8px">{{ topicLabel }}</div>
+<p style="font-size:19px;line-height:1.5;margin:0;font-style:italic;letter-spacing:-.005em;text-wrap:pretty">{{ topicQuote }}</p>
+<div style="margin-top:22px">
+<sc-for list="{{ topicNotes }}" as="n" hint-placeholder-count="2">
+<div style="padding:14px 0;border-top:1px solid rgba(var(--ink),.1)">
+<div style="font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--color-neutral-700);margin-bottom:5px">{{ n.src }}</div>
+<div style="font-size:16px;line-height:1.55;color:rgba(var(--ink),.85);text-wrap:pretty">{{ n.t }}</div>
+</div>
+</sc-for>
+</div>
+<div style="font-size:12.5px;color:var(--color-neutral-700);margin-top:16px;line-height:1.5">Summarised by Snaphomz AI from public posts. Individual accounts, not verified fact.</div>
+</sc-if>
+
+<sc-if value="{{ isSnaplife }}" hint-placeholder-val="{{ false }}">
+<img src="img/exterior.png" alt="Street view of the block" style="width:100%;height:186px;object-fit:cover;display:block;border-radius:18px;margin-top:14px">
+<div style="font-size:23px;font-weight:600;letter-spacing:-.015em;line-height:1.2;margin-top:18px">Ever think what life at 5308 Gatewood Ln looks like?</div>
+<p style="font-size:17px;line-height:1.6;color:rgba(var(--ink),.75);margin:10px 0 0;text-wrap:pretty">Answer a few quick questions and SnapAI builds a full picture of your life at this address — your commute, school fit, and weekend spots. See if this home actually fits your lifestyle before you make an offer.</p>
+<div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:16px">
+<span style="font-size:14px;padding:8px 13px;background:rgba(var(--ink),.06);border-radius:999px;display:flex;align-items:center;gap:7px"><i class="ph-duotone ph-car" style="color:var(--brand)"></i>Commute</span>
+<span style="font-size:14px;padding:8px 13px;background:rgba(var(--ink),.06);border-radius:999px;display:flex;align-items:center;gap:7px"><i class="ph-duotone ph-graduation-cap" style="color:var(--brand)"></i>School fit</span>
+<span style="font-size:14px;padding:8px 13px;background:rgba(var(--ink),.06);border-radius:999px;display:flex;align-items:center;gap:7px"><i class="ph-duotone ph-fork-knife" style="color:var(--brand)"></i>Dining</span>
+</div>
+<button onClick="{{ startSim }}" style="margin-top:20px;width:100%;min-height:52px;border-radius:26px;border:none;background:var(--brand);color:#fff;font-size:17px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px" style-hover="background:var(--brand-2)">Start lifestyle simulation <i class="ph-duotone ph-arrow-right"></i></button>
+<div style="font-size:13px;color:var(--color-neutral-700);margin-top:11px;line-height:1.5">About two minutes. You can stop anywhere — we keep what you have answered.</div>
+</sc-if>
+
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ peekOn }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;inset:0;z-index:60;background:rgba(var(--ink),.42);backdrop-filter:blur(3px);display:flex;align-items:center;justify-content:center;padding:36px;animation:fadeIn .18s ease" onClick="{{ closePeek }}">
+<div style="width:100%;background:var(--color-bg);border-radius:26px;overflow:hidden;box-shadow:0 30px 70px rgba(0,0,0,.4);animation:popIn .26s cubic-bezier(.32,1.36,.52,1)">
+<div style="height:150px;background:var(--color-neutral-300);background-image:radial-gradient(circle,rgba(var(--ink),.1) 30%,transparent 32%);background-size:5px 5px;display:flex;align-items:center;justify-content:center"><i class="ph-duotone ph-house-line" style="font-size:30px;color:rgba(var(--ink),.32)"></i></div>
+<div style="padding:15px 16px 17px">
+<div style="font-size:23px;font-weight:600;letter-spacing:-.026em">{{ peekPrice }}</div>
+<div style="font-size:15px;color:var(--color-neutral-700);margin-top:2px">{{ peekAddr }}</div>
+<div style="font-size:15px;margin-top:9px">{{ peekSpecs }}</div>
+<div style="font-size:14.5px;font-weight:600;margin-top:5px;color:{{ peekColor }}">{{ peekDelta }}</div>
+<div style="display:flex;gap:9px;margin-top:15px">
+<button onClick="{{ peekCompare }}" style="flex:1;min-height:46px;border-radius:23px;border:none;background:var(--brand);color:#fff;font-size:16px;font-weight:600;cursor:pointer">Add to compare</button>
+<button onClick="{{ closePeek }}" style="min-height:46px;padding:0 18px;border-radius:23px;border:none;background:rgba(var(--ink),.07);color:var(--color-text);font-size:16px;cursor:pointer">Close</button>
+</div>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ viewer }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Photo viewer" style="position:absolute;inset:0;z-index:70;background:#151413;display:flex;flex-direction:column;animation:fadeIn .2s ease">
+<div style="flex:none;padding:56px 14px 10px;display:flex;align-items:center;gap:10px;background:rgba(21,20,19,.6);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)">
+<button onClick="{{ closeViewer }}" aria-label="Close" style="width:44px;height:44px;border-radius:50%;border:none;background:rgba(255,255,255,.14);color:#fff;font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center"><i class="ph-duotone ph-x"></i></button>
+<div style="flex:1;color:var(--color-bg);font-size:17px;font-weight:600">All photos <span style="color:rgba(255,255,255,.5);font-weight:400;font-feature-settings:'tnum'">48</span></div>
+<button onClick="{{ noop }}" style="min-height:38px;padding:0 14px;border-radius:999px;border:none;background:rgba(255,255,255,.14);color:#fff;font-size:14px;cursor:pointer;display:flex;align-items:center;gap:6px"><i class="ph-duotone ph-sparkle"></i>By room</button>
+</div>
+<div class="nsb" style="flex:1;overflow-y:auto;padding:0 12px 34px">
+<sc-for list="{{ viewerGroups }}" as="g" hint-placeholder-count="3">
+<div style="margin-bottom:22px">
+<div style="position:sticky;top:0;padding:12px 2px 8px;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.55);z-index:2;background:#151413">{{ g.title }}</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:7px">
+<sc-for list="{{ g.items }}" as="p" hint-placeholder-count="4">
+<div style="{{ p.style }}"></div>
+</sc-for>
+</div>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ tourOpen }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Tour booking" style="position:absolute;inset:0;z-index:9;background:rgba(var(--ink),.32);display:flex;align-items:flex-end;animation:fadeIn .2s ease">
+<div style="width:100%;background:var(--color-bg);border-radius:38px 38px 0 0;max-height:88%;display:flex;flex-direction:column;box-shadow:0 -12px 40px rgba(var(--ink),.22);animation:sheetUp .34s cubic-bezier(.32,.72,0,1)">
+<div style="flex:none;padding:8px 16px 12px;background:rgba(var(--paper),.72);backdrop-filter:blur(28px) saturate(180%);-webkit-backdrop-filter:blur(28px) saturate(180%);box-shadow:inset 0 -.5px 0 rgba(var(--ink),.12);border-radius:38px 38px 0 0">
+<div style="width:36px;height:5px;border-radius:999px;background:rgba(var(--ink),.18);margin:0 auto 10px"></div>
+<div style="display:flex;align-items:flex-start;gap:12px">
+<div style="flex:1"><div style="font-size:20px;font-weight:600;letter-spacing:-.026em;line-height:1.2">{{ tourTitle }}</div><div style="font-size:13px;color:var(--color-neutral-700);margin-top:1px;font-feature-settings:'tnum'">{{ tourStepLabel }}</div></div>
+<button onClick="{{ closeTour }}" aria-label="Close" style="width:44px;height:44px;flex:none;margin-top:-4px;border-radius:50%;border:none;background:rgba(var(--ink),.07);color:rgba(var(--ink),.55);font-size:17px;cursor:pointer"><i class="ph-duotone ph-x"></i></button>
+</div>
+</div>
+<div class="nsb" style="flex:1;overflow-y:auto;padding:16px">
+<sc-if value="{{ tourStep0 }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;flex-direction:column;gap:10px">
+<sc-for list="{{ tourTypes }}" as="t" hint-placeholder-count="3">
+<button onClick="{{ t.pick }}" style="{{ t.style }}">
+<i class="{{ t.icon }}" style="font-size:24px;color:var(--brand)"></i>
+<span style="flex:1"><span style="display:block;font-size:17px;font-weight:600">{{ t.label }}</span><span style="display:block;font-size:14px;color:var(--color-neutral-700);line-height:1.35;margin-top:1px">{{ t.sub }}</span></span>
+</button>
+</sc-for>
+</div>
+</sc-if>
+<sc-if value="{{ tourStep1 }}" hint-placeholder-val="{{ false }}">
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:9px">
+<sc-for list="{{ tourDates }}" as="d" hint-placeholder-count="8">
+<button onClick="{{ d.pick }}" style="{{ d.style }}"><span style="font-size:12px;color:var(--color-neutral-700)">{{ d.dow }}</span><span style="font-size:19px;font-weight:600;font-feature-settings:'tnum'">{{ d.day }}</span></button>
+</sc-for>
+</div>
+<div style="font-size:14px;color:var(--color-neutral-700);margin-top:13px;line-height:1.5">Dimmed days are outside the seller's showing window. The open house on Sat 8/15 needs no appointment.</div>
+</sc-if>
+<sc-if value="{{ tourStep2 }}" hint-placeholder-val="{{ false }}">
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px">
+<sc-for list="{{ tourTimes }}" as="t" hint-placeholder-count="6">
+<button onClick="{{ t.pick }}" style="{{ t.style }}">{{ t.label }}</button>
+</sc-for>
+</div>
+<div style="font-size:14px;color:var(--color-neutral-700);margin-top:13px;line-height:1.5">Times refresh every 30 seconds. Booking one holds it for 10 minutes.</div>
+</sc-if>
+<sc-if value="{{ tourStep3 }}" hint-placeholder-val="{{ false }}">
+<div style="font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--color-neutral-700)">You're requesting</div>
+<div style="font-size:22px;font-weight:600;margin-top:7px;line-height:1.25;letter-spacing:-.026em">{{ tourSummary }}</div>
+<div style="font-size:16px;color:rgba(var(--ink),.6);margin-top:4px">5308 Gatewood Ln, San Jose</div>
+<p style="font-size:16px;line-height:1.55;color:rgba(var(--ink),.75);margin:16px 0 0;padding-top:16px;border-top:1px solid rgba(var(--ink),.1);text-wrap:pretty">A Snaphomz agent confirms within two hours. Nothing is booked until they do — you will get a text either way, and cancelling costs nothing.</p>
+</sc-if>
+<sc-if value="{{ tourErr }}" hint-placeholder-val="{{ false }}">
+<div style="margin-top:14px;padding-left:13px;border-left:2px solid var(--color-accent-2-700);font-size:15px;line-height:1.45;color:var(--color-accent-2-700)">{{ tourErr }}</div>
+</sc-if>
+</div>
+<div style="flex:none;padding:12px 16px 28px;display:flex;gap:10px">
+<sc-if value="{{ tourCanBack }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ tourBack }}" style="min-height:52px;padding:0 22px;border-radius:26px;border:none;background:rgba(var(--ink),.07);font-size:17px;cursor:pointer;color:var(--color-text)">Back</button>
+</sc-if>
+<button onClick="{{ tourNext }}" style="flex:1;min-height:52px;border-radius:26px;border:none;background:var(--brand);color:#fff;font-size:17px;font-weight:600;cursor:pointer" style-hover="background:var(--brand-2)">{{ tourCta }}</button>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ preOpen }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Pre-approval" style="position:absolute;top:56px;left:0;right:0;bottom:0;z-index:8;background:var(--color-bg);border-radius:38px 38px 0 0;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 -12px 40px rgba(var(--ink),.22);animation:sheetUp .34s cubic-bezier(.32,.72,0,1)">
+<div style="flex:none;padding:8px 16px 12px;background:rgba(var(--paper),.72);backdrop-filter:blur(28px) saturate(180%);-webkit-backdrop-filter:blur(28px) saturate(180%);box-shadow:inset 0 -.5px 0 rgba(var(--ink),.12)">
+<div style="width:36px;height:5px;border-radius:999px;background:rgba(var(--ink),.18);margin:0 auto 10px"></div>
+<div style="display:flex;align-items:center;gap:12px">
+<div style="flex:1"><div style="font-size:20px;font-weight:600;letter-spacing:-.026em">Get pre-approved</div><div style="font-size:13px;color:var(--color-neutral-700);font-feature-settings:'tnum'">{{ preStepLabel }}</div></div>
+<button onClick="{{ closePre }}" aria-label="Close" style="width:44px;height:44px;flex:none;border-radius:50%;border:none;background:rgba(var(--ink),.07);color:rgba(var(--ink),.55);font-size:17px;cursor:pointer"><i class="ph-duotone ph-x"></i></button>
+</div>
+<div style="height:3px;background:rgba(var(--ink),.1);border-radius:999px;margin-top:11px"><div style="{{ preBarStyle }}"></div></div>
+</div>
+<div class="nsb" style="flex:1;overflow-y:auto;padding:22px 16px 30px">
+<div style="font-size:25px;font-weight:600;line-height:1.2;letter-spacing:-.015em">{{ preQuestion }}</div>
+<div style="font-size:16px;color:rgba(var(--ink),.6);line-height:1.5;margin-top:7px">{{ prePrompt }}</div>
+<div style="margin-top:20px">
+<sc-if value="{{ preStep0 }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;flex-direction:column;gap:10px">
+<sc-for list="{{ employmentTypes }}" as="e" hint-placeholder-count="3">
+<button onClick="{{ e.pick }}" style="{{ e.style }}">{{ e.label }}</button>
+</sc-for>
+</div>
+</sc-if>
+<sc-if value="{{ preStep1 }}" hint-placeholder-val="{{ false }}">
+<label style="display:block;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--color-neutral-700);margin-bottom:6px">Gross annual income ($)</label>
+<input value="{{ preIncome }}" onChange="{{ setPreIncome }}" placeholder="240,000" inputmode="numeric" style="{{ plainInput }}">
+<label style="display:block;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--color-neutral-700);margin:16px 0 6px">Monthly debt payments ($)</label>
+<input value="{{ preDebts }}" onChange="{{ setPreDebts }}" placeholder="850" inputmode="numeric" style="{{ plainInput }}">
+<div style="font-size:14px;color:var(--color-neutral-700);margin-top:8px;line-height:1.5">Car, student and card minimums. Skip rent — that is the thing you would be replacing.</div>
+</sc-if>
+<sc-if value="{{ preStep2 }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;gap:10px">
+<sc-for list="{{ creditBands }}" as="c" hint-placeholder-count="4">
+<button onClick="{{ c.pick }}" style="{{ c.style }}"><span style="flex:1">{{ c.label }}</span><span style="font-size:14px;color:var(--color-neutral-700);font-feature-settings:'tnum'">{{ c.rate }}</span></button>
+</sc-for>
+</div>
+<label style="display:block;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--color-neutral-700);margin:20px 0 6px">Cash for down payment ($)</label>
+<input value="{{ preDown }}" onChange="{{ setPreDown }}" inputmode="numeric" style="{{ plainInput }}">
+</sc-if>
+<sc-if value="{{ preStep3 }}" hint-placeholder-val="{{ false }}">
+<label style="display:block;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--color-neutral-700);margin-bottom:6px">Full name</label>
+<input value="{{ preName }}" onChange="{{ setPreName }}" placeholder="Jordan Ellis" style="{{ plainInput }}">
+<label style="display:block;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--color-neutral-700);margin:16px 0 6px">Mobile</label>
+<input value="{{ prePhone }}" onChange="{{ setPrePhone }}" placeholder="(408) 555-0148" inputmode="tel" style="{{ plainInput }}">
+<button onClick="{{ toggleConsent }}" style="margin-top:20px;width:100%;display:flex;gap:12px;align-items:flex-start;text-align:left;background:rgba(var(--ink),.04);border:none;border-radius:14px;padding:15px;cursor:pointer">
+<span style="{{ consentBoxStyle }}">✓</span>
+<span style="flex:1;font-size:15px;line-height:1.5;color:rgba(var(--ink),.75)">Run a soft credit check. It does not affect your score, and Snaphomz never sells this data. You can withdraw it any time.</span>
+</button>
+</sc-if>
+<sc-if value="{{ preStep4 }}" hint-placeholder-val="{{ false }}">
+<div style="font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--brand)">Indicative only</div>
+<div style="font-size:38px;font-weight:600;margin-top:6px;font-feature-settings:'tnum';letter-spacing:-.02em">{{ preMax }}</div>
+<p style="font-size:17px;color:rgba(var(--ink),.75);line-height:1.55;margin:8px 0 0;text-wrap:pretty">{{ preVerdict }}</p>
+<div style="margin-top:20px">
+<div style="display:flex;justify-content:space-between;font-size:16px;padding:11px 0;border-top:1px solid rgba(var(--ink),.1)"><span style="color:rgba(var(--ink),.55)">Rate used</span><span style="font-feature-settings:'tnum'">{{ preRate }}</span></div>
+<div style="display:flex;justify-content:space-between;font-size:16px;padding:11px 0;border-top:1px solid rgba(var(--ink),.1)"><span style="color:rgba(var(--ink),.55)">This listing</span><span style="font-feature-settings:'tnum'">{{ priceLabel }}</span></div>
+</div>
+<div style="font-size:13px;color:var(--color-neutral-700);margin-top:14px;line-height:1.5">Estimate from what you told us · 36% DTI guideline · not a commitment to lend. A lender letter takes about a day.</div>
+</sc-if>
+</div>
+<sc-if value="{{ preErr }}" hint-placeholder-val="{{ false }}">
+<div style="margin-top:16px;padding-left:13px;border-left:2px solid var(--color-accent-2-700);font-size:15px;line-height:1.45;color:var(--color-accent-2-700)">{{ preErr }}</div>
+</sc-if>
+</div>
+<div style="flex:none;padding:12px 16px 30px;display:flex;gap:10px">
+<sc-if value="{{ preCanBack }}" hint-placeholder-val="{{ false }}">
+<button onClick="{{ preBack }}" style="min-height:52px;padding:0 22px;border-radius:26px;border:none;background:rgba(var(--ink),.07);font-size:17px;cursor:pointer;color:var(--color-text)">Back</button>
+</sc-if>
+<button onClick="{{ preAdvance }}" style="flex:1;min-height:52px;border-radius:26px;border:none;background:var(--brand);color:#fff;font-size:17px;font-weight:600;cursor:pointer" style-hover="background:var(--brand-2)">{{ preCta }}</button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ chat }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Ask Snaphomz AI" style="position:absolute;inset:0;z-index:9;background:rgba(var(--ink),.32);display:flex;align-items:flex-end;animation:fadeIn .2s ease">
+<div style="width:100%;height:80%;background:var(--color-bg);border-radius:38px 38px 0 0;display:flex;flex-direction:column;box-shadow:0 -12px 40px rgba(var(--ink),.22);animation:sheetUp .34s cubic-bezier(.32,.72,0,1)">
+<div style="flex:none;padding:8px 16px 12px;background:rgba(var(--paper),.72);backdrop-filter:blur(28px) saturate(180%);-webkit-backdrop-filter:blur(28px) saturate(180%);box-shadow:inset 0 -.5px 0 rgba(var(--ink),.12);border-radius:38px 38px 0 0">
+<div style="width:36px;height:5px;border-radius:999px;background:rgba(var(--ink),.18);margin:0 auto 10px"></div>
+<div style="display:flex;align-items:center;gap:11px">
+<div style="width:36px;height:36px;border-radius:50%;background:rgba(var(--brand-rgb),.1);display:flex;align-items:center;justify-content:center;color:var(--brand);font-size:19px"><i class="ph-duotone ph-sparkle"></i></div>
+<div style="flex:1"><div style="font-size:18px;font-weight:600">Ask Snaphomz AI <span style="font-size:10px;letter-spacing:.1em;background:rgba(var(--brand-rgb),.1);color:var(--brand);padding:3px 6px;border-radius:5px;vertical-align:middle">BETA</span></div><div style="font-size:12.5px;color:var(--color-neutral-700)">Answers about this address only</div></div>
+<button onClick="{{ closeChat }}" aria-label="Close" style="width:44px;height:44px;flex:none;border-radius:50%;border:none;background:rgba(var(--ink),.07);color:rgba(var(--ink),.55);font-size:17px;cursor:pointer"><i class="ph-duotone ph-x"></i></button>
+</div>
+</div>
+<div class="nsb" style="flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:11px">
+<sc-if value="{{ chatEmpty }}" hint-placeholder-val="{{ true }}">
+<div style="font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--color-neutral-700)">Quick questions</div>
+<sc-for list="{{ quickQs }}" as="q" hint-placeholder-count="3">
+<button onClick="{{ q.ask }}" style="width:100%;text-align:left;background:rgba(var(--ink),.05);border:none;border-radius:18px;padding:14px 16px;font-size:16px;cursor:pointer;color:var(--color-text);line-height:1.4" style-hover="background:rgba(var(--brand-rgb),.08)">{{ q.t }}</button>
+</sc-for>
+</sc-if>
+<sc-for list="{{ chatLog }}" as="m" hint-placeholder-count="0">
+<div style="{{ m.style }}">{{ m.t }}</div>
+</sc-for>
+</div>
+<div style="flex:none;padding:12px 16px 28px;display:flex;gap:10px;align-items:center;box-shadow:inset 0 .5px 0 rgba(var(--ink),.1)">
+<input value="{{ draft }}" onChange="{{ setDraft }}" onKeyDown="{{ chatKey }}" placeholder="Ask about this home" style="flex:1;min-height:48px;border:none;border-radius:24px;padding:0 17px;font-size:17px;background:rgba(var(--ink),.05);color:var(--color-text)">
+<button onClick="{{ sendChat }}" aria-label="Send" style="width:48px;height:48px;flex:none;border-radius:50%;border:none;background:var(--brand);color:#fff;font-size:19px;cursor:pointer"><i class="ph-duotone ph-arrow-up"></i></button>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ savePrompt }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;inset:0;z-index:9;background:rgba(var(--ink),.32);display:flex;align-items:flex-end;animation:fadeIn .2s ease">
+<div style="width:100%;background:var(--color-bg);border-radius:38px 38px 0 0;padding:10px 18px 30px;box-shadow:0 -12px 40px rgba(var(--ink),.22);animation:sheetUp .34s cubic-bezier(.32,.72,0,1)">
+<div style="width:36px;height:5px;border-radius:999px;background:rgba(var(--ink),.18);margin:0 auto 18px"></div>
+<div style="font-size:25px;font-weight:600;line-height:1.2;letter-spacing:-.015em">Save this home to your account</div>
+<p style="font-size:17px;line-height:1.55;color:rgba(var(--ink),.7);margin:9px 0 0;text-wrap:pretty">An account lets us alert you when the price moves or the status changes. This listing is a week old and already below comps, so that matters here.</p>
+<button onClick="{{ finishSave }}" style="margin-top:20px;width:100%;min-height:54px;border-radius:27px;border:none;background:var(--brand);color:#fff;font-size:17px;font-weight:600;cursor:pointer" style-hover="background:var(--brand-2)">Continue with email</button>
+<button onClick="{{ guestSave }}" style="margin-top:10px;width:100%;min-height:54px;border-radius:27px;border:none;background:rgba(var(--ink),.07);color:var(--color-text);font-size:17px;cursor:pointer">Just save it on this device</button>
+<button onClick="{{ cancelSave }}" style="margin-top:6px;width:100%;min-height:48px;border:none;background:none;color:rgba(var(--ink),.55);font-size:16px;cursor:pointer">Not now</button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ share }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;inset:0;z-index:9;background:rgba(var(--ink),.32);display:flex;align-items:flex-end;animation:fadeIn .2s ease">
+<div style="width:100%;background:var(--color-bg);border-radius:38px 38px 0 0;padding:10px 18px 30px;box-shadow:0 -12px 40px rgba(var(--ink),.22);animation:sheetUp .34s cubic-bezier(.32,.72,0,1)">
+<div style="width:36px;height:5px;border-radius:999px;background:rgba(var(--ink),.18);margin:0 auto 18px"></div>
+<div style="font-size:20px;font-weight:600;letter-spacing:-.026em">Share 5308 Gatewood Ln</div>
+<div style="display:flex;gap:11px;margin-top:18px">
+<sc-for list="{{ shareTargets }}" as="t" hint-placeholder-count="4">
+<button onClick="{{ t.go }}" style="flex:1;min-height:82px;border-radius:18px;border:none;background:rgba(var(--ink),.05);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;cursor:pointer;font-size:13px;color:rgba(var(--ink),.75)" style-hover="background:rgba(var(--brand-rgb),.08)"><i class="{{ t.icon }}" style="font-size:24px;color:var(--brand)"></i>{{ t.label }}</button>
+</sc-for>
+</div>
+<div style="margin-top:16px;font-size:15px;color:rgba(var(--ink),.6);line-height:1.55">Anyone with the link sees the listing and the public estimates. Your saved notes and pre-approval stay private.</div>
+<button onClick="{{ closeShare }}" style="margin-top:14px;width:100%;min-height:50px;border:none;background:rgba(var(--ink),.07);border-radius:25px;color:var(--color-text);font-size:17px;cursor:pointer">Cancel</button>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ promo }}" hint-placeholder-val="{{ false }}">
+<div style="position:absolute;left:16px;right:16px;bottom:92px;z-index:6;border-radius:24px;padding:17px;background:rgba(var(--paper),.82);backdrop-filter:blur(30px) saturate(180%);-webkit-backdrop-filter:blur(30px) saturate(180%);box-shadow:inset 0 .5px 0 rgba(255,255,255,.9),0 12px 36px rgba(var(--ink),.2);animation:popIn .3s cubic-bezier(.32,.72,0,1)">
+<button onClick="{{ closePromo }}" aria-label="Dismiss" style="position:absolute;top:9px;right:9px;width:36px;height:36px;border-radius:50%;border:none;background:rgba(var(--ink),.07);color:var(--color-neutral-700);font-size:14px;cursor:pointer"><i class="ph-duotone ph-x"></i></button>
+<div style="font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--color-accent-2-700)">Snaphomz offer</div>
+<div style="font-size:19px;font-weight:600;margin-top:6px;line-height:1.25;letter-spacing:-.026em;padding-right:30px">$1,200 back, and up to $25,000 in potential savings</div>
+<div style="font-size:15px;color:rgba(var(--ink),.6);line-height:1.5;margin-top:5px">Buy with a Snaphomz agent and we rebate part of our commission at close.</div>
+<div style="display:flex;gap:16px;margin-top:14px;align-items:center">
+<button onClick="{{ closePromo }}" style="min-height:46px;padding:0 20px;border-radius:23px;border:none;background:var(--brand);color:#fff;font-size:16px;font-weight:600;cursor:pointer">See the terms</button>
+<button onClick="{{ closePromo }}" style="min-height:46px;border:none;background:none;color:rgba(var(--ink),.55);font-size:16px;cursor:pointer">No thanks</button>
+</div>
+</div>
+</sc-if>
+
+</div>
+</x-import><div style="font-size:13px;color:var(--color-neutral-700);text-align:center;max-width:390px;line-height:1.5">390 × 844 · iPhone. Drag the photo down to refresh · scroll for the parallax and nav collapse · long-press a similar home · drag a report sheet by its handle, or swipe it sideways.</div>
+
+
+</div>
+
+<sc-if value="{{ demoPanel }}" hint-placeholder-val="{{ true }}">
+<div style="width:320px;flex:none;display:flex;flex-direction:column;gap:20px">
+<div>
+<div style="font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--color-neutral-700)">Break it on purpose</div>
+<p style="font-size:14px;line-height:1.5;color:rgba(var(--ink),.65);margin:8px 0 0">Each is a real state with its own copy. Tap one, then use the phone.</p>
+</div>
+<div style="display:flex;flex-direction:column">
+<sc-for list="{{ triggers }}" as="g" hint-placeholder-count="6">
+<button onClick="{{ g.run }}" style="text-align:left;background:none;border:none;border-top:1px solid rgba(var(--ink),.12);padding:14px 0;cursor:pointer;display:flex;flex-direction:column;gap:3px" style-hover="background:rgba(var(--ink),.04)">
+<span style="font-size:16px;font-weight:600;color:var(--color-text)">{{ g.label }}</span>
+<span style="font-size:13.5px;line-height:1.45;color:rgba(var(--ink),.6)">{{ g.note }}</span>
+</button>
+</sc-for>
+</div>
+</div>
+</sc-if>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1400,&quot;height&quot;:1100},&quot;heroHeight&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:372,&quot;tsType&quot;:&quot;number&quot;,&quot;min&quot;:220,&quot;max&quot;:460,&quot;step&quot;:10,&quot;unit&quot;:&quot;px&quot;,&quot;section&quot;:&quot;Layout&quot;},&quot;promoAfterPx&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:900,&quot;tsType&quot;:&quot;number&quot;,&quot;min&quot;:300,&quot;max&quot;:4000,&quot;step&quot;:100,&quot;unit&quot;:&quot;px&quot;,&quot;section&quot;:&quot;Behaviour&quot;},&quot;sourceLines&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Behaviour&quot;},&quot;demoPanel&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Layout&quot;}}">
+const money = n => '$' + Math.round(n).toLocaleString('en-US');
+const PMT = (p, r, n) => { const i = r / 1200; return i === 0 ? p / n : p * i / (1 - Math.pow(1 + i, -n)); };
+const OTHER = { tax: 1654, hoa: 562, ins: 463, util: 290, pest: 55, maint: 1323 };
+const GLASS = 'background:rgba(var(--paper),.72);backdrop-filter:blur(28px) saturate(180%);-webkit-backdrop-filter:blur(28px) saturate(180%);';
+
+class Component extends DCLogic {
+  state = {
+    sheet: null, photo: 0, viewer: false, signal: 0, navSolid: false,
+    dark: false, y: 0, pull: 0, pulling: false, refreshing: false,
+    detent: 'full', sheetDY: 0, sheetDX: 0, dragging: false, peek: null,
+    expHighlights: false, saved: false, savePrompt: false, share: false,
+    chat: false, chatLog: [], draft: '',
+    promo: false, promoDone: false,
+    price: 1588000, priceChanged: false, pending: false, alert: null,
+    tourOpen: false, tourStep: 0, tourType: '', tourDate: '', tourTime: '', tourErr: '', tourDone: false,
+    preOpen: false, preStep: 0, preErr: '', pre: { employment: '', income: '', debts: '', credit: '', down: '317600', name: '', phone: '', consent: false },
+    calc: { price: '1588000', down: '20', mode: '%', term: '30', rate: '6.69' },
+    rvb: { type: 'W2 employee', income: '', debts: '', reserves: '', credit: '' }, rvbSaved: null, rvbVerdict: null, rvbResume: false,
+    compare: [], weight: '$/sqft', topic: 'Market', range: '6 months',
+    toast: '', toastAction: '', toastFn: null
+  };
+
+  set = (k, v) => this.setState({ [k]: v });
+  flash = (msg, action, fn) => {
+    this.setState({ toast: msg, toastAction: action || '', toastFn: fn || null });
+    clearTimeout(this._t); this._t = setTimeout(() => this.setState({ toast: '' }), 4200);
+  };
+
+  calcOut() {
+    const c = this.state.calc;
+    const num = v => parseFloat(String(v).replace(/[^0-9.\-]/g, ''));
+    const price = num(c.price), rate = parseFloat(c.rate), term = parseInt(c.term, 10) || 30, downRaw = num(c.down);
+    const errs = {};
+    if (!price || price <= 0) errs.price = 'Enter a price above $0. We can’t estimate a payment without one.';
+    else if (price > 50000000) errs.price = 'That’s above the range we model. Try $50,000,000 or less.';
+    const downAmt = c.mode === '%' ? (price || 0) * (downRaw || 0) / 100 : (downRaw || 0);
+    if (isNaN(downRaw) || downRaw < 0) errs.down = 'Down payment can’t be negative.';
+    else if (!errs.price && price > 0 && downAmt >= price) errs.down = 'That covers the whole price — there’s no loan left to estimate.';
+    if (!rate || rate <= 0) errs.rate = 'Enter a rate above 0%.';
+    else if (rate > 25) errs.rate = 'Above 25% is outside anything we can source. Check the number.';
+    const loan = Math.max(0, (price || 0) - downAmt);
+    const ltv = price ? loan / price : 0;
+    let pmi = 0, note = '';
+    if (!Object.keys(errs).length) {
+      if (ltv > 0.8) { pmi = loan * 0.0055 / 12; note = 'Under 20% down, lenders add PMI. We’ve included ' + money(pmi) + '/mo.'; }
+      if (downRaw === 0) note = '0% down is rare outside VA and USDA loans. We kept the estimate, but treat it as a ceiling. PMI of ' + money(pmi) + '/mo is included.';
+    }
+    const pi = Object.keys(errs).length ? 0 : PMT(loan, rate, term * 12);
+    const total = pi + pmi + OTHER.tax + OTHER.hoa + OTHER.ins + OTHER.util + OTHER.pest + OTHER.maint;
+    return { errs, ok: !Object.keys(errs).length, pi, pmi, note, total };
+  }
+
+  monthly() {
+    return PMT(this.state.price * 0.8, 6.69, 360) + OTHER.tax + OTHER.hoa + OTHER.ins + OTHER.util + OTHER.pest + OTHER.maint;
+  }
+
+  openSheet = id => this.setState({ sheet: id, rvbResume: id === 'rvb' && !!this.state.rvbSaved });
+  closeSheet = () => {
+    const s = this.state;
+    if (s.sheet === 'rvb') {
+      const filled = ['income', 'debts', 'reserves', 'credit'].filter(k => s.rvb[k]).length;
+      if (filled > 0 && !s.rvbVerdict) {
+        this.setState({ rvbSaved: filled, sheet: null });
+        this.flash('Saved your ' + filled + ' answers. Pick up any time.', 'Resume', () => this.openSheet('rvb'));
+        return;
+      }
+    }
+    this.setState({ sheet: null, detent: 'full', sheetDY: 0, sheetDX: 0 });
+  };
+
+  onPageScroll = e => {
+    const y = e.target.scrollTop;
+    if (Math.abs(y - this.state.y) > 5) this.setState({ y });
+    if (!this.state.promoDone && y > (this.props.promoAfterPx ?? 900)) this.setState({ promo: true, promoDone: true });
+    const solid = y > 250;
+    if (solid !== this.state.navSolid) this.setState({ navSolid: solid });
+  };
+  onGalleryScroll = e => {
+    const i = Math.round(e.target.scrollLeft / 390);
+    if (i !== this.state.photo) this.setState({ photo: i });
+  };
+  onSignalScroll = e => {
+    const el = e.target, k = el.children, n = k.length;
+    const pitch = k[1] ? k[1].offsetLeft - k[0].offsetLeft : 294;
+    const atEnd = el.scrollLeft >= el.scrollWidth - el.clientWidth - 4;
+    const i = atEnd ? n - 1 : Math.min(n - 1, Math.max(0, Math.round(el.scrollLeft / pitch)));
+    if (i !== this.state.signal) this.setState({ signal: i });
+  };
+
+  priceDrop = () => this.setState({
+    priceChanged: true, price: 1565000,
+    alert: { title: 'The price changed while you were reading', body: 'The seller dropped it $23,000 about a minute ago. Every number on this page still shows the old price until you refresh.', action: 'Use the new price' }
+  });
+  goPending = () => this.setState({
+    pending: true,
+    alert: { title: 'This home is now sale pending', body: 'The seller accepted an offer. Tours are paused, but roughly 1 in 8 pending sales falls through — we can watch it for you.', action: 'Notify me if it returns' }
+  });
+  acceptAlert = () => {
+    this.setState({ alert: null });
+    this.flash(this.state.pending ? 'Watching this listing. We’ll text you if it comes back.' : 'Updated. Monthly cost is now ' + money(this.monthly()) + '.');
+  };
+  dismissAlert = () => this.setState({ alert: null });
+
+  onPull = e => {
+    if (e.currentTarget.scrollTop > 0 || this.state.refreshing) return;
+    if (e.deltaY >= 0) return;
+    const p = Math.min(96, this.state.pull - e.deltaY * 0.5);
+    this.setState({ pull: p, pulling: true });
+    clearTimeout(this._pull);
+    this._pull = setTimeout(() => {
+      if (this.state.pull > 64) {
+        this.setState({ refreshing: true, pull: 46 });
+        setTimeout(() => {
+          this.setState({ refreshing: false, pull: 0, pulling: false });
+          this.flash('Estimate refreshed · 8/12 09:41. Nothing moved while you were reading.');
+        }, 1300);
+      } else this.setState({ pull: 0, pulling: false });
+    }, 280);
+  };
+
+  REPORTS = [
+    ['property', 'Property'], ['schools', 'Schools'], ['intel', 'Intelligence'],
+    ['forecast', 'Forecast'], ['rvb', 'Rent vs Buy'], ['nbhd', 'Neighborhood'], ['snaplife', 'SnapLife']
+  ];
+  gotoReport = dir => {
+    const ids = this.REPORTS.map(r => r[0]), i = ids.indexOf(this.state.sheet);
+    if (i < 0) return;
+    this.setState({ sheet: ids[(i + dir + ids.length) % ids.length], detent: 'full' });
+  };
+
+  dragDown = e => {
+    this._d = { x: e.clientX, y: e.clientY };
+    this.setState({ dragging: true });
+    if (e.currentTarget.setPointerCapture) try { e.currentTarget.setPointerCapture(e.pointerId); } catch (_) {}
+  };
+  dragMove = e => {
+    if (!this._d) return;
+    const dx = e.clientX - this._d.x, dy = e.clientY - this._d.y;
+    if (Math.abs(dx) > Math.abs(dy) + 8) this.setState({ sheetDX: dx, sheetDY: 0 });
+    else this.setState({ sheetDY: Math.max(-64, dy), sheetDX: 0 });
+  };
+  dragUp = () => {
+    if (!this._d) return;
+    this._d = null;
+    const { sheetDX: dx, sheetDY: dy, detent } = this.state;
+    this.setState({ sheetDX: 0, sheetDY: 0, dragging: false });
+    if (Math.abs(dx) > 80) return this.gotoReport(dx < 0 ? 1 : -1);
+    if (dy > 200 || (detent === 'half' && dy > 90)) return this.closeSheet();
+    if (dy > 70) return this.setState({ detent: 'half' });
+    if (dy < -46) return this.setState({ detent: 'full' });
+  };
+  edgeDown = e => {
+    const r = e.currentTarget.getBoundingClientRect();
+    this._edge = (e.clientX - r.left) < 26 ? e.clientX : null;
+  };
+  edgeMove = e => {
+    if (this._edge == null) return;
+    const dx = e.clientX - this._edge;
+    if (dx > 70) { this._edge = null; this.closeSheet(); }
+    else if (dx > 0) this.setState({ sheetDX: dx * 2 });
+  };
+  edgeUp = () => { if (this._edge != null) { this._edge = null; this.setState({ sheetDX: 0 }); } };
+
+  peekDown = h => () => { clearTimeout(this._pk); this._pkFired = false; this._pk = setTimeout(() => { this._pkFired = true; this.setState({ peek: h }); }, 380); };
+  peekUp = () => { clearTimeout(this._pk); };
+
+  setDownSlider = e => {
+    let v = parseFloat(e.target.value);
+    const near = Math.round(v / 5) * 5;
+    if (Math.abs(v - near) < 0.8) v = near;
+    this.setState({ calc: { ...this.state.calc, down: String(v), mode: '%' } });
+  };
+
+  toggleSave = () => {
+    if (this.state.saved) { this.setState({ saved: false }); this.flash('Removed from saved homes.'); return; }
+    this.setState({ savePrompt: true });
+  };
+  finishSave = () => { this.setState({ savePrompt: false, saved: true }); this.flash('Saved. We’ll email you if the price moves.'); };
+  guestSave = () => { this.setState({ savePrompt: false, saved: true }); this.flash('Saved on this device only. Create an account to keep it.', 'Create', () => this.setState({ savePrompt: true })); };
+
+  submitTour = () => {
+    const s = this.state;
+    if (s.tourStep === 0 && !s.tourType) return this.setState({ tourErr: 'Pick how you’d like to see it.' });
+    if (s.tourStep === 1 && !s.tourDate) return this.setState({ tourErr: 'Pick a day.' });
+    if (s.tourStep === 2) {
+      if (!s.tourTime) return this.setState({ tourErr: 'Pick a time.' });
+      if (s.tourTime === '11:00 AM' && !s._retry) return this.setState({ tourErr: 'That slot was taken while you were choosing. The times below are live.', tourTime: '', _retry: true });
+      return this.setState({ tourStep: 3, tourErr: '' });
+    }
+    this.setState({ tourStep: s.tourStep + 1, tourErr: '' });
+  };
+  confirmTour = () => { this.setState({ tourOpen: false, tourDone: true, tourStep: 0 }); this.flash('Tour requested. An agent confirms within 2 hours.'); };
+
+  preNext = () => {
+    const s = this.state, p = s.pre;
+    if (s.preStep === 0 && !p.employment) return this.setState({ preErr: 'Pick one so we use the right income rules.' });
+    if (s.preStep === 1) {
+      const inc = parseFloat(String(p.income).replace(/[^0-9.]/g, ''));
+      if (!inc) return this.setState({ preErr: 'We need gross annual income to estimate anything.' });
+      if (inc < 12000) return this.setState({ preErr: 'That reads as a monthly figure. Enter income for the full year.' });
+    }
+    if (s.preStep === 2 && !p.credit) return this.setState({ preErr: 'Pick the range that fits. A guess is fine — this is a soft check.' });
+    if (s.preStep === 3) {
+      if (!p.name || !p.phone) return this.setState({ preErr: 'We need a name and number for the lender to respond.' });
+      if (!p.consent) return this.setState({ preErr: 'We can’t run the soft check without your consent.' });
+    }
+    this.setState({ preStep: s.preStep + 1, preErr: '' });
+  };
+  preResult() {
+    const p = this.state.pre;
+    const inc = parseFloat(String(p.income).replace(/[^0-9.]/g, '')) || 0;
+    const debts = parseFloat(String(p.debts).replace(/[^0-9.]/g, '')) || 0;
+    const down = parseFloat(String(p.down).replace(/[^0-9.]/g, '')) || 0;
+    const budget = Math.max(0, (inc / 12 * 0.36 - debts - OTHER.tax - OTHER.hoa - OTHER.ins));
+    const rate = p.credit === '760+' ? 6.49 : p.credit === '700–759' ? 6.69 : p.credit === '640–699' ? 7.15 : 7.9;
+    const loan = budget > 0 ? budget / (PMT(100000, rate, 360) / 100000) : 0;
+    return { max: loan + down, rate, enough: loan + down >= this.state.price };
+  }
+
+  rvbVerdictNow = () => {
+    const r = this.state.rvb;
+    const inc = parseFloat(String(r.income).replace(/[^0-9.]/g, '')) || 0;
+    const debts = parseFloat(String(r.debts).replace(/[^0-9.]/g, '')) || 0;
+    if (!inc) return this.flash('Add your gross annual income first.');
+    const dti = (this.monthly() + debts) / (inc / 12);
+    this.setState({ rvbVerdict: { dti, buy: dti < 0.45 }, rvbSaved: null });
+  };
+
+  ask = q => {
+    this.setState({ chatLog: this.state.chatLog.concat([{ me: true, t: q }]), draft: '' });
+    setTimeout(() => this.setState({ chatLog: this.state.chatLog.concat([{ me: false, t: this._answer(q) }]) }), 700);
+  };
+  _answer(q) {
+    const l = q.toLowerCase();
+    if (l.includes('offer')) return 'At $1,588,000 the ask is already $125,000 under comps, so I’d open at or near list with a short inspection window rather than lowballing. Sellers here signed in about 19 days on average this quarter.';
+    if (l.includes('school')) return 'Lietz Elementary and Dartmouth Middle both rate 8/10 and sit within 0.4 mi. The assigned high school, Beacon, rates 3/10 — worth weighing if you have older kids.';
+    if (l.includes('rent')) return 'Estimated rent is $3,282/mo against a $12,536 carrying cost, so this doesn’t pencil as a rental. It’s a live-in buy.';
+    return 'Short version: it’s priced below comps, the block supports the number, and the monthly cost is the real constraint at $12,536. Ask me about the offer, the schools or the neighborhood and I’ll go deeper.';
+  }
+
+  renderVals() {
+    const s = this.state, out = this.calcOut(), monthly = this.monthly();
+    const INP = 'width:100%;box-sizing:border-box;min-height:50px;border-radius:12px;padding:0 14px;font-size:17px;background:rgba(var(--ink),.05);color:var(--color-text);font-feature-settings:"tnum";border:1px solid ';
+    const opt = on => 'width:100%;min-height:56px;display:flex;align-items:center;gap:12px;padding:0 15px;border-radius:14px;cursor:pointer;font-family:inherit;font-size:17px;text-align:left;background:' + (on ? 'rgba(var(--brand-rgb),.09)' : 'rgba(var(--ink),.05)') + ';border:1.5px solid ' + (on ? 'var(--brand)' : 'transparent') + ';color:var(--color-text)';
+    const pill = on => 'flex:none;min-height:40px;padding:0 14px;border-radius:999px;font-size:14.5px;cursor:pointer;white-space:nowrap;font-family:inherit;border:none;background:' + (on ? 'var(--brand)' : 'rgba(var(--ink),.06)') + ';color:' + (on ? '#fff' : 'rgba(var(--ink),.7)');
+    const sheetMeta = {
+      property: ['What this place offers', 'Supplied by the listing agent'],
+      schools: ['Schools', 'Campbell Union High School District'],
+      intel: ['Property intelligence', 'Records, comps and the local market'],
+      forecast: ['Forecast', 'Rates and what they do to your payment'],
+      rvb: ['Rent vs Buy', 'Five questions, one verdict'],
+      nbhd: ['Neighborhood', 'Inside San Jose'],
+      snaplife: ['SnapLife', 'Simulate living at this address']
+    };
+    const meta = sheetMeta[s.sheet] || ['', ''];
+    const dates = [['Wed', '12'], ['Thu', '13'], ['Fri', '14'], ['Sat', '15'], ['Sun', '16'], ['Mon', '17'], ['Tue', '18'], ['Wed', '19']];
+    const times = ['9:00 AM', '10:00 AM', '11:00 AM', '1:00 PM', '3:00 PM', '5:00 PM'];
+    const preQs = [
+      ['How do you earn?', 'Lenders read W2 and self-employed income differently, so this changes the maths more than anything else here.'],
+      ['What comes in, what goes out?', 'Before tax, and the minimums you owe each month.'],
+      ['Where does your credit sit?', 'A range is enough. It sets the rate we estimate with.'],
+      ['Who should the lender call?', 'One person will call once. No mailing list.'],
+      ['Here’s the range you can work with', '']
+    ];
+    const topicText = {
+      Market: ['The median home price just crossed $1.4 million and homes are selling in under three weeks. Sellers stopped negotiating in 2024, but 2026 is showing motion without mania. The market is still competitive as hell, especially for single-family homes in good zip codes, though some neighborhoods are offering real leverage for buyers who plan instead of panic.', [{ src: 'r/bayarea · Jul 2026', t: 'Cambrian is the last pocket under $1.6M where you get a real yard. It goes fast but it does not go crazy.' }, { src: 'City planning · 2026', t: 'No multi-family rezoning proposed within half a mile through 2029.' }]],
+      Lifestyle: ['Cambrian runs quiet and domestic — school-run traffic in the morning, dog walkers at dusk, and a farmers market on Sunday that locals treat as a social obligation. It is not a nightlife neighborhood and nobody pretends otherwise.', [{ src: 'r/SanJose · May 2026', t: 'You are ten minutes from everything and in bed by ten. That is the whole pitch.' }]],
+      'Hidden Gems': ['Ask about the taqueria behind the plaza and the second-hand bookshop on Union — both come up constantly and neither shows on the usual lists.', [{ src: 'Local forum · Mar 2026', t: 'Garudas Indian Mart has the best produce prices in the area and nobody outside the neighborhood knows.' }]],
+      News: ['Union Avenue repaving finishes in October. The Cambrian Park Plaza redevelopment cleared its final appeal in June — 300 units and a public square by 2029.', [{ src: 'City council · Jun 2026', t: 'Expect construction traffic on Union between 2027 and 2029.' }]],
+      Schools: ['Lietz Elementary and Dartmouth Middle both rate 8/10 and are within walking distance. The assigned high school rates lower, and families here talk openly about that gap.', [{ src: 'r/bayarea · Feb 2026', t: 'Everyone in Cambrian either loves the elementary schools or has already planned around the high school.' }]],
+      Social: ['A neighborhood association that actually meets, a street-wide Halloween, and a very active Nextdoor. Make of that what you will.', []]
+    };
+    const tp = topicText[s.topic] || topicText.Market;
+    const pr = this.preResult();
+    const slideDefs = [
+      { src: 'img/kitchen-hero.png' }, { label: 'Living room · 2 of 48' }, { label: 'Primary bedroom · 3 of 48' },
+      { label: 'Bath · 4 of 48' }, { src: 'img/exterior.png' }, { label: 'Back yard · 6 of 48' }
+    ];
+
+    return {
+      noop: () => {},
+      sourceLines: this.props.sourceLines ?? true,
+      demoPanel: this.props.demoPanel ?? true,
+      heroHeight: (this.props.heroHeight ?? 372) + 'px',
+      darkClass: s.dark ? 'dark' : '', darkMode: s.dark,
+      modeTabs: [['Light', false], ['Dark', true]].map(([label, on]) => ({
+        label, pick: () => this.setState({ dark: on }),
+        style: 'min-height:36px;padding:0 18px;border:none;border-radius:11px;cursor:pointer;font-family:inherit;font-size:14px;font-weight:600;background:' +
+          (s.dark === on ? 'var(--color-bg);box-shadow:0 1px 3px rgba(var(--ink),.18);color:var(--color-text)' : 'transparent;color:rgba(var(--ink),.55)')
+      })),
+      heroWrapStyle: 'position:relative;z-index:0;background:var(--color-neutral-300);transform:translateY(' +
+        (s.pull * 0.6 + Math.min(s.y, 420) * 0.34) + 'px) scale(' + (1 + s.pull / 230) + ');transform-origin:50% 0;will-change:transform' +
+        (s.pull ? '' : ';transition:transform .5s cubic-bezier(.32,1.36,.52,1)'),
+      pulling: s.pulling || s.refreshing,
+      pullIcon: s.refreshing ? 'ph-duotone ph-circle-notch' : 'ph-duotone ph-arrow-down',
+      pullStyle: 'position:absolute;left:50%;top:' + (44 + s.pull * 0.42) + 'px;margin-left:-18px;z-index:4;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--brand);background:rgba(var(--paper),.74);backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);box-shadow:inset 0 .5px 0 rgba(255,255,255,.9),0 8px 22px rgba(var(--ink),.18);opacity:' +
+        Math.min(1, s.pull / 34) + (s.refreshing ? ';animation:spin .9s linear infinite' : ''),
+      onPull: this.onPull,
+      netEffect: '+$149,500', hoaYear: '$6,744',
+      verdicts: [
+        { what: 'Priced under the closed comps', why: 'Eight Cambrian sales settled at a $1,196 median per foot. This one asks $1,107.', money: 'Saves you $125,000', src: '8 comps', good: true, icon: 'ph-duotone ph-arrow-down-right' },
+        { what: 'Roof, sewer line and copper plumbing already replaced', why: 'Work you would otherwise fund in the first five years of ownership.', money: 'Saves you ~$34,000', src: 'Listing + permits', good: true, icon: 'ph-duotone ph-wrench' },
+        { what: 'Original 1962 electrical panel', why: '100-amp service. Insurers and lenders increasingly ask for 200 before they write.', money: 'Costs you ~$9,500', src: 'County records', good: false, icon: 'ph-duotone ph-lightning' },
+        { what: 'HOA dues on a single-family lot', why: '$562 a month, raised twice since 2023. It is not in the mortgage figure.', money: 'Costs you $6,744/yr', src: 'HOA filing', good: false, icon: 'ph-duotone ph-receipt' },
+        { what: 'Bed count is in dispute', why: 'The listing says three, the county says four. A permitted fourth moves every comp above.', money: 'No effect yet', src: 'MLS vs county', good: null, icon: 'ph-duotone ph-question' }
+      ].map(v => ({ ...v, color: v.good === null ? 'rgba(var(--ink),.5)' : v.good ? 'var(--brand)' : 'var(--color-accent-2-700)' })),
+      grabberStyle: 'width:' + (s.dragging ? '46px' : '36px') + ';height:5px;border-radius:999px;background:rgba(var(--ink),' + (s.dragging ? '.34' : '.18') + ');margin:0 auto 10px;transition:width .3s cubic-bezier(.32,1.36,.52,1),background .3s',
+      sheetStyle: 'position:absolute;top:' + (s.detent === 'half' ? 452 : 56) + 'px;left:0;right:0;bottom:0;z-index:8;background:var(--color-bg);border-radius:38px 38px 0 0;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 -1px 0 rgba(255,255,255,.6),0 -12px 40px rgba(var(--ink),.22);animation:sheetUp .34s cubic-bezier(.32,.72,0,1);transform:translate(' +
+        (s.sheetDX * 0.3) + 'px,' + Math.max(0, s.sheetDY) + 'px)' +
+        (s.dragging ? '' : ';transition:transform .46s cubic-bezier(.32,1.36,.52,1),top .46s cubic-bezier(.32,1.36,.52,1)'),
+      reportTabs: this.REPORTS.map(([id, label]) => ({
+        label, go: () => this.setState({ sheet: id, detent: 'full' }),
+        style: 'flex:none;min-height:32px;padding:0 13px;border:none;border-radius:16px;cursor:pointer;font-family:inherit;font-size:13.5px;white-space:nowrap;scroll-snap-align:start;font-weight:' +
+          (s.sheet === id ? '600;background:var(--brand);color:#fff' : '400;background:rgba(var(--ink),.06);color:rgba(var(--ink),.62)')
+      })),
+      dragDown: this.dragDown, dragMove: this.dragMove, dragUp: this.dragUp,
+      edgeDown: this.edgeDown, edgeMove: this.edgeMove, edgeUp: this.edgeUp,
+      peekOn: !!s.peek,
+      peekPrice: s.peek ? s.peek.price : '', peekAddr: s.peek ? s.peek.addr : '',
+      peekSpecs: s.peek ? s.peek.specs : '', peekDelta: s.peek ? s.peek.delta : '',
+      peekColor: s.peek ? (s.peek.up ? 'var(--color-accent-2-700)' : 'var(--brand)') : 'var(--color-text)',
+      closePeek: () => this.setState({ peek: null }),
+      peekCompare: () => {
+        const i = s.peek ? s.peek.i : -1;
+        this.setState({ peek: null, compare: s.compare.includes(i) ? s.compare : s.compare.concat([i]) });
+        this.flash('Added to the comparison. Two more and we will rank them.');
+      },
+      downPct: s.calc.mode === '%' ? s.calc.down : '20',
+      downRead: (s.calc.mode === '%' ? s.calc.down + '% down' : s.calc.down + ' down') + ' · ' + money(s.calc.mode === '%' ? (parseFloat(String(s.calc.price).replace(/[^0-9.]/g, '')) || 0) * (parseFloat(s.calc.down) || 0) / 100 : (parseFloat(String(s.calc.down).replace(/[^0-9.]/g, '')) || 0)),
+      downTicks: [0, 5, 10, 15, 20, 25, 30, 35, 40].map(v => {
+        const cur = parseFloat(s.calc.down) || 0, on = s.calc.mode === '%' && Math.abs(cur - v) < 0.4;
+        return { style: 'width:1.5px;height:' + (on ? '9px' : v % 10 === 0 ? '7px' : '5px') + ';border-radius:1px;background:' + (on ? 'var(--brand)' : 'rgba(var(--ink),.22)') + (on ? ';animation:tick .32s ease' : '') };
+      }),
+      setDownSlider: this.setDownSlider,
+      navSolid: s.navSolid,
+      navStyle: 'position:absolute;top:0;left:0;right:0;z-index:5;display:flex;align-items:flex-end;gap:6px;padding:52px 10px 8px;transition:background .25s,box-shadow .25s;' + (s.navSolid ? GLASS + 'box-shadow:inset 0 -.5px 0 rgba(var(--ink),.12),0 4px 16px rgba(var(--ink),.06)' : 'background:transparent'),
+      navBtnStyle: 'width:44px;height:44px;flex:none;border-radius:50%;border:none;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;transition:background .25s;color:' + (s.navSolid ? 'var(--color-text)' : '#fff') + ';background:' + (s.navSolid ? 'transparent' : 'rgba(var(--ink),.3)') + (s.navSolid ? '' : ';backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:inset 0 .5px 0 rgba(255,255,255,.25)'),
+      saveBtnStyle: 'width:44px;height:44px;flex:none;border-radius:50%;border:none;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;transition:background .25s;color:' + (s.saved ? 'var(--color-accent-2-700)' : s.navSolid ? 'var(--color-text)' : '#fff') + ';background:' + (s.navSolid ? 'transparent' : 'rgba(var(--ink),.3)') + (s.navSolid ? '' : ';backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:inset 0 .5px 0 rgba(255,255,255,.25)'),
+      saveIcon: s.saved ? 'ph-duotone ph-heart-straight-fill' : 'ph-duotone ph-heart-straight',
+      toggleSave: this.toggleSave,
+      openShare: () => this.set('share', true),
+      slides: slideDefs.map(d => ({
+        isPlate: !d.src, label: d.label,
+        style: 'flex:none;width:390px;height:' + (this.props.heroHeight ?? 372) + 'px;scroll-snap-align:start;position:relative;cursor:pointer;' + (d.src ? "background:url('" + d.src + "') center/cover" : '')
+      })),
+      photoDots: [0, 1, 2, 3, 4, 5].map(i => ({ style: 'width:' + (i === s.photo ? '16px' : '5px') + ';height:5px;border-radius:999px;background:rgba(255,255,255,' + (i === s.photo ? '.95' : '.5') + ');transition:width .2s' })),
+      photoCounter: (s.photo + 1) + ' / 48',
+      openViewer: () => this.set('viewer', true),
+      priceLabel: money(s.price), priceChanged: s.priceChanged,
+      statusLabel: s.pending ? 'Sale pending' : 'For sale',
+      statusStyle: 'font-size:12.5px;padding:5px 11px;border-radius:999px;font-weight:600;letter-spacing:.02em;' + (s.pending ? 'background:var(--color-accent-2-200);color:var(--color-accent-2-800)' : 'background:rgba(var(--brand-rgb),.09);color:var(--brand)'),
+      alertOpen: !!s.alert,
+      alertTitle: s.alert ? s.alert.title : '', alertBody: s.alert ? s.alert.body : '', alertAction: s.alert ? s.alert.action : '',
+      acceptAlert: this.acceptAlert, dismissAlert: this.dismissAlert,
+      factRows: [
+        { k: 'Year built', v: '1962' }, { k: 'Lot', v: '5,952 sqft' },
+        { k: 'Price per sqft', v: '$1,122' }, { k: 'HOA', v: '$562/mo' }
+      ],
+      verdictHeadline: s.pending ? 'Worth watching, not touring.' : 'Worth the Saturday.',
+      verdictBody: s.pending
+        ? 'The seller accepted an offer, so you cannot tour it today. The reasons it was a good buy still hold, which is why it went in seven days — we will tell you if it comes back.'
+        : 'Priced under what the block has been paying, in a walkable pocket, and only a week old. The catch is the carrying cost, not the price.',
+      monthlyLabel: money(monthly),
+      monthlyNote: money(monthly - PMT(s.price * 0.8, 6.69, 360)) + ' of that is tax, HOA and upkeep',
+      costRows: [
+        { k: 'Mortgage (P&I)', v: money(PMT(s.price * 0.8, 6.69, 360)) },
+        { k: 'Property tax', v: money(OTHER.tax) }, { k: 'HOA', v: money(OTHER.hoa) },
+        { k: 'Home insurance', v: money(OTHER.ins) }, { k: 'Utilities', v: money(OTHER.util) },
+        { k: 'Pest control', v: money(OTHER.pest) }, { k: 'Maintenance', v: money(OTHER.maint) }
+      ],
+      nearby: [
+        { name: 'Garudas Indian Mart', dist: '0.5 mi', icon: 'ph-duotone ph-shopping-cart' },
+        { name: 'Meridian & Dentwood', dist: '0.4 mi', icon: 'ph-duotone ph-bus' },
+        { name: 'De Anza Playground', dist: '0.4 mi', icon: 'ph-duotone ph-tree' },
+        { name: 'Competitive EDGE', dist: '0.5 mi', icon: 'ph-duotone ph-first-aid-kit' },
+        { name: 'Cambrian Park Plaza', dist: '0.6 mi', icon: 'ph-duotone ph-storefront' }
+      ],
+      signalCounter: (s.signal + 1) + ' of 5',
+      signalBarStyle: 'height:5px;border-radius:999px;background:var(--brand);width:20%;margin-left:' + (s.signal * 20) + '%;transition:margin-left .28s cubic-bezier(.32,.72,0,1)',
+      onPageScroll: this.onPageScroll, onGalleryScroll: this.onGalleryScroll, onSignalScroll: this.onSignalScroll,
+      expHighlights: s.expHighlights,
+      highlightsLabel: s.expHighlights ? 'Show less' : 'Read the rest',
+      toggleHighlights: () => this.set('expHighlights', !s.expHighlights),
+      explore: [
+        { id: 'property', label: 'Property', sub: 'Rooms, appliances, heating, flooring', icon: 'ph-duotone ph-house-line' },
+        { id: 'schools', label: 'Schools', sub: 'Five schools · college readiness', icon: 'ph-duotone ph-graduation-cap' },
+        { id: 'intel', label: 'Intelligence', sub: 'Heat map, owner position, sale history', icon: 'ph-duotone ph-map-trifold' },
+        { id: 'forecast', label: 'Forecast', sub: 'Rate predictor · payment calculator', icon: 'ph-duotone ph-chart-line-up' },
+        { id: 'rvb', label: 'Rent vs Buy', sub: s.rvbSaved ? s.rvbSaved + ' of 5 answered — resume' : 'Five questions, one verdict', icon: 'ph-duotone ph-scales' },
+        { id: 'nbhd', label: 'Neighborhood', sub: 'What locals actually say', icon: 'ph-duotone ph-buildings' },
+        { id: 'snaplife', label: 'SnapLife', sub: 'Simulate living here', icon: 'ph-duotone ph-compass-rose' }
+      ].map(e => ({ ...e, open: () => this.openSheet(e.id) })),
+      similar: [
+        { price: '$1,899,900', addr: '1532 Kooser Road', specs: '4 bd · 3 ba · 1,844 sqft', delta: '$311,900 more · $1,030/sqft', up: true },
+        { price: '$1,550,000', addr: '5267 Woodstock Way', specs: '3 bd · 2 ba · 1,383 sqft', delta: '$38,000 less · $1,121/sqft', up: false },
+        { price: '$1,349,950', addr: '1562 Kooser Road', specs: '3 bd · 2 ba · 1,211 sqft', delta: '$238,050 less · $1,115/sqft', up: false },
+        { price: '$1,599,000', addr: '3288 Payne Avenue', specs: '4 bd · 2 ba · 1,502 sqft', delta: '$11,000 more · $1,064/sqft', up: true }
+      ].map((h, i) => ({
+        ...h, i, on: s.compare.includes(i),
+        peekDown: this.peekDown({ ...h, i }), peekUp: this.peekUp,
+        deltaColor: h.up ? 'var(--color-accent-2-700)' : 'var(--brand)',
+        pick: () => { if (this._pkFired) { this._pkFired = false; return; } this.setState({ compare: s.compare.includes(i) ? s.compare.filter(x => x !== i) : s.compare.concat([i]) }); },
+        style: 'flex:none;width:212px;scroll-snap-align:start;background:var(--color-neutral-100);border-radius:18px;box-shadow:var(--shadow-sm);overflow:hidden;cursor:pointer;box-shadow:' + (s.compare.includes(i) ? '0 0 0 2px var(--brand)' : '0 1px 3px rgba(var(--ink),.08)')
+      })),
+      compareLabel: s.compare.length ? 'Compare ' + s.compare.length : 'Compare',
+      toggleCompare: () => s.compare.length ? this.flash(s.compare.length + ' homes selected. Side-by-side opens next.') : this.flash('Tap the cards you want to compare.'),
+      openForecast: () => this.openSheet('forecast'),
+      openNeighborhood: () => this.openSheet('nbhd'),
+      openChat: () => this.set('chat', true),
+      openTour: () => s.pending ? this.flash('Tours are paused while this sale is pending.') : this.setState({ tourOpen: true, tourStep: 0, tourErr: '' }),
+      openPre: () => this.setState({ preOpen: true, preStep: 0, preErr: '' }),
+      tourDisabled: s.pending,
+      primaryCtaLabel: s.pending ? 'Notify me if it returns' : s.tourDone ? 'Tour requested ✓' : 'Schedule a tour',
+      primaryCtaStyle: 'flex:1;min-height:48px;border-radius:24px;font-size:17px;font-weight:600;cursor:pointer;font-family:inherit;border:none;background:' + (s.pending ? 'rgba(var(--ink),.08)' : 'var(--brand)') + ';color:' + (s.pending ? 'var(--color-neutral-700)' : '#fff'),
+      toast: s.toast, toastAction: s.toastAction,
+      toastDo: () => { const f = s.toastFn; this.setState({ toast: '' }); if (f) f(); },
+      triggers: [
+        { label: 'Price changes mid-read', note: 'Drops $23,000 while the page is open. The banner names exactly what is now stale.', run: this.priceDrop },
+        { label: 'Listing goes pending', note: 'Verdict, status and the toolbar action all change. Nothing dead-ends.', run: this.goPending },
+        { label: 'Break the calculator', note: 'Negative price, 0% down. Opens Forecast so you can see the errors.', run: () => this.setState({ calc: { ...s.calc, price: '-1588000', down: '0' }, sheet: 'forecast' }) },
+        { label: 'Abandon Rent vs Buy', note: 'Two answers in, then out. Progress is kept and offered back.', run: () => this.setState({ rvb: { ...s.rvb, income: '240000', debts: '850' }, rvbSaved: 2, sheet: null, rvbVerdict: null }) },
+        { label: 'Save while signed out', note: 'Account prompt with a guest escape hatch. The tap is never thrown away.', run: () => this.setState({ saved: false, savePrompt: true }) },
+        { label: 'Reset everything', note: 'Back to a clean first load.', run: () => this.setState({ price: 1588000, priceChanged: false, pending: false, alert: null, saved: false, rvbSaved: null, rvbVerdict: null, rvb: { type: 'W2 employee', income: '', debts: '', reserves: '', credit: '' }, calc: { price: '1588000', down: '20', mode: '%', term: '30', rate: '6.69' }, sheet: null, compare: [], tourDone: false, promoDone: false, promo: false, toast: '', tourOpen: false, preOpen: false, chat: false, chatLog: [], viewer: false, share: false, savePrompt: false, expHighlights: false, tourStep: 0, preStep: 0, tourType: '', tourDate: '', tourTime: '', _retry: false, pre: { employment: '', income: '', debts: '', credit: '', down: '317600', name: '', phone: '', consent: false } }) }
+      ],
+      sheetOpen: !!s.sheet, sheetTitle: meta[0], sheetSub: meta[1], closeSheet: this.closeSheet,
+      isProperty: s.sheet === 'property', isSchools: s.sheet === 'schools', isIntel: s.sheet === 'intel',
+      isForecast: s.sheet === 'forecast', isRvb: s.sheet === 'rvb', isNbhd: s.sheet === 'nbhd', isSnaplife: s.sheet === 'snaplife',
+      propertyGroups: [
+        { title: 'Bedrooms & bathrooms', rows: [{ k: 'Bedrooms', v: '4' }, { k: 'Bathrooms', v: '2' }, { k: 'Full bathrooms', v: '2' }] },
+        { title: 'Appliances', rows: [{ k: 'Included', v: 'Dryer, dishwasher, refrigerator, gas range, washer' }] },
+        { title: 'Features', rows: [{ k: 'Flooring', v: 'Vinyl' }, { k: 'Basement', v: 'No' }, { k: 'Fireplace', v: 'Yes' }, { k: 'Garage', v: '2 car, attached' }] },
+        { title: 'Heating & cooling', rows: [{ k: 'Heating', v: 'Forced air' }, { k: 'Cooling', v: 'Central AC' }] },
+        { title: 'Construction', rows: [{ k: 'Year built', v: '1962' }, { k: 'Roof', v: 'New, main structure' }, { k: 'Plumbing', v: 'Copper, replaced' }, { k: 'Sewer', v: 'Newer line' }] }
+      ],
+      schools: [
+        { name: 'Lietz Elementary School', meta: 'Elementary · K–5 · 0.3 mi', rating: '8', good: true },
+        { name: 'Dartmouth Middle School', meta: 'Middle · 6–8 · 0.4 mi', rating: '8', good: true },
+        { name: 'Appleseed Almaden Montessori', meta: 'Elementary · 6–8 · 0.3 mi', rating: '4', good: false },
+        { name: 'Stratford School Almaden', meta: 'Middle · K–4 · 0.3 mi', rating: '3', good: false },
+        { name: 'Beacon School', meta: 'High · 6–12 · 0.8 mi · assigned', rating: '3', good: false }
+      ].map(x => ({ ...x, badge: 'width:40px;height:40px;flex:none;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:600;font-feature-settings:"tnum";background:' + (x.good ? 'rgba(var(--brand-rgb),.09)' : 'rgba(var(--ink),.06)') + ';color:' + (x.good ? 'var(--brand)' : 'var(--color-neutral-700)') })),
+      colleges: [{ rank: '1', name: 'California State University, Fresno', id: '993122' }, { rank: '2', name: 'Loyola Marymount University', id: '818286' }, { rank: '3', name: 'Pomona College', id: '615388' }],
+      weights: ['$/sqft', 'Price', 'Noise', 'Weather risk', 'Air quality'].map(w => ({ label: w, pick: () => this.set('weight', w), style: pill(s.weight === w) })),
+      weightLabel: s.weight === '$/sqft' ? 'price per square foot' : s.weight.toLowerCase(),
+      ownerRows: [{ k: 'Assessed', v: '$364,777' }, { k: 'Equity', v: '37%' }, { k: 'Mortgage balance', v: '$229,810' }, { k: 'Liens', v: '0' }, { k: 'Distress', v: 'None' }],
+      compRows: [{ k: 'Estimate', v: '$1,725,000' }, { k: 'Per sqft', v: '$1,219' }, { k: 'Comps used', v: '8' }, { k: 'Confidence', v: 'High' }],
+      requestRecords: () => this.flash('Request sent. The agent usually replies same day.'),
+      ranges: ['6 months', '12 months', '24 months'].map(r => ({ label: r, pick: () => this.set('range', r), style: pill(s.range === r) })),
+      calcPrice: s.calc.price, calcDown: s.calc.down, calcTerm: s.calc.term, calcRate: s.calc.rate,
+      setPrice: e => this.setState({ calc: { ...s.calc, price: e.target.value } }),
+      setDown: e => this.setState({ calc: { ...s.calc, down: e.target.value } }),
+      setTerm: e => this.setState({ calc: { ...s.calc, term: e.target.value } }),
+      setRate: e => this.setState({ calc: { ...s.calc, rate: e.target.value } }),
+      modePct: () => this.setState({ calc: { ...s.calc, mode: '%', down: '20' } }),
+      modeAmt: () => this.setState({ calc: { ...s.calc, mode: '$', down: '317600' } }),
+      modePctStyle: 'width:46px;min-height:44px;border:none;cursor:pointer;font-size:16px;border-radius:10px;margin:3px;background:' + (s.calc.mode === '%' ? 'var(--seg-on)' : 'transparent') + ';color:' + (s.calc.mode === '%' ? 'var(--color-text)' : 'var(--color-neutral-700)') + ';box-shadow:' + (s.calc.mode === '%' ? '0 1px 3px rgba(var(--ink),.14)' : 'none'),
+      modeAmtStyle: 'width:46px;min-height:44px;border:none;cursor:pointer;font-size:16px;border-radius:10px;margin:3px;background:' + (s.calc.mode === '$' ? 'var(--seg-on)' : 'transparent') + ';color:' + (s.calc.mode === '$' ? 'var(--color-text)' : 'var(--color-neutral-700)') + ';box-shadow:' + (s.calc.mode === '$' ? '0 1px 3px rgba(var(--ink),.14)' : 'none'),
+      priceInputStyle: INP + (out.errs.price ? 'var(--color-accent-2-700)' : 'transparent'),
+      downInputStyle: 'flex:1;' + INP + (out.errs.down ? 'var(--color-accent-2-700)' : 'transparent'),
+      rateInputStyle: INP + (out.errs.rate ? 'var(--color-accent-2-700)' : 'transparent'),
+      plainInput: INP + 'transparent',
+      errPrice: out.errs.price || '', errDown: out.errs.down || '', errRate: out.errs.rate || '',
+      pmiNote: out.note, calcBroken: !out.ok,
+      calcTotal: out.ok ? money(out.total) : '—',
+      resultColor: out.ok ? 'var(--color-text)' : 'rgba(var(--ink),.35)',
+      calcCaption: out.ok ? money(out.pi) + ' loan · ' + money(OTHER.tax + OTHER.hoa + OTHER.ins + OTHER.util + OTHER.pest + OTHER.maint) + ' tax, HOA, insurance and upkeep' : 'Fix the fields above and the estimate comes back. Nothing you typed is lost.',
+      resetCalc: () => this.setState({ calc: { price: '1588000', down: '20', mode: '%', term: '30', rate: '6.69' } }),
+      rvbResume: s.rvbResume && !!s.rvbSaved, rvbSavedCount: s.rvbSaved,
+      rvbDismissResume: () => this.set('rvbResume', false),
+      rvbReset: () => this.setState({ rvb: { type: 'W2 employee', income: '', debts: '', reserves: '', credit: '' }, rvbSaved: null, rvbResume: false }),
+      rvbVerdictOn: !!s.rvbVerdict,
+      rvbHeadline: s.rvbVerdict ? (s.rvbVerdict.buy ? 'Buying wins after about four years.' : 'Renting wins at this price.') : '',
+      rvbBody: s.rvbVerdict ? (s.rvbVerdict.buy
+        ? 'At ' + Math.round(s.rvbVerdict.dti * 100) + '% of gross income the payment is inside what lenders will write, and the rent you would pay instead is rising faster than this carrying cost. Below four years, selling costs eat the gain.'
+        : 'The payment lands at ' + Math.round(s.rvbVerdict.dti * 100) + '% of gross income, past the 45% most lenders stop at. Renting nearby and revisiting when rates ease is the cheaper year.') : '',
+      incomeTypes: ['W2 employee', 'Self-employed'].map(t => ({
+        label: t, pick: () => this.setState({ rvb: { ...s.rvb, type: t } }),
+        style: 'flex:1;min-height:44px;border:none;cursor:pointer;font-family:inherit;font-size:15.5px;border-radius:10px;margin:3px;background:' + (s.rvb.type === t ? 'var(--seg-on)' : 'transparent') + ';color:var(--color-text);font-weight:' + (s.rvb.type === t ? '600' : '400') + ';box-shadow:' + (s.rvb.type === t ? '0 1px 3px rgba(var(--ink),.14)' : 'none')
+      })),
+      rvbIncome: s.rvb.income, rvbDebts: s.rvb.debts, rvbReserves: s.rvb.reserves, rvbCredit: s.rvb.credit,
+      setRvbIncome: e => this.setState({ rvb: { ...s.rvb, income: e.target.value } }),
+      setRvbDebts: e => this.setState({ rvb: { ...s.rvb, debts: e.target.value } }),
+      setRvbReserves: e => this.setState({ rvb: { ...s.rvb, reserves: e.target.value } }),
+      setRvbCredit: e => this.setState({ rvb: { ...s.rvb, credit: e.target.value } }),
+      getVerdict: this.rvbVerdictNow,
+      topics: Object.keys(topicText).map(t => ({ label: t, pick: () => this.set('topic', t), style: pill(s.topic === t) })),
+      topicLabel: s.topic, topicQuote: tp[0], topicNotes: tp[1],
+      startSim: () => this.flash('Simulation starts with your commute. Not built in this prototype.'),
+      viewer: s.viewer, closeViewer: () => this.set('viewer', false),
+      viewerGroups: [
+        { title: 'Kitchen · 7', items: [0, 1, 2, 3] },
+        { title: 'Living · 6', items: [0, 1, 2, 3] },
+        { title: 'Exterior · 12', items: [0, 1, 2, 3] }
+      ].map((g, gi) => ({ title: g.title, items: g.items.map(i => ({ style: 'height:106px;border-radius:10px;background:' + (gi === 0 && i === 0 ? "url('img/kitchen.png') center/cover" : gi === 2 && i === 0 ? "url('img/exterior.png') center/cover" : 'rgba(255,255,255,.1)') })) })),
+      tourOpen: s.tourOpen, closeTour: () => this.setState({ tourOpen: false }),
+      tourTitle: ['How do you want to see it?', 'Pick a day', 'Pick a time', 'Confirm your request'][s.tourStep],
+      tourStepLabel: 'Step ' + (s.tourStep + 1) + ' of 4',
+      tourStep0: s.tourStep === 0, tourStep1: s.tourStep === 1, tourStep2: s.tourStep === 2, tourStep3: s.tourStep === 3,
+      tourTypes: [
+        { label: 'In person', sub: 'An agent meets you at the house', icon: 'ph-duotone ph-house' },
+        { label: 'Video tour', sub: 'An agent walks it on a call', icon: 'ph-duotone ph-video-camera' },
+        { label: 'Open house Sat 8/15', sub: 'Just turn up · 7–10 PM', icon: 'ph-duotone ph-door-open' }
+      ].map(t => ({ ...t, pick: () => this.setState({ tourType: t.label, tourErr: '' }), style: opt(s.tourType === t.label) })),
+      tourDates: dates.map(([dow, day]) => ({
+        dow, day,
+        pick: () => (day === '12' || day === '18') ? this.setState({ tourErr: 'The seller is not showing on the ' + day + 'th.' }) : this.setState({ tourDate: dow + ' 8/' + day, tourErr: '' }),
+        style: 'min-height:58px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;border-radius:14px;cursor:pointer;font-family:inherit;border:1.5px solid ' + (s.tourDate === dow + ' 8/' + day ? 'var(--brand)' : 'transparent') + ';background:' + (s.tourDate === dow + ' 8/' + day ? 'rgba(var(--brand-rgb),.09)' : 'rgba(var(--ink),.05)') + ';opacity:' + (day === '12' || day === '18' ? '.35' : '1')
+      })),
+      tourTimes: times.map(t => ({ label: t, pick: () => this.setState({ tourTime: t, tourErr: '' }), style: 'min-height:48px;border-radius:14px;cursor:pointer;font-family:inherit;font-size:15.5px;border:1.5px solid ' + (s.tourTime === t ? 'var(--brand)' : 'transparent') + ';background:' + (s.tourTime === t ? 'rgba(var(--brand-rgb),.09)' : 'rgba(var(--ink),.05)') + ';color:var(--color-text)' })),
+      tourSummary: (s.tourType || 'Tour') + ' · ' + (s.tourDate || '') + ' ' + (s.tourTime || ''),
+      tourErr: s.tourErr, tourCanBack: s.tourStep > 0,
+      tourBack: () => this.setState({ tourStep: s.tourStep - 1, tourErr: '' }),
+      tourNext: s.tourStep === 3 ? this.confirmTour : this.submitTour,
+      tourCta: s.tourStep === 3 ? 'Request this tour' : 'Continue',
+      preOpen: s.preOpen, closePre: () => this.setState({ preOpen: false }),
+      preStepLabel: s.preStep === 4 ? 'Result' : 'Step ' + (s.preStep + 1) + ' of 4',
+      preBarStyle: 'height:3px;border-radius:999px;background:var(--brand);width:' + ((s.preStep + 1) / 5 * 100) + '%;transition:width .25s',
+      preQuestion: preQs[s.preStep][0], prePrompt: preQs[s.preStep][1],
+      preStep0: s.preStep === 0, preStep1: s.preStep === 1, preStep2: s.preStep === 2, preStep3: s.preStep === 3, preStep4: s.preStep === 4,
+      employmentTypes: ['W2 employee', 'Self-employed', 'Both'].map(e => ({ label: e, pick: () => this.setState({ pre: { ...s.pre, employment: e }, preErr: '' }), style: opt(s.pre.employment === e) })),
+      preIncome: s.pre.income, preDebts: s.pre.debts, preDown: s.pre.down, preName: s.pre.name, prePhone: s.pre.phone,
+      setPreIncome: e => this.setState({ pre: { ...s.pre, income: e.target.value } }),
+      setPreDebts: e => this.setState({ pre: { ...s.pre, debts: e.target.value } }),
+      setPreDown: e => this.setState({ pre: { ...s.pre, down: e.target.value } }),
+      setPreName: e => this.setState({ pre: { ...s.pre, name: e.target.value } }),
+      setPrePhone: e => this.setState({ pre: { ...s.pre, phone: e.target.value } }),
+      creditBands: [['760+', '6.49%'], ['700–759', '6.69%'], ['640–699', '7.15%'], ['Below 640', '7.90%']].map(([label, rate]) => ({ label, rate, pick: () => this.setState({ pre: { ...s.pre, credit: label }, preErr: '' }), style: opt(s.pre.credit === label) })),
+      toggleConsent: () => this.setState({ pre: { ...s.pre, consent: !s.pre.consent }, preErr: '' }),
+      consentBoxStyle: 'width:24px;height:24px;flex:none;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:14px;background:' + (s.pre.consent ? 'var(--brand)' : 'rgba(var(--ink),.08)') + ';color:' + (s.pre.consent ? 'var(--seg-on)' : 'transparent'),
+      preMax: money(pr.max), preRate: pr.rate + '%',
+      preVerdict: pr.enough ? 'That clears this listing with room to spare. Ask the lender to put it in writing before you tour — sellers here read a letter as seriousness.' : 'That falls short of the ' + money(s.price) + ' ask. Either the down payment grows or the search moves down a bracket — both are normal, and we can filter for it.',
+      preErr: s.preErr, preCanBack: s.preStep > 0 && s.preStep < 4,
+      preBack: () => this.setState({ preStep: s.preStep - 1, preErr: '' }),
+      preAdvance: s.preStep === 4 ? () => { this.setState({ preOpen: false, preStep: 0 }); this.flash('A lender will call within one business day.'); } : this.preNext,
+      preCta: s.preStep === 3 ? 'Run the soft check' : s.preStep === 4 ? 'Have a lender call me' : 'Continue',
+      chat: s.chat, closeChat: () => this.set('chat', false), chatEmpty: s.chatLog.length === 0,
+      quickQs: ['What should I offer on this home?', 'How are the schools here, really?', 'Would this work as a rental?'].map(t => ({ t, ask: () => this.ask(t) })),
+      chatLog: s.chatLog.map(m => ({ t: m.t, style: 'max-width:84%;font-size:16px;line-height:1.5;padding:12px 15px;border-radius:20px;' + (m.me ? '' : 'font-family:var(--font-body);font-size:16.5px;line-height:1.6;font-variant-numeric:proportional-nums;') + (m.me ? 'align-self:flex-end;background:var(--brand);color:#fff' : 'align-self:flex-start;background:rgba(var(--ink),.06);color:var(--color-text)') })),
+      draft: s.draft, setDraft: e => this.set('draft', e.target.value),
+      chatKey: e => { if (e.key === 'Enter' && s.draft.trim()) this.ask(s.draft.trim()); },
+      sendChat: () => { if (s.draft.trim()) this.ask(s.draft.trim()); },
+      savePrompt: s.savePrompt, finishSave: this.finishSave, guestSave: this.guestSave,
+      cancelSave: () => this.set('savePrompt', false),
+      share: s.share, closeShare: () => this.set('share', false),
+      shareTargets: [
+        { label: 'Copy link', icon: 'ph-duotone ph-link' }, { label: 'Message', icon: 'ph-duotone ph-chat-circle' },
+        { label: 'Email', icon: 'ph-duotone ph-envelope' }, { label: 'My agent', icon: 'ph-duotone ph-user-circle' }
+      ].map(t => ({ ...t, go: () => { this.setState({ share: false }); this.flash(t.label === 'Copy link' ? 'Link copied.' : 'Shared via ' + t.label.toLowerCase() + '.'); } })),
+      promo: s.promo, closePromo: () => this.set('promo', false)
+    };
+  }
+}
+
+</script>
+</body>
+</html>
