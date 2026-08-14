@@ -88,10 +88,11 @@ export function HeroGallery({
         position: 'absolute',
         left: 0,
         right: 0,
-        bottom: 122,
+        bottom: 123,
         display: 'flex',
         justifyContent: 'center',
-        pointerEvents: 'none'
+        pointerEvents: 'none',
+        zIndex: 4
       }}>
         <div style={{
           display: 'flex',
@@ -125,7 +126,7 @@ export function HeroGallery({
         style={{
           position: 'absolute',
           right: 14,
-          bottom: 112,
+          bottom: 124,
           minHeight: 34,
           padding: '0 13px',
           borderRadius: 999,
@@ -140,12 +141,15 @@ export function HeroGallery({
           display: 'flex',
           alignItems: 'center',
           gap: 6,
-          fontFeatureSettings: "'tnum'"
+          fontFeatureSettings: "'tnum'",
+          zIndex: 4
         }}
       >
         <i class="ph-duotone ph-squares-four"></i>
         {photo + 1} / 48
       </button>
+
+
 
       {/* Floating Liquid Glass Price Card */}
       <div style={{
@@ -158,15 +162,16 @@ export function HeroGallery({
         background: 'rgba(var(--paper),.74)',
         backdropFilter: 'blur(30px) saturate(180%)',
         WebkitBackdropFilter: 'blur(30px) saturate(180%)',
-        boxShadow: 'inset 0 .5px 0 rgba(255,255,255,.9),inset 0 -.5px 0 rgba(var(--ink),.06),0 12px 34px rgba(var(--ink),.2)'
+        boxShadow: 'inset 0 .5px 0 rgba(255,255,255,.9),inset 0 -.5px 0 rgba(var(--ink),.06),0 12px 34px rgba(var(--ink),.2)',
+        zIndex: 3
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 5 }}>
           <span style={statusStyle}>{pending ? 'Sale pending' : 'For sale'}</span>
           <span style={{ fontSize: 12.5, color: 'rgba(var(--ink),.55)' }}>7 days on Snaphomz</span>
         </div>
-        <div style={{ display: 'flex', alignItems: 'baseline', gap: 6, flexWrap: 'wrap', justifyContent: 'space-between' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: 8 }}>
-            <h1 style={{ fontSize: 34, lineHeight: 1, fontWeight: 600, letterSpacing: '-.035em', margin: 0, color: 'var(--color-text)' }}>
+            <h1 style={{ fontSize: 35, lineHeight: 1, fontWeight: 600, letterSpacing: '-.035em', margin: 0, color: 'var(--color-text)' }}>
               {priceLabel}
             </h1>
             {priceChanged && (
@@ -175,12 +180,12 @@ export function HeroGallery({
               </span>
             )}
           </div>
-          <span style={{ fontSize: 12.5, fontWeight: 600, color: 'var(--brand)', textAlign: 'right', maxWidth: '100%', wordBreak: 'break-word' }}>
+          <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--brand)' }}>
             {netEffect} in your favour
-          </span>
+          </div>
         </div>
-
       </div>
+
     </div>
   );
 }
