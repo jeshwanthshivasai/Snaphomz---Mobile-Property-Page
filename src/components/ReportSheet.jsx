@@ -124,7 +124,8 @@ export function ReportSheet({
         }}
       >
         {/* Sheet Top Header */}
-        <div style={{ flex: 'none', position: 'relative', padding: '8px 16px 11px', background: 'rgba(var(--paper),.72)', backdropFilter: 'blur(28px) saturate(180%)', WebkitBackdropFilter: 'blur(28px) saturate(180%)', boxShadow: 'inset 0 -.5px 0 rgba(var(--ink),.12)' }}>
+        <div style={{ flex: 'none', position: 'relative', padding: '8px 16px 11px', background: 'rgba(var(--paper),.72)', backdropFilter: 'blur(28px) saturate(180%)', WebkitBackdropFilter: 'blur(28px) saturate(180%)', boxShadow: 'inset 0 -.5px 0 rgba(var(--ink),.12)', borderRadius: '38px 38px 0 0' }}>
+
           <div style={{ width: 36, height: 5, borderRadius: 999, background: 'rgba(var(--ink),.18)', margin: '0 auto 10px' }}></div>
           <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12 }}>
             <div style={{ flex: 1, minWidth: 0 }}>

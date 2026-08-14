@@ -68,7 +68,8 @@ export function PreApprovalModal({
   return (
     <div style={{ position: 'absolute', top: 56, left: 0, right: 0, bottom: 0, zIndex: 8, background: 'var(--color-bg)', borderRadius: '38px 38px 0 0', display: 'flex', flexDirection: 'column', overflow: 'hidden', boxShadow: '0 -12px 40px rgba(var(--ink),.22)', animation: 'sheetUp .34s cubic-bezier(.32,.72,0,1)' }}>
       {/* Header */}
-      <div style={{ flex: 'none', padding: '8px 16px 12px', background: 'rgba(var(--paper),.72)', backdropFilter: 'blur(28px) saturate(180%)', WebkitBackdropFilter: 'blur(28px) saturate(180%)', boxShadow: 'inset 0 -.5px 0 rgba(var(--ink),.12)' }}>
+      <div style={{ flex: 'none', padding: '8px 16px 12px', background: 'rgba(var(--paper),.72)', backdropFilter: 'blur(28px) saturate(180%)', WebkitBackdropFilter: 'blur(28px) saturate(180%)', boxShadow: 'inset 0 -.5px 0 rgba(var(--ink),.12)', borderRadius: '38px 38px 0 0' }}>
+
         <div style={{ width: 36, height: 5, borderRadius: 999, background: 'rgba(var(--ink),.18)', margin: '0 auto 10px' }}></div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           <div style={{ flex: 1 }}>

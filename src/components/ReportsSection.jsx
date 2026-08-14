@@ -18,13 +18,14 @@ export function ReportsSection({
   return (
     <>
       {/* Know What You Can Borrow Card */}
-      <div style={{
-        margin: '9px 10px 0',
-        padding: '19px 15px',
-        background: 'var(--color-bg)',
-        borderRadius: 20,
-        boxShadow: 'var(--lift)'
-      }}>
+      <div
+        className="liquid-glass"
+        style={{
+          margin: '9px 10px 0',
+          padding: '19px 15px',
+          borderRadius: 20
+        }}
+      >
         <h2 style={{ fontSize: 22, fontWeight: 600, margin: 0, letterSpacing: '-.026em' }}>Know what you can borrow</h2>
         <p style={{ fontSize: 16, lineHeight: 1.5, color: 'rgba(var(--ink),.65)', margin: '6px 0 14px', textWrap: 'pretty' }}>
           Four questions, a soft check that does not touch your score, and a number you can put in front of this seller. Sellers here read a lender letter as seriousness.
@@ -48,13 +49,15 @@ export function ReportsSection({
       </div>
 
       {/* Reports on this Address */}
-      <div style={{
-        margin: '9px 10px 0',
-        padding: '19px 0',
-        background: 'var(--color-bg)',
-        borderRadius: 20,
-        boxShadow: 'var(--lift)'
-      }}>
+      <div
+        className="liquid-glass"
+        style={{
+          margin: '9px 10px 0',
+          padding: '19px 0',
+          borderRadius: 20
+        }}
+      >
+
         <h2 style={{ fontSize: 22, fontWeight: 600, margin: '0 16px 4px', letterSpacing: '-.026em' }}>Reports on this address</h2>
         <p style={{ fontSize: 16, color: 'rgba(var(--ink),.65)', margin: '0 16px 14px' }}>Seven of them. Each opens full screen.</p>
 

@@ -37,7 +37,20 @@ export function HeroGallery({
 
   return (
     <div style={heroWrapStyle}>
+      {/* Top Scrim Gradient for Status Bar & Nav Legibility */}
+      <div style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        height: 120,
+        background: 'linear-gradient(to bottom, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 100%)',
+        zIndex: 4,
+        pointerEvents: 'none'
+      }} />
+
       {/* Scroll Snap Carousel */}
+
       <div
         className="nsb"
         onScroll={onGalleryScroll}

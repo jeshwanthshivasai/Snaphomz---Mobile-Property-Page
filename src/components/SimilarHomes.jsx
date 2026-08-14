@@ -18,13 +18,15 @@ export function SimilarHomes({
   const compareLabel = compare.length ? `Compare ${compare.length}` : 'Compare';
 
   return (
-    <div style={{
-      margin: '9px 10px 0',
-      padding: '19px 0',
-      background: 'var(--color-bg)',
-      borderRadius: 20,
-      boxShadow: 'var(--lift)'
-    }}>
+    <div
+      className="liquid-glass"
+      style={{
+        margin: '9px 10px 0',
+        padding: '19px 0',
+        borderRadius: 20
+      }}
+    >
+
       {/* Header */}
       <div style={{ padding: '0 16px 6px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <h2 style={{ fontSize: 22, fontWeight: 600, margin: 0, letterSpacing: '-.026em' }}>Similar homes</h2>

@@ -244,29 +244,92 @@ export default function App() {
 
         {/* Main iPhone Device */}
         <IOSDevice width={390} height={844} dark={dark} isPhoneFrame={isPhoneFrame}>
-          <div className={`app ${dark ? 'dark' : ''}`} style={{ height: '100%', position: 'relative', overflow: 'hidden', background: 'var(--color-neutral-300)', display: 'flex', flexDirection: 'column', color: 'var(--color-text)' }}>
+          <div className={`app ${dark ? 'dark' : ''}`} style={{ height: '100%', position: 'relative', overflow: 'hidden', background: dark ? 'linear-gradient(180deg, #0c0c0e 0%, #17171d 100%)' : 'linear-gradient(180deg, #e7e9ee 0%, #dbdee6 100%)', display: 'flex', flexDirection: 'column', color: 'var(--color-text)' }}>
             
             {/* Main Scrollable View */}
             <div className="nsb" onScroll={handlePageScroll} style={{ flex: 1, overflowY: 'auto', overflowX: 'hidden', WebkitOverflowScrolling: 'touch' }}>
               
-              {/* Alert Banner */}
-              {alert && (
-                <div style={{ margin: '0 10px', padding: '104px 16px 16px', background: 'var(--color-accent-2-200)', borderRadius: '0 0 22px 22px', display: 'flex', gap: 11, alignItems: 'flex-start', animation: 'fadeIn .3s ease' }}>
-                  <i class="ph-duotone ph-warning-circle" style={{ fontSize: 20, color: 'var(--color-accent-2-700)', marginTop: 2 }}></i>
-                  <div style={{ flex: 1 }}>
-                    <div style={{ fontSize: 16, fontWeight: 600, color: 'var(--color-accent-2-800)', lineHeight: 1.3 }}>{alert.title}</div>
-                    <div style={{ fontSize: 14, color: 'var(--color-accent-2-800)', lineHeight: 1.45, marginTop: 4 }}>{alert.body}</div>
-                    <div style={{ display: 'flex', gap: 16, marginTop: 11, alignItems: 'center' }}>
-                      <button onClick={handleAcceptAlert} style={{ minHeight: 44, border: 'none', background: 'none', padding: 0, color: 'var(--color-accent-2-700)', fontSize: 15, fontWeight: 600, cursor: 'pointer', whiteSpace: 'nowrap' }}>
-                        {alert.action}
-                      </button>
-                      <button onClick={() => setAlert(null)} style={{ minHeight: 44, border: 'none', background: 'none', padding: 0, color: 'var(--color-accent-2-800)', fontSize: 15, cursor: 'pointer' }}>
-                        Dismiss
-                      </button>
-                    </div>
+            {/* Floating iOS Top Notification Banner */}
+            {alert && (
+              <div
+                className="liquid-glass-floating"
+                style={{
+                  position: 'absolute',
+                  top: 54,
+                  left: 12,
+                  right: 12,
+                  zIndex: 40,
+                  padding: '16px 16px 14px',
+                  borderRadius: 24,
+                  display: 'flex',
+                  gap: 12,
+                  alignItems: 'flex-start',
+                  animation: 'bannerDown .34s cubic-bezier(.32,1.25,.52,1)'
+                }}
+              >
+                <div style={{
+                  width: 38,
+                  height: 38,
+                  borderRadius: 13,
+                  background: 'rgba(var(--brand-rgb),.15)',
+                  color: 'var(--brand)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flex: 'none',
+                  fontSize: 20,
+                  boxShadow: 'inset 0 1px 0 rgba(255,255,255,.4)'
+                }}>
+                  <i class="ph-duotone ph-bell-ringing"></i>
+                </div>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{ fontSize: 15.5, fontWeight: 600, color: 'var(--color-text)', lineHeight: 1.3 }}>
+                    {alert.title}
+                  </div>
+                  <div style={{ fontSize: 13.5, color: 'var(--color-neutral-700)', lineHeight: 1.45, marginTop: 3 }}>
+                    {alert.body}
+                  </div>
+                  <div style={{ display: 'flex', gap: 10, marginTop: 12, alignItems: 'center' }}>
+                    <button
+                      onClick={handleAcceptAlert}
+                      style={{
+                        minHeight: 38,
+                        padding: '0 16px',
+                        borderRadius: 19,
+                        border: 'none',
+                        background: 'var(--brand)',
+                        color: '#ffffff',
+                        fontSize: 14,
+                        fontWeight: 600,
+                        cursor: 'pointer',
+                        whiteSpace: 'nowrap',
+                        boxShadow: '0 4px 14px rgba(var(--brand-rgb),.35), inset 0 1px 0 rgba(255,255,255,.3)'
+                      }}
+                    >
+                      {alert.action}
+                    </button>
+                    <button
+                      onClick={() => setAlert(null)}
+                      style={{
+                        minHeight: 38,
+                        padding: '0 14px',
+                        border: '1px solid rgba(var(--ink),.1)',
+                        background: 'rgba(var(--ink),.06)',
+                        borderRadius: 19,
+                        color: 'var(--color-text)',
+                        fontSize: 14,
+                        cursor: 'pointer',
+                        backdropFilter: 'blur(10px)'
+                      }}
+                    >
+                      Dismiss
+                    </button>
                   </div>
                 </div>
-              )}
+              </div>
+            )}
+
+
 
               {/* Hero Gallery */}
               <HeroGallery

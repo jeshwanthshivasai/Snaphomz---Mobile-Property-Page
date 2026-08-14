@@ -15,13 +15,15 @@ export function HomeHighlights({
   ];
 
   return (
-    <div style={{
-      margin: '9px 10px 0',
-      padding: '19px 15px',
-      background: 'var(--color-bg)',
-      borderRadius: 20,
-      boxShadow: 'var(--lift)'
-    }}>
+    <div
+      className="liquid-glass"
+      style={{
+        margin: '9px 10px 0',
+        padding: '19px 15px',
+        borderRadius: 20
+      }}
+    >
+
       <h2 style={{ fontSize: 22, fontWeight: 600, margin: '0 0 12px', letterSpacing: '-.026em' }}>Home highlights</h2>
 
       {/* Net Effect Banner */}

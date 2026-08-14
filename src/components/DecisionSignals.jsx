@@ -20,13 +20,15 @@ export function DecisionSignals({
   };
 
   return (
-    <div style={{
-      margin: '9px 10px 0',
-      padding: '19px 0',
-      background: 'var(--color-bg)',
-      borderRadius: 20,
-      boxShadow: 'var(--lift)'
-    }}>
+    <div
+      className="liquid-glass"
+      style={{
+        margin: '9px 10px 0',
+        padding: '19px 0',
+        borderRadius: 20
+      }}
+    >
+
       {/* Section Header & Progress Bar */}
       <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', padding: '0 16px 14px' }}>
         <h2 style={{ fontSize: 22, fontWeight: 600, margin: 0, letterSpacing: '-.026em' }}>Decision signals</h2>

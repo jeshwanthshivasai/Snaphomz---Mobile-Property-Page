@@ -26,28 +26,29 @@ export function HeaderNav({
   };
 
   const navBtnStyle = {
-    width: 44,
-    height: 44,
+    width: 42,
+    height: 42,
     flex: 'none',
     borderRadius: '50%',
-    border: 'none',
+    border: navSolid ? 'none' : '1px solid rgba(255,255,255,.22)',
     cursor: 'pointer',
     fontSize: 20,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    transition: 'background .25s',
+    transition: 'all .25s ease',
     color: navSolid ? 'var(--color-text)' : '#ffffff',
-    background: navSolid ? 'transparent' : 'rgba(var(--ink),.3)',
-    backdropFilter: navSolid ? 'none' : 'blur(14px)',
-    WebkitBackdropFilter: navSolid ? 'none' : 'blur(14px)',
-    boxShadow: navSolid ? 'none' : 'inset 0 .5px 0 rgba(255,255,255,.25)'
+    background: navSolid ? 'transparent' : 'rgba(0,0,0,.48)',
+    backdropFilter: 'blur(20px) saturate(180%)',
+    WebkitBackdropFilter: 'blur(20px) saturate(180%)',
+    boxShadow: navSolid ? 'none' : '0 4px 14px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.28)'
   };
 
   const saveBtnStyle = {
     ...navBtnStyle,
-    color: saved ? 'var(--color-accent-2-700)' : navSolid ? 'var(--color-text)' : '#ffffff'
+    color: saved ? '#ff458e' : navSolid ? 'var(--color-text)' : '#ffffff'
   };
+
 
   return (
     <div style={navStyle}>

@@ -2,13 +2,14 @@ import React from 'react';
 
 export function ValuationModels() {
   return (
-    <div style={{
-      margin: '9px 10px 0',
-      padding: '19px 15px',
-      background: 'var(--color-bg)',
-      borderRadius: 20,
-      boxShadow: 'var(--lift)'
-    }}>
+    <div
+      className="liquid-glass"
+      style={{
+        margin: '9px 10px 0',
+        padding: '19px 16px 20px',
+        borderRadius: 20
+      }}
+    >
       <h2 style={{ fontSize: 22, fontWeight: 600, margin: 0, letterSpacing: '-.026em' }}>Four models, four numbers</h2>
       <p style={{ fontSize: 16, lineHeight: 1.5, color: 'rgba(var(--ink),.65)', margin: '6px 0 16px', textWrap: 'pretty' }}>
         They disagree by $144,000. The comps figure is the one lenders care about; the projection is the one to trust least.

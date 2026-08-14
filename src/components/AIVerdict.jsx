@@ -12,13 +12,15 @@ export function AIVerdict({
     : 'Priced under what the block has been paying, in a walkable pocket, and only a week old. The catch is the carrying cost, not the price.';
 
   return (
-    <div style={{
-      margin: '9px 10px 0',
-      padding: '19px 15px',
-      background: 'var(--color-bg)',
-      borderRadius: 20,
-      boxShadow: 'var(--lift)'
-    }}>
+    <div
+      className="liquid-glass"
+      style={{
+        margin: '9px 10px 0',
+        padding: '19px 15px',
+        borderRadius: 20
+      }}
+    >
+
       <div style={{
         fontSize: 10,
         fontWeight: 600,

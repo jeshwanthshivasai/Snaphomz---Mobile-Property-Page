@@ -9,14 +9,17 @@ export function PropertyQuickFacts() {
   ];
 
   return (
-    <div style={{
-      margin: '9px 10px 0',
-      borderRadius: 20,
-      overflow: 'hidden',
-      boxShadow: 'var(--lift)',
-      background: 'var(--color-bg)',
-      position: 'relative'
-    }}>
+    <div
+      className="liquid-glass"
+      style={{
+        margin: '9px 10px 0',
+        borderRadius: 20,
+        overflow: 'hidden',
+        boxShadow: 'var(--lift)',
+        background: 'var(--color-bg)',
+        position: 'relative'
+      }}
+    >
       {/* Title & Address */}
       <div style={{ padding: '17px 15px 0' }}>
         <div style={{ fontSize: 19, fontWeight: 600, letterSpacing: '-.02em', lineHeight: 1.3 }}>
